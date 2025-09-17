@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:wght@200..1000&display=swap');
+@import 'tailwindcss';
+
+@theme {
+	--color-main-background: #131417;
+	--color-main-blocks: #1c1d22;
+	--color-main-buttons: #2800a0;
+	--color-game-year-button: #e3c316;
+	--color-background-genre: #203847;
+	--color-text-genre: #67c1f5;
+	--color-links-and-borders: #6c5fe2;
+	--color-youtube-link: #4d0000;
+	--color-vote-no: #9f2f2f;
+	--color-google-button: #7b1919;
+	--color-genres-bg: #203847;
+	--color-genres-text: #67c1f5;
+
+	--text-mini: 10px;
+}
+
+@layer utilities {
+	/* Chrome, Safari and Opera */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+}
+
+body {
+	font-family: 'Comfortaa', sans-serif;
+	color: #fff;
+	background-color: #131417;
+}
+
+aside {
+	height: 920px;
+}
