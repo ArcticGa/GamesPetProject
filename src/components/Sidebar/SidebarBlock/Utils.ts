@@ -1,17 +1,11 @@
-import { Dispatch, UnknownAction } from '@reduxjs/toolkit'
 import { setSidebarStatus } from '../../../redux/slices/sidebarSlices/hideSidebarSlice'
-import { setCloseSearchBlock } from '../../../redux/slices/sidebarSlices/statusSearchBlockSlice'
-import { setSearchValue } from '../../../redux/slices/sidebarSlices/valueSearchBlockSlice'
+import { setSearchBlock } from '../../../redux/slices/sidebarSlices/statusSearchBlockSlice'
 
-export const closeSidebarHandler = (
-	dispatch: Dispatch<UnknownAction>,
-	activeSearch: boolean
-) => {
+export const closeSidebarHandler = (dispatch: any, activeSearch: boolean) => {
 	dispatch(setSidebarStatus())
-	dispatch(setSearchValue(''))
 
 	if (activeSearch) {
-		dispatch(setCloseSearchBlock())
+		dispatch(setSearchBlock(false))
 	}
 }
 

@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { useDispatch } from 'react-redux'
 import { setSidebarStatus } from '../../../redux/slices/sidebarSlices/hideSidebarSlice'
+import { useAppDispatch } from '../../../redux/store'
 import { closeSidebarHandler } from './Utils'
 
 interface ComponentProps {
@@ -12,7 +12,7 @@ const StatusSidebarBtns: FC<ComponentProps> = ({
 	sidebarStatus,
 	activeSearch,
 }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	return sidebarStatus ? (
 		<div

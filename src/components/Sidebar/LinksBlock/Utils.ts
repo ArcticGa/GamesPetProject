@@ -1,10 +1,9 @@
-import { Dispatch, UnknownAction } from '@reduxjs/toolkit'
 import { setActiveLink } from '../../../redux/slices/sidebarSlices/linksSlice'
 
 export const changePage = (
 	index: number,
 	activeLink: number,
-	dispatch: Dispatch<UnknownAction>
+	dispatch: any
 ) => {
 	if (activeLink === index) return
 

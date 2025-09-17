@@ -2,7 +2,7 @@ import { useState } from 'react'
 import AccountMenuIcon from '../../../assets/icons/account-menu.svg'
 import UserAvatar from '../../../assets/icons/logo.png'
 
-import { arrayAccountItems } from '../../../utils/MiniArrays'
+import { arrayAccountItems } from '../../../utils/miniArrays'
 import { stylesLogin } from './Utils'
 
 const Login = ({ sidebarStatus }: { sidebarStatus: boolean }) => {

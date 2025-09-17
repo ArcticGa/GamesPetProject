@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import gamesSlice from './slices/dataSlices/gamesSlice'
 import dropDownSidebarSlice from './slices/sidebarSlices/dropDownSidebarSlice'
-import filteredSearchArraySlice from './slices/sidebarSlices/filteredSearchArraySlice'
 import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
 import linksSlice from './slices/sidebarSlices/linksSlice'
 import loginAccountSlice from './slices/sidebarSlices/loginAccountSlice'
 import statusSearchBlockSlice from './slices/sidebarSlices/statusSearchBlockSlice'
-import valueSearchBlockSlice from './slices/sidebarSlices/valueSearchBlockSlice'
 
 export const store = configureStore({
 	reducer: {
@@ -14,9 +13,8 @@ export const store = configureStore({
 		hideSidebarSlice,
 		statusSearchBlockSlice,
 		loginAccountSlice,
-		valueSearchBlockSlice,
-		filteredSearchArraySlice,
 		dropDownSidebarSlice,
+		gamesSlice,
 	},
 })
 

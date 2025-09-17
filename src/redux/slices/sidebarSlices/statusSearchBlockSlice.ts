@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ISearchBlockSlice {
 	activeSearch: boolean
@@ -12,15 +12,11 @@ export const statusSearchBlockSlice = createSlice({
 	name: 'searchBlock',
 	initialState,
 	reducers: {
-		setCloseSearchBlock(state) {
-			state.activeSearch = false
-		},
-		setOpenSearchBlock(state) {
-			state.activeSearch = true
+		setSearchBlock(state, action: PayloadAction<boolean>) {
+			state.activeSearch = action.payload
 		},
 	},
 })
 
-export const { setCloseSearchBlock, setOpenSearchBlock } =
-	statusSearchBlockSlice.actions
+export const { setSearchBlock } = statusSearchBlockSlice.actions
 export default statusSearchBlockSlice.reducer

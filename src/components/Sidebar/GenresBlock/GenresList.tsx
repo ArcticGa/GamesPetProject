@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { arrayGenres } from '../../../utils/MiniArrays'
+import { arrayGenres } from '../../../utils/miniArrays'
 import { filterGenres } from './Utils'
 
 const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
 	const [searchGenreValue, setSearchGenreValue] = useState('')
-	const [filteredGenresArray, setFilteredGenresArray] = useState(arrayGenres)
+	const [filteredGenresArray, setFilteredGenresArray] =
+		useState<string[]>(arrayGenres)
 
 	useEffect(() => {
 		setSearchGenreValue('')

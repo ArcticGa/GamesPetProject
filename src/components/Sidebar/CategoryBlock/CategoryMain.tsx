@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ArrowIcon from '../../../assets/icons/arrow-down.svg'
 import CategoryIcon from '../../../assets/icons/grid.svg'
-import { categoriesArray } from '../../../utils/MiniArrays'
+import { categoriesArray } from '../../../utils/miniArrays'
 import { stylesCategories } from './Utils'
 
 const CategoryMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {

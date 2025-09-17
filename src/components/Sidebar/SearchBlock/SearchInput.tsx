@@ -1,20 +1,24 @@
-import { useDispatch } from 'react-redux'
-import { setSearchValue } from '../../../redux/slices/sidebarSlices/valueSearchBlockSlice'
-import { useAppSelector } from '../../../redux/store'
-
+import { FC, SetStateAction } from 'react'
 import CloseIcon from '../../../assets/icons/close-icon.svg'
 
-const SearchInput = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
-	const dispatch = useDispatch()
-	const { searchValue } = useAppSelector(state => state.valueSearchBlockSlice)
+interface ISearchInputProps {
+	value: string
+	setValue: React.Dispatch<SetStateAction<string>>
+	sidebarStatus: boolean
+}
 
+const SearchInput: FC<ISearchInputProps> = ({
+	value,
+	setValue,
+	sidebarStatus,
+}) => {
 	return (
 		<>
 			{sidebarStatus && (
 				<input
 					id='#search'
-					value={searchValue}
-					onChange={e => dispatch(setSearchValue(e.target.value))}
+					value={value}
+					onChange={e => setValue(e.target.value)}
 					className='ml-2 border-0 outline-0'
 					autoComplete='off'
 					type='text'
@@ -22,9 +26,9 @@ const SearchInput = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 				/>
 			)}
 
-			{searchValue && (
+			{value && (
 				<img
-					onClick={() => dispatch(setSearchValue(''))}
+					onClick={() => setValue('')}
 					className='cursor-pointer'
 					src={CloseIcon}
 					alt='close-icon'

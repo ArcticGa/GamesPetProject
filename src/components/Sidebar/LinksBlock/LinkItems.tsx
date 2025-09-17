@@ -1,12 +1,11 @@
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router'
 
-import { useAppSelector } from '../../../redux/store'
-import { linksArray } from '../../../utils/MiniArrays'
+import { useAppDispatch, useAppSelector } from '../../../redux/store'
+import { linksArray } from '../../../utils/miniArrays'
 import { changePage, stylesBlockHandler } from './Utils'
 
 const LinkItems = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 	const { activeLink } = useAppSelector(state => state.linksSlice)
 
 	return linksArray.map((link, index) => (
