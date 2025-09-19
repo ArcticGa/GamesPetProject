@@ -21,7 +21,7 @@ const StatusSidebarBtns: FC<ComponentProps> = ({
 		></div>
 	) : (
 		<div
-			className='absolute w-full h-full top-0 left-0 z-50'
+			className='cursor-pointer absolute w-full h-full top-0 left-0 z-50'
 			onClick={() => dispatch(setSidebarStatus())}
 		></div>
 	)

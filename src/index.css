@@ -5,6 +5,7 @@
 	--color-main-background: #131417;
 	--color-main-blocks: #1c1d22;
 	--color-main-buttons: #2800a0;
+	--color-reviews: #292a31;
 	--color-game-year-button: #e3c316;
 	--color-background-genre: #203847;
 	--color-text-genre: #67c1f5;
@@ -38,4 +39,9 @@ body {
 
 aside {
 	height: 920px;
+}
+
+.bgImage {
+	background: no-repeat url('/src/assets/GameImages/BackgroundMain.png');
+	background-size: cover;
 }

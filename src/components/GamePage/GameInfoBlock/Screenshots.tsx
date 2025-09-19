@@ -1,0 +1,35 @@
+import { useState } from 'react'
+import { useAppSelector } from '../../../redux/store'
+
+const Screenshots = () => {
+	const { game } = useAppSelector(state => state.gameByIdSlice)
+	const [activeImg, setActiveImg] = useState(0)
+
+	return (
+		<div>
+			<div className='text-xl font-bold mb-3'>Скриншоты из игры</div>
+			<div className='mb-4 max-w-170'>
+				<img
+					className='rounded-lg'
+					src={game?.screenshots[activeImg].image}
+					alt='image.game'
+				/>
+			</div>
+			<div className='flex items-center justify-evenly'>
+				{game?.screenshots.map((screen, index) => (
+					<img
+						key={screen.id}
+						onClick={() => setActiveImg(index)}
+						className={` ${
+							activeImg !== index && 'opacity-20'
+						} cursor-pointer max-w-35 w-full rounded-lg`}
+						src={screen.image}
+						alt='screenshot'
+					/>
+				))}
+			</div>
+		</div>
+	)
+}
+
+export default Screenshots

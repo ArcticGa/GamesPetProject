@@ -8,7 +8,9 @@ const MainLayout = () => {
 	return (
 		<>
 			<Sidebar />
-			<div className={`${sidebarStatus === true ? `ml-85` : `ml-32`} pt-6`}>
+			<div
+				className={`${sidebarStatus === true ? `ml-85` : `ml-32`} pt-6 pr-6`}
+			>
 				<Outlet />
 			</div>
 		</>

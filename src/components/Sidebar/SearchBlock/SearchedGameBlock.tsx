@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react'
+import { Link } from 'react-router'
 import { setSearchBlock } from '../../../redux/slices/sidebarSlices/statusSearchBlockSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { IGame } from '../../../types/types'
@@ -18,8 +19,9 @@ const SearchedGameBlock = ({
 	}
 
 	return filteredArray.map(game => (
-		<div
+		<Link
 			key={game.id}
+			to={`/game/${game.id}`}
 			onClick={() => openGame()}
 			className={`flex bg-main-background items-center cursor-pointer p-3 px-4 rounded-xl ${
 				filteredArray.length > 1 ? 'mb-2' : ''
@@ -36,7 +38,7 @@ const SearchedGameBlock = ({
 				</span>
 				<div className='text-xs'>Релиз: {game?.release_date}</div>
 			</div>
-		</div>
+		</Link>
 	))
 }
 

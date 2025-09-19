@@ -11,3 +11,23 @@ export interface IGame {
 	game_url: string
 	freetogame_profile_url: string
 }
+
+export interface IFullGame extends IGame {
+	description: string
+	minimum_system_requirements: ISystemReq
+	screenshots: IScreenShots[]
+	status: string
+}
+
+export interface IScreenShots {
+	id: number
+	image: string
+}
+
+export interface ISystemReq {
+	graphics: string
+	memory: string
+	os: string
+	processor: string
+	storage: string
+}

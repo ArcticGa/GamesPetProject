@@ -101,3 +101,26 @@ export const arrayGenres = [
 	'horror',
 	'mmorts',
 ]
+
+export const systemReqsArrayHelper = [
+	{
+		title: 'os',
+		req: 'Ос',
+	},
+	{
+		title: 'processor',
+		req: 'Процессор',
+	},
+	{
+		title: 'memory',
+		req: 'ОЗУ',
+	},
+	{
+		title: 'graphics',
+		req: 'Видеокарта',
+	},
+	{
+		title: 'storage',
+		req: 'Память на HDD (SSD)',
+	},
+]

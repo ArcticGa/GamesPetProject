@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IGame } from '../../../types/types'
+import { IFullGame } from '../../../types/types'
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 
 interface IGameSliceState {
-	games: IGame[]
+	game: IFullGame | null
 	status: 'loading' | 'success' | 'error'
 }
 
@@ -15,12 +15,12 @@ export enum Status {
 	ERROR = 'error',
 }
 
-export const fetchGames = createAsyncThunk<IGame[]>(
-	'games/fetchGamesStatus',
-	async () => {
-		const response = await axios.get(`${BASE_URL}/games`, {
+export const fetchGameById = createAsyncThunk<IFullGame, any>(
+	'game/fetchGameByIdStatus',
+	async id => {
+		const response = await axios.get(`${BASE_URL}/game`, {
 			params: {
-				platform: 'pc',
+				id,
 			},
 			headers: {
 				'x-rapidapi-key': `${RAPIDAPI_KEY}`,
@@ -32,34 +32,34 @@ export const fetchGames = createAsyncThunk<IGame[]>(
 )
 
 const initialState: IGameSliceState = {
-	games: [],
+	game: null,
 	status: Status.LOADING,
 }
 
-export const gamesSlice = createSlice({
-	name: 'games',
+export const gameByIdSlice = createSlice({
+	name: 'game',
 	initialState,
 	reducers: {
-		setGames(state, action: PayloadAction<IGame[]>) {
-			state.games = action.payload
+		setGame(state, action: PayloadAction<IFullGame>) {
+			state.game = action.payload
 		},
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(fetchGames.pending, state => {
+			.addCase(fetchGameById.pending, state => {
 				state.status = Status.LOADING
-				state.games = []
+				state.game = null
 			})
-			.addCase(fetchGames.fulfilled, (state, action) => {
+			.addCase(fetchGameById.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
-				state.games = action.payload
+				state.game = action.payload
 			})
-			.addCase(fetchGames.rejected, state => {
+			.addCase(fetchGameById.rejected, state => {
 				state.status = Status.ERROR
-				state.games = []
+				state.game = null
 			})
 	},
 })
 
-export const { setGames } = gamesSlice.actions
-export default gamesSlice.reducer
+export const { setGame } = gameByIdSlice.actions
+export default gameByIdSlice.reducer
