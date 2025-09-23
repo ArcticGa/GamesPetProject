@@ -5,7 +5,7 @@ interface ILoginSlice {
 }
 
 const initialState: ILoginSlice = {
-	loginStatus: true,
+	loginStatus: false,
 }
 
 export const loginAccount = createSlice({
