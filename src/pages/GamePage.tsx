@@ -1,26 +1,37 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { fetchGameById } from '../redux/slices/dataSlices/gameByIdSlice'
-import { useAppDispatch } from '../redux/store'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 
 import GameInfoBlock from '../components/GamePage/GameInfoBlock/GameInfoBlock'
 import GameMainBlock from '../components/GamePage/GameMainBlock/GameMainBlock'
 import GameReviewsBlock from '../components/GamePage/GameReviewsBlock/GameReviewsBlock'
+import GameSimilarsBlock from '../components/GamePage/GameSimilarsBlock/GameSimilarsBlock'
 
 const GamePage = () => {
 	const dispatch = useAppDispatch()
+	const { status } = useAppSelector(state => state.gameByIdSlice)
 	const { id } = useParams()
 
 	useEffect(() => {
-		dispatch(fetchGameById(id))
-	}, [id])
+		if (id !== undefined) {
+			dispatch(fetchGameById(id))
+		}
+	}, [id, dispatch])
 
-	return (
+	return status === 'loading' ? (
+		<div>Загрузка...</div>
+	) : status === 'error' ? (
+		<div className='w-full h-[900px] flex items-center justify-center text-2xl italic'>
+			К сожалению игра не найдена
+		</div>
+	) : (
 		<div>
 			<GameMainBlock />
 			<div className='mt-12 mx-12'>
 				<GameInfoBlock />
 				<GameReviewsBlock />
+				<GameSimilarsBlock />
 			</div>
 		</div>
 	)

@@ -4,6 +4,7 @@ import GamePage from './pages/GamePage'
 import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
 import Recommendations from './pages/Recommendations'
+import Reviews from './pages/ReviewsPage'
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 				<Route path='recommendations' element={<Recommendations />} />
 				<Route path='gamesoftheyear' element={<GamesOfYear />} />
 				<Route path='game/:id' element={<GamePage />} />
+				<Route path='game/:id/reviews' element={<Reviews />} />
 			</Route>
 		</Routes>
 	)

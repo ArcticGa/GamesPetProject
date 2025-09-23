@@ -31,3 +31,15 @@ export interface ISystemReq {
 	processor: string
 	storage: string
 }
+
+export interface IReview {
+	id: number
+	user_id: number
+	game_id: number
+	text: string
+	grade: number
+	published_date: number
+	is_recommended: boolean
+	likes: number
+	dislikes: number
+}

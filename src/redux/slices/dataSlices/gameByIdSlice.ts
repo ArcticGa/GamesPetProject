@@ -15,7 +15,7 @@ export enum Status {
 	ERROR = 'error',
 }
 
-export const fetchGameById = createAsyncThunk<IFullGame, any>(
+export const fetchGameById = createAsyncThunk<IFullGame, string>(
 	'game/fetchGameByIdStatus',
 	async id => {
 		const response = await axios.get(`${BASE_URL}/game`, {

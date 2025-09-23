@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import gameByIdSlice from './slices/dataSlices/gameByIdSlice'
+import gameReviewsSlice from './slices/dataSlices/gameReviewsSlice'
 import gamesSlice from './slices/dataSlices/gamesSlice'
 import dropDownSidebarSlice from './slices/sidebarSlices/dropDownSidebarSlice'
 import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
@@ -17,6 +18,7 @@ export const store = configureStore({
 		dropDownSidebarSlice,
 		gamesSlice,
 		gameByIdSlice,
+		gameReviewsSlice,
 	},
 })
 

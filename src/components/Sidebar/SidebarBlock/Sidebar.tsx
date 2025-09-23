@@ -12,7 +12,6 @@ const Sidebar = () => {
 	const { activeSearch } = useAppSelector(state => state.statusSearchBlockSlice)
 	const { sidebarStatus } = useAppSelector(state => state.hideSidebarSlice)
 
-
 	// Я понимаю, что ПЕРЕБОР с sidebarStatus... Но так получилось :(
 	return (
 		<aside className={stylesAside(sidebarStatus)}>
