@@ -36,7 +36,9 @@ const GameReviewsBlock = () => {
 					</div>
 				) : (
 					status === 'success' &&
-					reviews.map((review, index) => <Review key={index} data={review} />)
+					reviews
+						.slice(0, 3)
+						.map((review, index) => <Review key={index} data={review} />)
 				)}
 			</div>
 		</div>
