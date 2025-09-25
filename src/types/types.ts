@@ -43,3 +43,20 @@ export interface IReview {
 	likes: number
 	dislikes: number
 }
+
+export interface IAward {
+	titleAward: string
+	bgImage: string
+	winnerId: number
+	id: number
+}
+
+export interface IGameYear {
+	id: number
+	name: string
+	imageUrl: string
+	bigImageUrl: string
+	description: string
+	awardIds: number[]
+	year: number
+}

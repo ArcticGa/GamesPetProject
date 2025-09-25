@@ -1,4 +1,3 @@
-import MisideImage from '../assets/GameImages/MisideImage.png'
 import NotificationsIcon from '../assets/icons/bell.svg'
 import ClockIcon from '../assets/icons/clock.svg'
 import CrownIcon from '../assets/icons/crown-icon.svg'
@@ -38,20 +37,6 @@ export const categoriesArray = [
 	{ _id: 1, name: 'Лучшее', image: CrownWhiteIcon },
 	{ _id: 2, name: 'Новинки', image: GitlabIcon },
 	{ _id: 3, name: 'Скоро выйдут', image: ClockIcon },
-]
-
-export const arraySearchGames = [
-	{
-		_id: 1,
-		image: MisideImage,
-		nameGame: 'Miside',
-		developer: 'AIHASTO',
-		genres: [
-			{ _id: 1, title: 'Хоррор' },
-			{ _id: 2, title: 'Глубокий сюжет' },
-		],
-		dateReleased: '11 декабря 2024',
-	},
 ]
 
 export const arrayGenres = [
@@ -147,4 +132,56 @@ export const sortParamsArr = [
 	'по дизлайкам',
 	'по оценкам ( ↓ )',
 	'по оценкам ( ↑ )',
+]
+
+export const awardsList = [
+	{
+		titleAward: 'Игра года',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/GOTY.jpg?v=1',
+		winnerId: 1,
+		id: 1,
+	},
+	{
+		titleAward: 'Любимое дитя',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/LaborOfLove.jpg?v=1',
+		winnerId: 6,
+		id: 2,
+	},
+	{
+		titleAward: 'Друг познается в игре',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/BetterWithFriends.jpg?v=1',
+		winnerId: 5,
+		id: 3,
+	},
+	{
+		titleAward: 'Выдающийся визуальный стиль',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/OutstandingVisualStyle.jpg?v=1',
+		winnerId: 16,
+		id: 4,
+	},
+	{
+		titleAward: 'Самый инновационный геймплей',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/MostInnovativeGameplay.jpg?v=1',
+		winnerId: 19,
+		id: 5,
+	},
+	{
+		titleAward: 'Лучшая игра, которая вам не даётся',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/BestGameYouSuckAt.jpg?v=1',
+		winnerId: 1,
+		id: 6,
+	},
+	{
+		titleAward: 'Лучшая игра с выдающимся сюжетом',
+		bgImage:
+			'https://cdn.fastly.steamstatic.com/store/promo/steamawards2024/backgrounds/OutstandingStoryRichGame.jpg?v=1',
+		winnerId: 1,
+		id: 7,
+	},
 ]

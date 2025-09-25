@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import gameByIdSlice from './slices/dataSlices/gameByIdSlice'
 import gameReviewsSlice from './slices/dataSlices/gameReviewsSlice'
 import gamesSlice from './slices/dataSlices/gamesSlice'
+import gameYearSlice from './slices/dataSlices/gameYearsSlice'
 import dropDownSidebarSlice from './slices/sidebarSlices/dropDownSidebarSlice'
 import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
 import linksSlice from './slices/sidebarSlices/linksSlice'
@@ -19,6 +20,7 @@ export const store = configureStore({
 		gamesSlice,
 		gameByIdSlice,
 		gameReviewsSlice,
+		gameYearSlice,
 	},
 })
 
