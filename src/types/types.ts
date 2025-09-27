@@ -60,3 +60,18 @@ export interface IGameYear {
 	awardIds: number[]
 	year: number
 }
+
+export interface IUser {
+	_id: string
+	nickname: string
+	email: string
+	// avatarUrl: string
+	featuredGames: number[]
+	ownReviews: number[]
+	likedReviews: number[]
+	dislikedReviews: number[]
+	createdAt: string
+	updatedAt: string
+	__v: number
+	token: string
+}

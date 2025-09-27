@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import authSlice from './slices/auth'
 import gameByIdSlice from './slices/dataSlices/gameByIdSlice'
 import gameReviewsSlice from './slices/dataSlices/gameReviewsSlice'
 import gamesSlice from './slices/dataSlices/gamesSlice'
@@ -21,6 +22,7 @@ export const store = configureStore({
 		gameByIdSlice,
 		gameReviewsSlice,
 		gameYearSlice,
+		authSlice,
 	},
 })
 
