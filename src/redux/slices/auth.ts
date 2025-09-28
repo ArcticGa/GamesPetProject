@@ -104,6 +104,3 @@ export const authSlice = createSlice({
 
 export const { setUserData, logout } = authSlice.actions
 export default authSlice.reducer
-
-// export const { setGame } = gameByIdSlice.actions
-// export default gameByIdSlice.reducer

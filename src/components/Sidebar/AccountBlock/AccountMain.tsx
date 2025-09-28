@@ -3,10 +3,10 @@ import Login from './Login'
 import NotLogin from './NotLogin'
 
 const AccountMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
-	const { loginStatus } = useAppSelector(state => state.loginAccountSlice)
+	const { userData } = useAppSelector(state => state.authSlice)
 
-	return loginStatus ? (
-		<Login sidebarStatus={sidebarStatus} />
+	return userData ? (
+		<Login sidebarStatus={sidebarStatus} userData={userData} />
 	) : (
 		<NotLogin sidebarStatus={sidebarStatus} />
 	)

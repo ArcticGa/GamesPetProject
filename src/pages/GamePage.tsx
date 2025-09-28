@@ -10,7 +10,7 @@ import GameSimilarsBlock from '../components/GamePage/GameSimilarsBlock/GameSimi
 
 const GamePage = () => {
 	const dispatch = useAppDispatch()
-	const { status } = useAppSelector(state => state.gameByIdSlice)
+	const { game, status } = useAppSelector(state => state.gameByIdSlice)
 	const { id } = useParams()
 
 	useEffect(() => {
@@ -26,14 +26,17 @@ const GamePage = () => {
 			К сожалению игра не найдена
 		</div>
 	) : (
-		<div>
-			<GameMainBlock />
-			<div className='mt-12 mx-12'>
-				<GameInfoBlock />
-				<GameReviewsBlock />
-				<GameSimilarsBlock />
+		status === 'success' &&
+		game && (
+			<div>
+				<GameMainBlock game={game} />
+				<div className='mt-12 mx-12'>
+					<GameInfoBlock />
+					<GameReviewsBlock />
+					<GameSimilarsBlock />
+				</div>
 			</div>
-		</div>
+		)
 	)
 }
 

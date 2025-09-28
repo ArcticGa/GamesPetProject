@@ -8,7 +8,7 @@ import gameYearSlice from './slices/dataSlices/gameYearsSlice'
 import dropDownSidebarSlice from './slices/sidebarSlices/dropDownSidebarSlice'
 import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
 import linksSlice from './slices/sidebarSlices/linksSlice'
-import loginAccountSlice from './slices/sidebarSlices/loginAccountSlice'
+
 import statusSearchBlockSlice from './slices/sidebarSlices/statusSearchBlockSlice'
 
 export const store = configureStore({
@@ -16,7 +16,6 @@ export const store = configureStore({
 		linksSlice,
 		hideSidebarSlice,
 		statusSearchBlockSlice,
-		loginAccountSlice,
 		dropDownSidebarSlice,
 		gamesSlice,
 		gameByIdSlice,

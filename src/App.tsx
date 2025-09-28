@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router'
 import MainLayout from './layouts/MainLayout'
 import AuthPage from './pages/AuthPage'
@@ -6,24 +7,16 @@ import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
+import { fetchAuthMe } from './redux/slices/auth'
+import { useAppDispatch } from './redux/store'
 
 function App() {
-	// const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch()
 
-	// useEffect(() => {
-	// 	localStorage.setItem(
-	// 		'token',
-	// 		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ3OWZjMjBlZDgwY2VmMmYwNzZiZTEiLCJpYXQiOjE3NTg5Njg5ODQsImV4cCI6MTc2MTU2MDk4NH0.8w06VZjlmnm54vhLPTY8D9FozhcPDOQTmC7s6FAwZa8'
-	// 	)
-
-	// 	// const params = {
-	// 	// 	email: 'aboba@mail.ru',
-	// 	// 	password: 'monkerge',
-	// 	// }
-	// 	// dispatch(fetchAuth(params))
-
-	// 	dispatch(fetchAuthMe())
-	// }, [])
+	useEffect(() => {
+		const token = localStorage.getItem('token')
+		dispatch(fetchAuthMe(token))
+	}, [])
 
 	return (
 		<Routes>

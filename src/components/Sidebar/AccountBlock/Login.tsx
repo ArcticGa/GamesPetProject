@@ -1,15 +1,32 @@
 import { useState } from 'react'
 import AccountMenuIcon from '../../../assets/icons/account-menu.svg'
+import LogoutIcon from '../../../assets/icons/log-out.svg'
 import UserAvatar from '../../../assets/icons/logo.png'
 
+import { logout } from '../../../redux/slices/auth'
+import { useAppDispatch } from '../../../redux/store'
+import { IUser } from '../../../types/types'
 import { arrayAccountItems } from '../../../utils/miniArrays'
 import { stylesLogin } from './Utils'
 
-const Login = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
+const Login = ({
+	sidebarStatus,
+	userData,
+}: {
+	sidebarStatus: boolean
+	userData: IUser
+}) => {
+	const dispatch = useAppDispatch()
+
 	const [openBtns, setOpenBtns] = useState(false)
 
 	const openAccount = () => {
 		setOpenBtns(!openBtns)
+	}
+
+	const logoutHandler = () => {
+		dispatch(logout())
+		localStorage.removeItem('token')
 	}
 
 	return (
@@ -27,6 +44,14 @@ const Login = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 							)}
 						</div>
 					))}
+
+					<div
+						onClick={logoutHandler}
+						className='flex items-center justify-between p-2 bg-main-blocks rounded-xl mb-2.5 cursor-pointer'
+					>
+						<div>Выйти</div>
+						<img src={LogoutIcon} alt='logout-icon' />
+					</div>
 				</div>
 			)}
 
@@ -36,7 +61,9 @@ const Login = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 			>
 				<div className='flex items-center'>
 					<img className='w-8' src={UserAvatar} alt='user-avatar' />
-					{sidebarStatus && <span className='ml-2 text-xl'>monKe</span>}
+					{sidebarStatus && (
+						<span className='ml-2 text-xl'>{userData.nickname}</span>
+					)}
 				</div>
 				{sidebarStatus && (
 					<img className='w-5' src={AccountMenuIcon} alt='logout-icon' />

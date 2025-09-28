@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 import HelpIcon from '../../../assets/icons/help-circle.svg'
 import LogoIcon from '../../../assets/icons/logo.png'
 import InfoBlock from './InfoBlock'
@@ -23,7 +24,9 @@ const Logo = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 
 			{sidebarStatus && (
 				<>
-					<span className='font-bold text-2xl'>GamesWorld</span>
+					<Link to={'/'} className='font-bold text-2xl'>
+						GamesWorld
+					</Link>
 					<div
 						className='cursor-pointer'
 						onClick={() => setOpenInfo(!openInfo)}
