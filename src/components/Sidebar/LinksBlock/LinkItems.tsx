@@ -11,14 +11,14 @@ const LinkItems = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 	return linksArray.map((link, index) => (
 		<Link
 			key={index}
-			onClick={() => changePage(index, activeLink, dispatch)}
+			onClick={() => changePage(`/${link.path}`, activeLink, dispatch)}
 			to={`/${link.path}`}
-			className={stylesBlockHandler(activeLink, index, sidebarStatus)}
+			className={stylesBlockHandler(activeLink, `/${link.path}`, sidebarStatus)}
 		>
 			<img src={link.icon} alt={link.name} />
 			{sidebarStatus && <span className='ml-2 pt-1'>{link.name}</span>}
 
-			{activeLink === index && (
+			{activeLink === `/${link.path}` && (
 				<div>
 					{link.bgImage && (
 						<img

@@ -9,7 +9,7 @@ import { fetchRegister } from '../../../redux/slices/auth'
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import { IUser } from '../../../types/types'
 
-type Inputs = {
+export type RegisterInputs = {
 	nickname: string
 	email: string
 	password: string
@@ -29,7 +29,7 @@ const RegisterForm = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Inputs>({
+	} = useForm<RegisterInputs>({
 		defaultValues: {
 			nickname: '',
 			email: '',
@@ -38,7 +38,7 @@ const RegisterForm = () => {
 		mode: 'onSubmit',
 	})
 
-	const onSubmit: SubmitHandler<Inputs> = async values => {
+	const onSubmit: SubmitHandler<RegisterInputs> = async values => {
 		console.log(values)
 
 		const data = await dispatch(fetchRegister(values))

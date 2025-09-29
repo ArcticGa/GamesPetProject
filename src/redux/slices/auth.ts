@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { LoginInputs } from '../../components/AuthPage/Forms/LoginForm'
+import { RegisterInputs } from '../../components/AuthPage/Forms/RegisterForm'
 import { IUser } from '../../types/types'
 
 interface IAuthSlice {
@@ -13,7 +15,7 @@ export enum Status {
 	ERROR = 'error',
 }
 
-export const fetchAuth = createAsyncThunk<IUser>(
+export const fetchAuth = createAsyncThunk<IUser, LoginInputs>(
 	'auth/fetchAuth',
 	async params => {
 		const { data } = await axios.post(
@@ -24,7 +26,7 @@ export const fetchAuth = createAsyncThunk<IUser>(
 	}
 )
 
-export const fetchRegister = createAsyncThunk<IUser>(
+export const fetchRegister = createAsyncThunk<IUser, RegisterInputs>(
 	'auth/register',
 	async params => {
 		const { data } = await axios.post(

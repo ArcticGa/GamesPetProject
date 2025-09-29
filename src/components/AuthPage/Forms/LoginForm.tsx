@@ -7,7 +7,7 @@ import { fetchAuth } from '../../../redux/slices/auth'
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import { IUser } from '../../../types/types'
 
-type Inputs = {
+export type LoginInputs = {
 	nickname: string
 	password: string
 }
@@ -26,7 +26,7 @@ const LoginForm = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Inputs>({
+	} = useForm<LoginInputs>({
 		defaultValues: {
 			nickname: '',
 			password: '',
@@ -34,7 +34,7 @@ const LoginForm = () => {
 		mode: 'onSubmit',
 	})
 
-	const onSubmit: SubmitHandler<Inputs> = async values => {
+	const onSubmit: SubmitHandler<LoginInputs> = async values => {
 		const data = await dispatch(fetchAuth(values))
 
 		if (!data.payload) {

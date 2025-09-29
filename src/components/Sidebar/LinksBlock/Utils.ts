@@ -1,28 +1,29 @@
+import { Dispatch } from '@reduxjs/toolkit'
 import { setActiveLink } from '../../../redux/slices/sidebarSlices/linksSlice'
 
 export const changePage = (
-	index: number,
-	activeLink: number,
-	dispatch: any
+	path: string,
+	activeLink: string,
+	dispatch: Dispatch
 ) => {
-	if (activeLink === index) return
+	if (activeLink === path) return
 
-	dispatch(setActiveLink(index))
+	dispatch(setActiveLink(path))
 }
 
 const stylesBlock = 'relative overflow-hidden flex mb-3 p-2 rounded-xl'
 
 export const stylesBlockHandler = (
-	activeLink: number,
-	index: number,
+	activeLink: string,
+	path: string,
 	sidebarStatus: boolean
 ) => {
-	if (activeLink !== index)
+	if (activeLink !== path)
 		return `${stylesBlock} ${stylesBlockJustify(sidebarStatus)}`
-	if (activeLink !== 2) {
+	if (activeLink === path && activeLink !== '/gamesoftheyear') {
 		return `${stylesBlock} ${stylesBlockJustify(sidebarStatus)} bg-main-buttons`
 	}
-	if (activeLink === 2) {
+	if (activeLink === '/gamesoftheyear') {
 		return `${stylesBlock} ${stylesBlockJustify(
 			sidebarStatus
 		)} bg-game-year-button`

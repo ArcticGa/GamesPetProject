@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ILinksSlice {
-	activeLink: number
+	activeLink: string
 }
 
 const initialState: ILinksSlice = {
-	activeLink: 0,
+	activeLink: window.location.pathname,
 }
 
 export const linksSlice = createSlice({
 	name: 'links',
 	initialState,
 	reducers: {
-		setActiveLink(state, action: PayloadAction<number>) {
+		setActiveLink(state, action: PayloadAction<string>) {
 			state.activeLink = action.payload
 		},
 	},

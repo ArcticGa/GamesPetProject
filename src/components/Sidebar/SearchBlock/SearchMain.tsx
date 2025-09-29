@@ -30,7 +30,7 @@ const SearchMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 
 		dispatch(setSearchBlock(debounced.length > 0))
 		setFilteredArray(filterFunc(debounced, games))
-	}, [games, debounced, sidebarStatus])
+	}, [games, debounced, sidebarStatus, dispatch])
 
 	return (
 		<div className='relative'>
