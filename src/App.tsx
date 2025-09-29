@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
 import MainLayout from './layouts/MainLayout'
 import AuthPage from './pages/AuthPage'
 import GamePage from './pages/GamePage'
@@ -8,15 +8,20 @@ import Home from './pages/Home'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
 import { fetchAuthMe } from './redux/slices/auth'
+import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
 import { useAppDispatch } from './redux/store'
 
 function App() {
 	const dispatch = useAppDispatch()
+	const location = useLocation()
 
 	useEffect(() => {
-		const token = localStorage.getItem('token')
-		dispatch(fetchAuthMe(token))
-	}, [])
+		dispatch(fetchAuthMe())
+	}, [dispatch])
+
+	useEffect(() => {
+		dispatch(setActiveLink(location.pathname))
+	}, [location, dispatch])
 
 	return (
 		<Routes>
