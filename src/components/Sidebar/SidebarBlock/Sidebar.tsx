@@ -1,6 +1,5 @@
 import { useAppSelector } from '../../../redux/store'
 import AccountMain from '../AccountBlock/AccountMain'
-import CategoryMain from '../CategoryBlock/CategoryMain'
 import GenresMain from '../GenresBlock/GenresMain'
 import LinkItems from '../LinksBlock/LinkItems'
 import Logo from '../LogoBlock/Logo'
@@ -21,7 +20,7 @@ const Sidebar = () => {
 
 				<div className='flex-1 items-center'>
 					<LinkItems sidebarStatus={sidebarStatus} />
-					<CategoryMain sidebarStatus={sidebarStatus} />
+					{/* <CategoryMain sidebarStatus={sidebarStatus} /> */}
 					<GenresMain sidebarStatus={sidebarStatus} />
 				</div>
 

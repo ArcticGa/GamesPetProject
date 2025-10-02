@@ -21,7 +21,9 @@ export const stylesBlockHandler = (
 	if (activeLink !== path)
 		return `${stylesBlock} ${stylesBlockJustify(sidebarStatus)}`
 	if (activeLink === path && activeLink !== '/gamesoftheyear') {
-		return `${stylesBlock} ${stylesBlockJustify(sidebarStatus)} bg-main-buttons`
+		return `${stylesBlock} ${stylesBlockJustify(
+			sidebarStatus
+		)} bg-links-and-borders`
 	}
 	if (activeLink === '/gamesoftheyear') {
 		return `${stylesBlock} ${stylesBlockJustify(

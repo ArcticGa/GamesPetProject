@@ -8,7 +8,7 @@ const GenresMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 	const [openedGenres, setOpenedGenres] = useState(false)
 
 	return (
-		<div>
+		<div className='mt-5'>
 			<div
 				onClick={() => setOpenedGenres(!openedGenres)}
 				className={stylesCategories(sidebarStatus)}

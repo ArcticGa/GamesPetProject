@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
+import { useAppSelector } from '../../../redux/store'
 import { arrayGenres } from '../../../utils/miniArrays'
 import { filterGenres } from './Utils'
 
 const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
+	const { activeLink } = useAppSelector(state => state.linksSlice)
 	const [searchGenreValue, setSearchGenreValue] = useState('')
 	const [filteredGenresArray, setFilteredGenresArray] =
 		useState<string[]>(arrayGenres)
@@ -14,6 +17,8 @@ const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
 	useEffect(() => {
 		filterGenres(arrayGenres, searchGenreValue, setFilteredGenresArray)
 	}, [searchGenreValue])
+
+	console.log(activeLink)
 
 	return (
 		<div className=' mt-3 px-4 pt-4 pb-2 bg-main-background rounded-xl'>
@@ -28,14 +33,19 @@ const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
 			/>
 
 			{filteredGenresArray.length !== 0 ? (
-				<div className='max-h-37 overflow-x-auto whitespace-nowrap no-scrollbar'>
+				<div className='max-h-37 pr-2 flex flex-col overflow-x-auto whitespace-nowrap scrollbar'>
 					{filteredGenresArray.map((genre, index) => (
-						<div
+						<Link
+							to={`/sorted/${genre}`}
 							key={index}
-							className='cursor-pointer mb-1.5 py-1 bg-main-blocks text-center rounded-md '
+							className={`cursor-pointer mb-1.5 py-1  text-center rounded-md ${
+								activeLink === `/sorted/${genre}`
+									? 'bg-links-and-borders'
+									: 'bg-main-blocks'
+							} `}
 						>
 							{genre}
-						</div>
+						</Link>
 					))}
 				</div>
 			) : (

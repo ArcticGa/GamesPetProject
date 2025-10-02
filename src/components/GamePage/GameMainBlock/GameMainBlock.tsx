@@ -25,8 +25,6 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 		addGameToViewedArray()
 	}, [])
 
-	console.log(localStorage.getItem('viewedGames'))
-
 	return (
 		<div
 			className={`${

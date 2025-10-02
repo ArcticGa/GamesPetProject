@@ -7,6 +7,7 @@ import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
+import SortedGamesByGenre from './pages/SortedGamesByGenre'
 import { fetchAuthMe } from './redux/slices/auth'
 import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
 import { useAppDispatch } from './redux/store'
@@ -31,6 +32,7 @@ function App() {
 				<Route path='gamesoftheyear' element={<GamesOfYear />} />
 				<Route path='game/:id' element={<GamePage />} />
 				<Route path='game/:id/reviews' element={<Reviews />} />
+				<Route path='sorted/:category' element={<SortedGamesByGenre />} />
 				<Route path='auth' element={<AuthPage />} />
 			</Route>
 		</Routes>

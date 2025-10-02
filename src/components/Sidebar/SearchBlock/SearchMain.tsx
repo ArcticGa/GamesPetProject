@@ -19,7 +19,7 @@ const SearchMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 
 	useEffect(() => {
 		dispatch(fetchGames())
-	}, [])
+	}, [dispatch])
 
 	useEffect(() => {
 		if (games.length === 0) return

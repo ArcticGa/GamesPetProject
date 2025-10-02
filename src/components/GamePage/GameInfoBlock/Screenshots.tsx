@@ -12,11 +12,11 @@ const Screenshots = () => {
 				<img
 					className='rounded-lg'
 					src={game?.screenshots[activeImg].image}
-					alt='image.game'
+					alt='image-game'
 				/>
 			</div>
 			<div className='flex items-center justify-evenly'>
-				{game?.screenshots.map((screen, index) => (
+				{game?.screenshots?.map((screen, index) => (
 					<img
 						key={screen.id}
 						onClick={() => setActiveImg(index)}

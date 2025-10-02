@@ -39,8 +39,6 @@ const RegisterForm = () => {
 	})
 
 	const onSubmit: SubmitHandler<RegisterInputs> = async values => {
-		console.log(values)
-
 		const data = await dispatch(fetchRegister(values))
 
 		if (!data.payload) {
