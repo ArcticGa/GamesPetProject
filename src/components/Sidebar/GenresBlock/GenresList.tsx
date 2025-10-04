@@ -18,8 +18,6 @@ const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
 		filterGenres(arrayGenres, searchGenreValue, setFilteredGenresArray)
 	}, [searchGenreValue])
 
-	console.log(activeLink)
-
 	return (
 		<div className=' mt-3 px-4 pt-4 pb-2 bg-main-background rounded-xl'>
 			<input

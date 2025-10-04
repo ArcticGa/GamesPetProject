@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
 import SortedGamesByGenre from './pages/SortedGamesByGenre'
+import UserProfilePage from './pages/UserProfilePage'
 import { fetchAuthMe } from './redux/slices/auth'
 import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
 import { useAppDispatch } from './redux/store'
@@ -34,6 +35,7 @@ function App() {
 				<Route path='game/:id/reviews' element={<Reviews />} />
 				<Route path='sorted/:category' element={<SortedGamesByGenre />} />
 				<Route path='auth' element={<AuthPage />} />
+				<Route path='profile' element={<UserProfilePage />} />
 			</Route>
 		</Routes>
 	)

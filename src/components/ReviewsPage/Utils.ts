@@ -7,12 +7,16 @@ export const sortReviewsArray = (
 	data: IReview[]
 ) => {
 	if (activeSortItem === 0) {
-		const newArr = [...data].sort((a, b) => b.published_date - a.published_date)
+		const newArr = [...data].sort((a, b) => {
+			return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+		})
 		setSortedArray(newArr)
 	}
 
 	if (activeSortItem === 1) {
-		const newArr = [...data].sort((a, b) => a.published_date - b.published_date)
+		const newArr = [...data].sort((a, b) => {
+			return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+		})
 		setSortedArray(newArr)
 	}
 

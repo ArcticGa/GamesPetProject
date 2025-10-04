@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 
 import { Link } from 'react-router'
-import { fetchReviews } from '../../../redux/slices/dataSlices/gameReviewsSlice'
+import { fetchGameReviews } from '../../../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import Review from './Review'
 
 const GameReviewsBlock = () => {
 	const dispatch = useAppDispatch()
 	const { game } = useAppSelector(state => state.gameByIdSlice)
-	const { reviews, status } = useAppSelector(state => state.gameReviewsSlice)
+	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
 
 	useEffect(() => {
 		if (game) {
-			dispatch(fetchReviews(game.id))
+			dispatch(fetchGameReviews(game.id))
 		}
 	}, [game, dispatch])
 
@@ -30,12 +30,11 @@ const GameReviewsBlock = () => {
 				)}
 			</div>
 			<div className='flex justify-center'>
-				{status === 'error' ? (
+				{reviews.length === 0 ? (
 					<div className='text-xl mt-14 italic'>
 						Обзоров пока нет. Будьте первыми (Тут типа кнопка Добавить Обзор)
 					</div>
 				) : (
-					status === 'success' &&
 					reviews
 						.slice(0, 3)
 						.map((review, index) => <Review key={index} data={review} />)

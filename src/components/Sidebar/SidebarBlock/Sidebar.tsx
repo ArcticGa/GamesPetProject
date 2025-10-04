@@ -20,7 +20,6 @@ const Sidebar = () => {
 
 				<div className='flex-1 items-center'>
 					<LinkItems sidebarStatus={sidebarStatus} />
-					{/* <CategoryMain sidebarStatus={sidebarStatus} /> */}
 					<GenresMain sidebarStatus={sidebarStatus} />
 				</div>
 

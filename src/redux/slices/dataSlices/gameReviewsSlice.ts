@@ -13,12 +13,23 @@ export enum Status {
 	ERROR = 'error',
 }
 
-export const fetchReviews = createAsyncThunk<IReview[], number | string>(
-	'reviews/fetchReviews',
+export const fetchGameReviews = createAsyncThunk<IReview[], number | string>(
+	'reviews/fetchGameReviews',
 	async id => {
 		const { data } = await axios.get(
-			`https://68c693c7442c663bd027641b.mockapi.io/reviews?game_id=${id}`
+			`http://localhost:5000/reviewsByGameId/${id}`
 		)
+		return data
+	}
+)
+
+export const fetchOwnReviews = createAsyncThunk<IReview[], string>(
+	'reviews/fetchOwnReviews',
+	async userId => {
+		const { data } = await axios.get(
+			`http://localhost:5000/reviewsByUserId/${userId}`
+		)
+
 		return data
 	}
 )
@@ -38,15 +49,27 @@ export const gameReviewsSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(fetchReviews.pending, state => {
+			.addCase(fetchGameReviews.pending, state => {
 				state.status = Status.LOADING
 				state.reviews = []
 			})
-			.addCase(fetchReviews.fulfilled, (state, action) => {
+			.addCase(fetchGameReviews.fulfilled, (state, action) => {
 				state.status = Status.SUCCESS
 				state.reviews = action.payload
 			})
-			.addCase(fetchReviews.rejected, state => {
+			.addCase(fetchGameReviews.rejected, state => {
+				state.status = Status.ERROR
+				state.reviews = []
+			})
+			.addCase(fetchOwnReviews.pending, state => {
+				state.status = Status.LOADING
+				state.reviews = []
+			})
+			.addCase(fetchOwnReviews.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				state.reviews = action.payload
+			})
+			.addCase(fetchOwnReviews.rejected, state => {
 				state.status = Status.ERROR
 				state.reviews = []
 			})

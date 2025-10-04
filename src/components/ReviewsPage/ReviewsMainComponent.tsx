@@ -34,7 +34,7 @@ const ReviewsMainComponent = ({ data }: { data: IReview[] }) => {
 			</div>
 			<div className='grid grid-cols-3 gap-6'>
 				{sortedArray.map(review => (
-					<ReviewFull key={review.id} review={review} />
+					<ReviewFull key={review._id} review={review} />
 				))}
 			</div>
 		</div>

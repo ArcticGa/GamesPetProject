@@ -1,17 +1,14 @@
-import NotificationsIcon from '../assets/icons/bell.svg'
 import ClockIcon from '../assets/icons/clock.svg'
 import CrownIcon from '../assets/icons/crown-icon.svg'
 import CrownWhiteIcon from '../assets/icons/crown-white.svg'
 import GamepadIcon from '../assets/icons/gamepad.svg'
 import GitlabIcon from '../assets/icons/gitlab.svg'
 import HomeIcon from '../assets/icons/home.svg'
-import WriteDevIcon from '../assets/icons/message-developer.svg'
-import FavoritesIcon from '../assets/icons/star.svg'
 
-export const arrayAccountItems = [
-	{ _id: 1, image: NotificationsIcon, title: 'Уведомления' },
-	{ _id: 2, image: FavoritesIcon, title: 'Избранное' },
-	{ _id: 3, image: WriteDevIcon, title: 'Написать разработчику' },
+export const arraySortProfileBtns = [
+	'Избранные игры',
+	'Созданные обзоры',
+	'Обзоры с вашим лайкам',
 ]
 
 export const linksArray = [

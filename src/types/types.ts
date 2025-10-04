@@ -33,13 +33,13 @@ export interface ISystemReq {
 }
 
 export interface IReview {
-	id: number
-	user_id: number
-	game_id: number
+	_id: string
+	gameId: number
 	text: string
 	grade: number
-	published_date: number
-	is_recommended: boolean
+	user: IUser
+	createdAt: string
+	isRecommended: boolean
 	likes: number
 	dislikes: number
 }
@@ -67,9 +67,9 @@ export interface IUser {
 	email: string
 	// avatarUrl: string
 	featuredGames: number[]
-	ownReviews: number[]
-	likedReviews: number[]
-	dislikedReviews: number[]
+	ownReviews: string[]
+	likedReviews: string[]
+	dislikedReviews: string[]
 	createdAt: string
 	updatedAt: string
 	__v: number

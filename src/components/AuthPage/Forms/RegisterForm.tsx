@@ -52,7 +52,7 @@ const RegisterForm = () => {
 
 	useEffect(() => {
 		if (userData) {
-			navigate('/')
+			navigate('/profile')
 		}
 	}, [userData, navigate])
 

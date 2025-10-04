@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import ReviewsMainComponent from '../components/ReviewsPage/ReviewsMainComponent'
-import { fetchReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
+import { fetchGameReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 
 const ReviewsPage = () => {
@@ -11,7 +11,7 @@ const ReviewsPage = () => {
 
 	useEffect(() => {
 		if (id !== undefined) {
-			dispatch(fetchReviews(id))
+			dispatch(fetchGameReviews(id))
 		}
 	}, [id, dispatch])
 
