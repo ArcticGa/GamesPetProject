@@ -1,12 +1,23 @@
+import AnimeGif from '../../assets/GameImages/ani.gif'
 import FrirenGif from '../../assets/GameImages/friren.gif'
 import UserAvatar from '../../assets/GameImages/Minimita.jpg'
 import { IUser } from '../../types/types'
 import InfoDiv from './InfoDiv'
 
-const MainProfileBlock = ({ userData }: { userData: IUser }) => {
+const MainProfileBlock = ({
+	userData,
+	isOwn,
+}: {
+	userData: IUser
+	isOwn: boolean
+}) => {
 	return (
 		<div className='mb-8'>
-			<div className='flex flex-col bg-main-blocks py-4 px-15 rounded-t-2xl'>
+			<div
+				className={`flex flex-col bg-main-blocks py-4 px-15 ${
+					isOwn ? 'rounded-t-2xl' : 'rounded-2xl'
+				} `}
+			>
 				<div className='flex items-center justify-between'>
 					<div className='flex items-center'>
 						<img
@@ -35,12 +46,19 @@ const MainProfileBlock = ({ userData }: { userData: IUser }) => {
 							</InfoDiv>
 						</div>
 					</div>
-					<img className='w-45' src={FrirenGif} alt='friren-gif' />
+
+					<img
+						className='w-45'
+						src={isOwn ? FrirenGif : AnimeGif}
+						alt='friren-gif'
+					/>
 				</div>
 			</div>
-			<div className='py-2.5 rounded-t-none border-3 cursor-pointer transition-colors duration-200 hover:bg-links-and-borders hover:border-links-and-borders border-main-blocks rounded-lg text-center'>
-				Редактировать профиль
-			</div>
+			{isOwn && (
+				<div className='py-2.5 rounded-t-none border-3 cursor-pointer transition-colors duration-200 hover:bg-links-and-borders hover:border-links-and-borders border-main-blocks rounded-lg text-center'>
+					Редактировать профиль
+				</div>
+			)}
 		</div>
 	)
 }

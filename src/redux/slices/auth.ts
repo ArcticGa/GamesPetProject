@@ -7,6 +7,14 @@ import { IUser } from '../../types/types'
 interface IAuthSlice {
 	userData: IUser | null
 	status: 'loading' | 'success' | 'error'
+	error: string | null
+}
+
+type updatedFieldsType = {
+	likedReviewId?: string
+	dislikedReviewId?: string
+	delLikedReviewId?: string
+	delDislikedReviewId?: string
 }
 
 export enum Status {
@@ -46,9 +54,31 @@ export const fetchAuthMe = createAsyncThunk<IUser>('auth/me', async () => {
 	return data
 })
 
+export const fetchUpdateUser = createAsyncThunk<IUser, updatedFieldsType>(
+	'user/update',
+	async (updatedFields, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.patch(
+				'http://localhost:5000/user/update',
+				updatedFields,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				}
+			)
+
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
+	}
+)
+
 const initialState: IAuthSlice = {
 	userData: null,
 	status: Status.LOADING,
+	error: null,
 }
 
 export const authSlice = createSlice({
@@ -100,6 +130,17 @@ export const authSlice = createSlice({
 			.addCase(fetchAuthMe.rejected, state => {
 				state.userData = null
 				state.status = Status.ERROR
+			})
+			.addCase(fetchUpdateUser.pending, state => {
+				state.status = Status.LOADING
+			})
+			.addCase(fetchUpdateUser.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				state.userData = action.payload
+			})
+			.addCase(fetchUpdateUser.rejected, (state, action) => {
+				state.status = Status.ERROR
+				state.error = action.payload as string
 			})
 	},
 })

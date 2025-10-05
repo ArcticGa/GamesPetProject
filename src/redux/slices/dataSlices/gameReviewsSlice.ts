@@ -5,6 +5,17 @@ import { IReview } from '../../../types/types'
 interface IReviewsSliceState {
 	reviews: IReview[]
 	status: 'loading' | 'success' | 'error'
+	error: string | null
+}
+
+type paramsType = {
+	reviewId: string
+	updatedFields: updatedFieldsType
+}
+
+type updatedFieldsType = {
+	isLikePlus?: string
+	isDislikePlus?: string
 }
 
 export enum Status {
@@ -34,9 +45,31 @@ export const fetchOwnReviews = createAsyncThunk<IReview[], string>(
 	}
 )
 
+export const fetchUpdateReview = createAsyncThunk<IReview, paramsType>(
+	'review/update',
+	async ({ reviewId, updatedFields }, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.patch(
+				`http://localhost:5000/review/update/${reviewId}`,
+				updatedFields,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				}
+			)
+
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
+	}
+)
+
 const initialState: IReviewsSliceState = {
 	reviews: [],
 	status: Status.LOADING,
+	error: null,
 }
 
 export const gameReviewsSlice = createSlice({
@@ -72,6 +105,22 @@ export const gameReviewsSlice = createSlice({
 			.addCase(fetchOwnReviews.rejected, state => {
 				state.status = Status.ERROR
 				state.reviews = []
+			})
+			.addCase(fetchUpdateReview.pending, state => {
+				state.status = Status.LOADING
+			})
+			.addCase(fetchUpdateReview.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				const index = state.reviews.findIndex(
+					item => item._id === action.payload._id
+				)
+				if (index !== -1) {
+					state.reviews[index] = { ...state.reviews[index], ...action.payload }
+				}
+			})
+			.addCase(fetchUpdateReview.rejected, (state, action) => {
+				state.status = Status.ERROR
+				state.error = action.payload as string
 			})
 	},
 })

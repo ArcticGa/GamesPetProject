@@ -8,7 +8,7 @@ import HomeIcon from '../assets/icons/home.svg'
 export const arraySortProfileBtns = [
 	'Избранные игры',
 	'Созданные обзоры',
-	'Обзоры с вашим лайкам',
+	'Понравившиеся обзоры',
 ]
 
 export const linksArray = [

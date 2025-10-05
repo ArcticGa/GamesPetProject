@@ -1,22 +1,32 @@
 import { useEffect, useState } from 'react'
-import { IReview } from '../../types/types'
+import { useParams } from 'react-router'
+import { fetchGameReviews } from '../../redux/slices/dataSlices/gameReviewsSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortParamsArr } from '../../utils/miniArrays'
 import ReviewFull from './ReviewFull'
 import SortBlock from './SortBlock'
 import { sortReviewsArray } from './Utils'
 
-const ReviewsMainComponent = ({ data }: { data: IReview[] }) => {
+const ReviewsMainComponent = () => {
+	const dispatch = useAppDispatch()
+	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
+	const { id } = useParams()
+
 	const [activeSortItem, setActiveSortItem] = useState(0)
-	const [sortedArray, setSortedArray] = useState(data)
+	const [sortedArray, setSortedArray] = useState(reviews)
 
 	useEffect(() => {
-		sortReviewsArray(activeSortItem, setSortedArray, data)
-	}, [activeSortItem, data])
+		if (id) {
+			dispatch(fetchGameReviews(id))
+		}
+	}, [id, dispatch])
+
+	useEffect(() => {
+		sortReviewsArray(activeSortItem, setSortedArray, reviews)
+	}, [activeSortItem, reviews])
 
 	return (
-		<div className='m-10'>
-			<div className='text-2xl font-bold mb-8'>Обзоры пользователей</div>
-			<div className='mb-4 text-lg'>Сортировка</div>
+		<>
 			<div className='flex items-center justify-between mb-8'>
 				<div className='flex'>
 					{sortParamsArr.map((param, index) => (
@@ -37,7 +47,7 @@ const ReviewsMainComponent = ({ data }: { data: IReview[] }) => {
 					<ReviewFull key={review._id} review={review} />
 				))}
 			</div>
-		</div>
+		</>
 	)
 }
 

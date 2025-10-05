@@ -5,9 +5,8 @@ import { Link } from 'react-router'
 import UserAvatar from '../../assets/GameImages/Minimita.jpg'
 import HeartIcon from '../../assets/icons/heart.svg'
 import RedHeartIcon from '../../assets/icons/redHeart.svg'
-import DislikeIcon from '../../assets/icons/thumbs-down.svg'
-import LikeIcon from '../../assets/icons/thumbs-up.svg'
 import { useAppSelector } from '../../redux/store'
+import VoteBtns from '../GamePage/GameReviewsBlock/VoteBtns'
 
 const ReviewFull = ({ review }: { review: IReview }) => {
 	const { userData } = useAppSelector(state => state.authSlice)
@@ -18,7 +17,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 	return (
 		<div className='flex flex-col p-4 bg-main-blocks rounded-2xl max-w-[480px]'>
 			<div className='flex items-center justify-between rounded-2xl bg-main-background shadow-lg px-6 py-3 mb-4'>
-				<div className='flex items-center'>
+				<Link to={`/user/${review.user._id}`} className='flex items-center'>
 					<img
 						className='mr-2 w-12 rounded-full'
 						src={UserAvatar}
@@ -30,7 +29,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 							Обзоров: {review.user.ownReviews.length}
 						</div>
 					</div>
-				</div>
+				</Link>
 				<div className='flex items-center bg-main-blocks text-sm px-4 py-2 rounded-xl'>
 					<img
 						src={review.isRecommended ? RedHeartIcon : HeartIcon}
@@ -58,16 +57,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 				</div>
 				{userData ? (
 					userData._id !== review.user._id ? (
-						<div className='flex'>
-							<div className='flex items-center bg-main-background rounded-lg px-4 py-1.5 mr-1'>
-								<img className='w-5' src={LikeIcon} alt='like-icon' />
-								<div className='ml-2 text-sm'>Да ({review.likes})</div>
-							</div>
-							<div className='flex items-center bg-main-background rounded-lg px-4 py-1.5'>
-								<img className='w-5' src={DislikeIcon} alt='dislike-icon' />
-								<div className='ml-2 text-sm'>Нет ({review.dislikes})</div>
-							</div>
-						</div>
+						<VoteBtns data={review} />
 					) : (
 						<div className='text-xs text-gray-500 max-w-[60%] text-right'>
 							Вы не можете оценить свой обзор

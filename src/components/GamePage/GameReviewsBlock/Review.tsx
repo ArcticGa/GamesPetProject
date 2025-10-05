@@ -1,11 +1,11 @@
+import { Link } from 'react-router'
 import UserAvatar from '../../../assets/GameImages/Minimita.jpg'
 import HeartIcon from '../../../assets/icons/heart.svg'
 import RedHeartIcon from '../../../assets/icons/redHeart.svg'
-import DislikeIcon from '../../../assets/icons/thumbs-down.svg'
-import LikeIcon from '../../../assets/icons/thumbs-up.svg'
 import { useAppSelector } from '../../../redux/store'
 import { IReview } from '../../../types/types'
 import { useGetDate } from '../../../utils/hooks/getDate'
+import VoteBtns from './VoteBtns'
 
 const Review = ({ data }: { data: IReview }) => {
 	const { userData } = useAppSelector(state => state.authSlice)
@@ -14,9 +14,9 @@ const Review = ({ data }: { data: IReview }) => {
 	const published = useGetDate(date.getTime())
 
 	return (
-		<div className='flex flex-col w-[470px] p-4 bg-main-blocks rounded-2xl text-sm mr-6'>
+		<div className='flex flex-col w-[470px] p-4 bg-main-blocks rounded-2xl text-sm mr-6 mb-6'>
 			<div className='flex justify-between items-center'>
-				<div className='flex items-center'>
+				<Link to={`/user/${data.user._id}`} className='flex items-center'>
 					<div className='mr-2'>
 						<img
 							className='w-12 rounded-full'
@@ -30,7 +30,7 @@ const Review = ({ data }: { data: IReview }) => {
 							Обзоров: {data.user.ownReviews.length}
 						</div>
 					</div>
-				</div>
+				</Link>
 				<div className='text-xl'>{data.grade}</div>
 				<div
 					className={`flex items-center ${
@@ -55,16 +55,7 @@ const Review = ({ data }: { data: IReview }) => {
 			<div className='mt-4 mb-2 text-gray-400'>Понравился обзор?</div>
 			{userData ? (
 				userData._id !== data.user._id ? (
-					<div className='flex items-center'>
-						<div className='flex items-center bg-reviews py-1.5 px-4 rounded-xl mr-4'>
-							<img src={LikeIcon} alt='like-icon' />
-							<div className='ml-2'>Да ({data.likes})</div>
-						</div>
-						<div className='flex items-center bg-reviews py-1.5 px-4 rounded-xl'>
-							<img src={DislikeIcon} alt='dislike-icon' />
-							<div className='ml-2'>Нет ({data.dislikes})</div>
-						</div>
-					</div>
+					<VoteBtns data={data} />
 				) : (
 					<div className='text-sm text-gray-500'>
 						Вы не можете оценивать свой же обзор

@@ -5,9 +5,11 @@ import AuthPage from './pages/AuthPage'
 import GamePage from './pages/GamePage'
 import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
+import NotFound from './pages/NotFound'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
 import SortedGamesByGenre from './pages/SortedGamesByGenre'
+import UserPage from './pages/UserPage'
 import UserProfilePage from './pages/UserProfilePage'
 import { fetchAuthMe } from './redux/slices/auth'
 import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
@@ -36,6 +38,8 @@ function App() {
 				<Route path='sorted/:category' element={<SortedGamesByGenre />} />
 				<Route path='auth' element={<AuthPage />} />
 				<Route path='profile' element={<UserProfilePage />} />
+				<Route path='user/:userId' element={<UserPage />} />
+				<Route path='*' element={<NotFound />} />
 			</Route>
 		</Routes>
 	)

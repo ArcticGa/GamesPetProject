@@ -6,6 +6,7 @@ import gameReviewsSlice from './slices/dataSlices/gameReviewsSlice'
 import gamesByCategorySlice from './slices/dataSlices/gamesByCategory'
 import gamesSlice from './slices/dataSlices/gamesSlice'
 import gameYearSlice from './slices/dataSlices/gameYearsSlice'
+import getUserByIdSlice from './slices/dataSlices/userById'
 import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
 import linksSlice from './slices/sidebarSlices/linksSlice'
 import statusSearchBlockSlice from './slices/sidebarSlices/statusSearchBlockSlice'
@@ -21,6 +22,7 @@ export const store = configureStore({
 		gameReviewsSlice,
 		gameYearSlice,
 		authSlice,
+		getUserByIdSlice,
 	},
 })
 

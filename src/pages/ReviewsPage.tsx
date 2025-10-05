@@ -1,28 +1,12 @@
-import { useEffect } from 'react'
-import { useParams } from 'react-router'
 import ReviewsMainComponent from '../components/ReviewsPage/ReviewsMainComponent'
-import { fetchGameReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
-import { useAppDispatch, useAppSelector } from '../redux/store'
 
 const ReviewsPage = () => {
-	const dispatch = useAppDispatch()
-	const { reviews, status } = useAppSelector(state => state.gameReviewsSlice)
-	const { id } = useParams()
-
-	useEffect(() => {
-		if (id !== undefined) {
-			dispatch(fetchGameReviews(id))
-		}
-	}, [id, dispatch])
-
-	return status === 'loading' ? (
-		<div>Загрузка</div>
-	) : status === 'error' ? (
-		<div className='w-full h-[900px] flex items-center justify-center text-2xl italic'>
-			Обзоров нет
+	return (
+		<div className='m-10'>
+			<div className='text-2xl font-bold mb-8'>Обзоры пользователей</div>
+			<div className='mb-4 text-lg'>Сортировка</div>
+			<ReviewsMainComponent />
 		</div>
-	) : (
-		<ReviewsMainComponent data={reviews} />
 	)
 }
 
