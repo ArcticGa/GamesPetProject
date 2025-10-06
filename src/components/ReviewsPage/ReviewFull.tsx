@@ -60,7 +60,10 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 						<VoteBtns data={review} />
 					) : (
 						<div className='text-xs text-gray-500 max-w-[60%] text-right'>
-							Вы не можете оценить свой обзор
+							<div>Вы не можете оценить свой обзор</div>
+							<div>
+								Оценки: {review.likes} / {review.dislikes}
+							</div>
 						</div>
 					)
 				) : (

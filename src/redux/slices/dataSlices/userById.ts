@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IUser } from '../../../types/types'
 
+const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
+
 interface IUserSliceState {
 	user: IUser | null
 	status: 'loading' | 'success' | 'error'
@@ -16,7 +18,7 @@ export enum Status {
 export const fetchUserById = createAsyncThunk<IUser, string>(
 	'game/fetchUserById',
 	async userId => {
-		const { data } = await axios.get(`http://localhost:5000/user/${userId}`)
+		const { data } = await axios.get(`${BASE_BACKEND_URL}/user/${userId}`)
 		return data
 	}
 )

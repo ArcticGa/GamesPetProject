@@ -65,7 +65,7 @@ export interface IUser {
 	_id: string
 	nickname: string
 	email: string
-	// avatarUrl: string
+	avatarUrl: string
 	featuredGames: number[]
 	ownReviews: string[]
 	likedReviews: string[]

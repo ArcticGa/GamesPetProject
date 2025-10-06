@@ -4,6 +4,7 @@ import { IFullGame, IReview, IUser } from '../types/types'
 
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
+const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 export const fetchReviewsById = (
 	userData: IUser,
@@ -13,7 +14,7 @@ export const fetchReviewsById = (
 
 	const task = async (id: string) => {
 		try {
-			const { data } = await axios.get(`http://localhost:5000/review/${id}`)
+			const { data } = await axios.get(`${BASE_BACKEND_URL}/review/${id}`)
 
 			return data
 		} catch (err) {

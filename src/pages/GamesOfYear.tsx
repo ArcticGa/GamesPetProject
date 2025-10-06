@@ -5,6 +5,8 @@ import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { awardsList } from '../utils/miniArrays'
 
+import AniGif from '../assets/GameImages/notfoundimg.gif'
+
 const GamesOfYear = () => {
 	const [year, setYear] = useState(2025)
 
@@ -22,10 +24,19 @@ const GamesOfYear = () => {
 	) : (
 		status === 'success' && (
 			<div className='px-60 pt-8'>
-				<div className='bg-main-blocks rounded-2xl py-4 px-2 mb-10 text-center'>
-					<div>Данная страница является Информационной.</div>
-					<div>Игры приведенные ниже НЕ ИМЕЮТ отдельных страниц на сайте.</div>
-					<div>( Прошу прощение, доделаю этот момент позже 😟 )</div>
+				<div className='relative bg-main-blocks rounded-2xl py-4 px-2 mb-10 text-center'>
+					<div>
+						<div>Данная страница является Информационной.</div>
+						<div>
+							Игры приведенные ниже НЕ ИМЕЮТ отдельных страниц на сайте.
+						</div>
+						<div>( Прошу прощение, доделаю этот момент позже )</div>
+					</div>
+					<img
+						className='w-26 absolute -top-1 right-10'
+						src={AniGif}
+						alt='gif'
+					/>
 				</div>
 
 				<TitleYear setYear={setYear} />

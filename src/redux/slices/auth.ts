@@ -4,6 +4,8 @@ import { LoginInputs } from '../../components/AuthPage/Forms/LoginForm'
 import { RegisterInputs } from '../../components/AuthPage/Forms/RegisterForm'
 import { IUser } from '../../types/types'
 
+const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
+
 interface IAuthSlice {
 	userData: IUser | null
 	status: 'loading' | 'success' | 'error'
@@ -15,6 +17,8 @@ type updatedFieldsType = {
 	dislikedReviewId?: string
 	delLikedReviewId?: string
 	delDislikedReviewId?: string
+	avatarUrl?: string
+	nickname?: string
 }
 
 export enum Status {
@@ -26,10 +30,7 @@ export enum Status {
 export const fetchAuth = createAsyncThunk<IUser, LoginInputs>(
 	'auth/fetchAuth',
 	async params => {
-		const { data } = await axios.post(
-			'http://localhost:5000/auth/login',
-			params
-		)
+		const { data } = await axios.post(`${BASE_BACKEND_URL}/auth/login`, params)
 		return data
 	}
 )
@@ -38,7 +39,7 @@ export const fetchRegister = createAsyncThunk<IUser, RegisterInputs>(
 	'auth/register',
 	async params => {
 		const { data } = await axios.post(
-			'http://localhost:5000/auth/register',
+			`${BASE_BACKEND_URL}/auth/register`,
 			params
 		)
 		return data
@@ -46,7 +47,7 @@ export const fetchRegister = createAsyncThunk<IUser, RegisterInputs>(
 )
 
 export const fetchAuthMe = createAsyncThunk<IUser>('auth/me', async () => {
-	const { data } = await axios.get('http://localhost:5000/auth/me', {
+	const { data } = await axios.get(`${BASE_BACKEND_URL}/auth/me`, {
 		headers: {
 			Authorization: `Bearer ${localStorage.getItem('token')}`,
 		},
@@ -59,7 +60,7 @@ export const fetchUpdateUser = createAsyncThunk<IUser, updatedFieldsType>(
 	async (updatedFields, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.patch(
-				'http://localhost:5000/user/update',
+				`${BASE_BACKEND_URL}/user/update`,
 				updatedFields,
 				{
 					headers: {

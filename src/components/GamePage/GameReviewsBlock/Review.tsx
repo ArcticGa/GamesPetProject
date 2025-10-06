@@ -31,7 +31,10 @@ const Review = ({ data }: { data: IReview }) => {
 						</div>
 					</div>
 				</Link>
-				<div className='text-xl'>{data.grade}</div>
+				<div className='flex flex-col items-center'>
+					<div className='text-3xl'>{data.grade}</div>
+					<div className='text-xs text-gray-400'>оценка</div>
+				</div>
 				<div
 					className={`flex items-center ${
 						data.isRecommended ? 'bg-links-and-borders' : 'bg-reviews'
@@ -57,8 +60,11 @@ const Review = ({ data }: { data: IReview }) => {
 				userData._id !== data.user._id ? (
 					<VoteBtns data={data} />
 				) : (
-					<div className='text-sm text-gray-500'>
-						Вы не можете оценивать свой же обзор
+					<div className='flex items-center justify-between text-sm text-gray-500'>
+						<div>Вы не можете оценить свой обзор</div>
+						<div>
+							{data.likes} / {data.dislikes}
+						</div>
 					</div>
 				)
 			) : (

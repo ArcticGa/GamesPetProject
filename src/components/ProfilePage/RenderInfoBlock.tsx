@@ -53,7 +53,7 @@ const RenderInfoBlock = ({
 				)
 			) : (
 				<div className='w-full text-center text-xl'>
-					{arrayType === 'games' && <span>Игр пока нет</span>}
+					{arrayType === 'games' && <span>Избранных игр пока нет</span>}
 					{arrayType === 'ownReviews' && (
 						<span>Созданных обзоров пока нет</span>
 					)}

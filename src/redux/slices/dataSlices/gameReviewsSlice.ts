@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IReview } from '../../../types/types'
 
+const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
+
 interface IReviewsSliceState {
 	reviews: IReview[]
 	status: 'loading' | 'success' | 'error'
@@ -28,7 +30,7 @@ export const fetchGameReviews = createAsyncThunk<IReview[], number | string>(
 	'reviews/fetchGameReviews',
 	async id => {
 		const { data } = await axios.get(
-			`http://localhost:5000/reviewsByGameId/${id}`
+			`${BASE_BACKEND_URL}/reviewsByGameId/${id}`
 		)
 		return data
 	}
@@ -38,7 +40,7 @@ export const fetchOwnReviews = createAsyncThunk<IReview[], string>(
 	'reviews/fetchOwnReviews',
 	async userId => {
 		const { data } = await axios.get(
-			`http://localhost:5000/reviewsByUserId/${userId}`
+			`${BASE_BACKEND_URL}/reviewsByUserId/${userId}`
 		)
 
 		return data
@@ -50,7 +52,7 @@ export const fetchUpdateReview = createAsyncThunk<IReview, paramsType>(
 	async ({ reviewId, updatedFields }, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.patch(
-				`http://localhost:5000/review/update/${reviewId}`,
+				`${BASE_BACKEND_URL}/review/update/${reviewId}`,
 				updatedFields,
 				{
 					headers: {

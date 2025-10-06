@@ -20,7 +20,10 @@ function App() {
 	const location = useLocation()
 
 	useEffect(() => {
-		dispatch(fetchAuthMe())
+		const token = localStorage.getItem('token')
+		if (token) {
+			dispatch(fetchAuthMe())
+		}
 	}, [dispatch])
 
 	useEffect(() => {

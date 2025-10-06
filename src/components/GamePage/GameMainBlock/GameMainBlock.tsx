@@ -8,12 +8,14 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 	const [activeBtn, setActiveBtn] = useState(1)
 
 	const addGameToViewedArray = () => {
+		if (!game.id) return
+
 		const jsonArray = localStorage.getItem('viewedGames')
 		if (jsonArray) {
 			const array: number[] = JSON.parse(jsonArray)
 			const item = array.find(item => item === game.id)
 			if (!item) {
-				array.push(game.id)
+				array.unshift(game.id)
 				localStorage.setItem('viewedGames', JSON.stringify(array))
 			}
 		} else {

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import ArrowIcon from '../../../assets/icons/arrow-down.svg'
 import GenresIcon from '../../../assets/icons/database.svg'
-import { stylesCategories } from '../CategoryBlock/Utils'
 import GenresList from './GenresList'
+import { stylesCategories } from './Utils'
 
 const GenresMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 	const [openedGenres, setOpenedGenres] = useState(false)

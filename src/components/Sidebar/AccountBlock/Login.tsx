@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import UserAvatar from '../../../assets/GameImages/Minimita.jpg'
 import AccountMenuIcon from '../../../assets/icons/account-menu.svg'
 import LogoutIcon from '../../../assets/icons/log-out.svg'
 import WriteDevIcon from '../../../assets/icons/message-developer.svg'
@@ -10,6 +9,8 @@ import { logout } from '../../../redux/slices/auth'
 import { useAppDispatch } from '../../../redux/store'
 import { IUser } from '../../../types/types'
 import { stylesLogin } from './Utils'
+
+const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 const Login = ({
 	sidebarStatus,
@@ -63,16 +64,20 @@ const Login = ({
 
 			<div
 				onClick={() => openAccount()}
-				className='flex items-center justify-between cursor-pointer'
+				className={`${
+					sidebarStatus ? 'justify-between' : 'justify-center'
+				} flex items-center  cursor-pointer`}
 			>
-				<div className='flex items-center'>
+				<div className='flex items-center justify-center'>
 					<img
-						className='w-8 rounded-full'
-						src={UserAvatar}
+						className='w-8 h-8 rounded-full'
+						src={BASE_BACKEND_URL + userData.avatarUrl}
 						alt='user-avatar'
 					/>
 					{sidebarStatus && (
-						<span className='ml-2 text-xl'>{userData.nickname}</span>
+						<span className='ml-2 text-xl max-w-[150px] overflow-hidden'>
+							{userData.nickname}
+						</span>
 					)}
 				</div>
 				{sidebarStatus && (
