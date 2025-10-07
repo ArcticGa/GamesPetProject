@@ -1,5 +1,5 @@
-import { IFullGame, IReview } from '../../types/types'
-import Review from '../GamePage/GameReviewsBlock/Review'
+import { IFullGame, IReview } from '../../../types/types'
+import Review from '../../GamePage/GameReviewsBlock/Review'
 import GameBlock from './GameBlock'
 
 const RenderInfoBlock = ({

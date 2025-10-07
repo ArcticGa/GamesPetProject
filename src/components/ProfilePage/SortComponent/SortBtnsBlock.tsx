@@ -1,5 +1,5 @@
 import { SetStateAction } from 'react'
-import { arraySortProfileBtns } from '../../utils/miniArrays'
+import { arraySortProfileBtns } from '../../../utils/miniArrays'
 
 type SortBtnsBlockProps = {
 	activeSortBtn: number

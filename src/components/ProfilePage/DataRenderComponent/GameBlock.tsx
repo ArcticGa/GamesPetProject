@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { IFullGame } from '../../types/types'
+import { IFullGame } from '../../../types/types'
 
 const GameBlock = ({ game }: { game: IFullGame }) => {
 	return (
