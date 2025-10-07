@@ -1,10 +1,28 @@
 import axios from 'axios'
 import { SetStateAction } from 'react'
+import { fetchUpdateUser } from '../redux/slices/auth'
 import { IFullGame, IReview, IUser } from '../types/types'
 
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
+
+export const fetchImage = async (files: FileList, dispatch: any) => {
+	try {
+		const formData = new FormData()
+		const selectedFile = files[0]
+		formData.append('image', selectedFile)
+		const { data } = await axios.post(`${BASE_BACKEND_URL}/uploads`, formData, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+		})
+		dispatch(fetchUpdateUser({ avatarUrl: data }))
+		return
+	} catch (err) {
+		console.warn(err)
+	}
+}
 
 export const fetchReviewsById = (
 	userData: IUser,
