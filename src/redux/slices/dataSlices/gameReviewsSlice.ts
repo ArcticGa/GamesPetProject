@@ -18,6 +18,16 @@ type paramsType = {
 type updatedFieldsType = {
 	isLikePlus?: string
 	isDislikePlus?: string
+	grade?: number
+	isRecommended?: boolean
+	text?: string
+}
+
+type createReviewParams = {
+	gameId: number
+	text: string
+	grade: number
+	isRecommended: boolean
 }
 
 export enum Status {
@@ -54,6 +64,43 @@ export const fetchUpdateReview = createAsyncThunk<IReview, paramsType>(
 			const { data } = await axios.patch(
 				`${BASE_BACKEND_URL}/review/update/${reviewId}`,
 				updatedFields,
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				}
+			)
+
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
+	}
+)
+
+export const fetchCreateReview = createAsyncThunk<IReview, createReviewParams>(
+	'review/create',
+	async (fields, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.post(`${BASE_BACKEND_URL}/review`, fields, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			})
+
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
+	}
+)
+
+export const fetchDeleteReview = createAsyncThunk<IReview, string>(
+	'review/delete',
+	async (reviewId, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.delete(
+				`${BASE_BACKEND_URL}/review/${reviewId}`,
 				{
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -121,6 +168,30 @@ export const gameReviewsSlice = createSlice({
 				}
 			})
 			.addCase(fetchUpdateReview.rejected, (state, action) => {
+				state.status = Status.ERROR
+				state.error = action.payload as string
+			})
+			.addCase(fetchCreateReview.pending, state => {
+				state.status = Status.LOADING
+			})
+			.addCase(fetchCreateReview.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				state.reviews.push(action.payload)
+			})
+			.addCase(fetchCreateReview.rejected, (state, action) => {
+				state.status = Status.ERROR
+				state.error = action.payload as string
+			})
+			.addCase(fetchDeleteReview.pending, state => {
+				state.status = Status.LOADING
+			})
+			.addCase(fetchDeleteReview.fulfilled, (state, action) => {
+				state.status = Status.SUCCESS
+				state.reviews = state.reviews.filter(
+					review => review._id !== action.payload._id
+				)
+			})
+			.addCase(fetchDeleteReview.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.error = action.payload as string
 			})

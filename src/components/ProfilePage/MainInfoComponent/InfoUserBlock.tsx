@@ -28,9 +28,7 @@ const InfoUserBlock = ({ isOwn, userData }: InfoUserProps) => {
 					Информация по обзорам
 				</div>
 				<div className='bg-main-background p-4 rounded-2xl shadow-lg mt-1'>
-					<InfoDiv text={'Созданных обзоров:'}>
-						{userData.ownReviews.length}
-					</InfoDiv>
+					<InfoDiv text={'Созданных обзоров:'}>{userData.ownReviews}</InfoDiv>
 					<InfoDiv text={'Понравившихся обзоров:'}>
 						{userData.likedReviews.length}
 					</InfoDiv>

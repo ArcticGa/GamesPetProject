@@ -19,6 +19,9 @@ type updatedFieldsType = {
 	delDislikedReviewId?: string
 	avatarUrl?: string
 	nickname?: string
+	ownReviewId?: string
+	delOwnReviewId?: string
+	ownReviewsUpdate?: number
 }
 
 export enum Status {

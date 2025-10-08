@@ -1,5 +1,5 @@
 import { IFullGame, IReview } from '../../../types/types'
-import Review from '../../GamePage/GameReviewsBlock/Review'
+import ReviewFull from '../../ReviewsPage/ReviewFull'
 import GameBlock from './GameBlock'
 
 const RenderInfoBlock = ({
@@ -20,7 +20,7 @@ const RenderInfoBlock = ({
 			className={`${
 				arrayType === 'games'
 					? 'flex items-center flex-wrap mx-20 '
-					: 'flex items-center justify-center flex-wrap'
+					: 'flex justify-center flex-wrap'
 			} `}
 		>
 			{!allEqual(array) ? (
@@ -38,9 +38,9 @@ const RenderInfoBlock = ({
 					array.map(
 						review =>
 							review && (
-								<Review
+								<ReviewFull
 									key={(review as IReview)._id}
-									data={review as IReview}
+									review={review as IReview}
 								/>
 							)
 					)
@@ -48,7 +48,10 @@ const RenderInfoBlock = ({
 					arrayType === 'ownReviews' &&
 					array.length !== 0 &&
 					array.map(review => (
-						<Review key={(review as IReview)._id} data={review as IReview} />
+						<ReviewFull
+							key={(review as IReview)._id}
+							review={review as IReview}
+						/>
 					))
 				)
 			) : (

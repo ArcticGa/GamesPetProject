@@ -67,7 +67,7 @@ export interface IUser {
 	email: string
 	avatarUrl: string
 	featuredGames: number[]
-	ownReviews: string[]
+	ownReviews: number
 	likedReviews: string[]
 	dislikedReviews: string[]
 	createdAt: string
