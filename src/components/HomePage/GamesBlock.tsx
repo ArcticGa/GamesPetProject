@@ -21,7 +21,10 @@ const GamesBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 				{type === 'games' &&
 					(array as IGame[]).map(item => (
 						<SwiperSlide key={item.id}>
-							<div className='flex flex-col items-center'>
+							<Link
+								to={`/game/${item.id}`}
+								className='flex flex-col items-center'
+							>
 								<img
 									className='max-w-67 mb-2 rounded-xl'
 									src={item.thumbnail}
@@ -31,7 +34,7 @@ const GamesBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 								<div className='text-center text-lg max-w-[270px] overflow-hidden'>
 									{item.title}
 								</div>
-							</div>
+							</Link>
 						</SwiperSlide>
 					))}
 

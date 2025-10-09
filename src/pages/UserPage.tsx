@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import {
+	fetchFeaturedGamesForOutsider,
+	fetchLikedReviewsForOutsider,
+} from '../api/fetchData'
 import Gif from '../assets/GameImages/notfoundimg.gif'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
@@ -7,6 +11,7 @@ import SortBtnsBlock from '../components/ProfilePage/SortComponent/SortBtnsBlock
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { fetchUserById } from '../redux/slices/dataSlices/userById'
 import { useAppDispatch, useAppSelector } from '../redux/store'
+import { IFullGame, IReview } from '../types/types'
 
 const UserPage = () => {
 	const dispatch = useAppDispatch()
@@ -15,9 +20,9 @@ const UserPage = () => {
 	const { userData } = useAppSelector(state => state.authSlice)
 	const { user, status } = useAppSelector(state => state.getUserByIdSlice)
 	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
-	const { featuredGames } = useAppSelector(state => state.featuredGamesSlice)
-	const { likedReviews } = useAppSelector(state => state.likedReviewsSlice)
 
+	const [likedReviews, setLikedReviews] = useState<IReview[]>([])
+	const [featuredGames, setFeaturedGames] = useState<IFullGame[]>([])
 	const [activeSortBtn, setActiveSortBtn] = useState(0)
 
 	useEffect(() => {
@@ -37,10 +42,10 @@ const UserPage = () => {
 	useEffect(() => {
 		if (user) {
 			dispatch(fetchOwnReviews(user._id))
+			fetchLikedReviewsForOutsider(user, setLikedReviews)
+			fetchFeaturedGamesForOutsider(user, setFeaturedGames)
 		}
 	}, [user, dispatch])
-
-	console.log(user)
 
 	return status === 'loading' ? (
 		<div>Загрузка</div>

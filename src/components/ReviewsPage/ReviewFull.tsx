@@ -54,6 +54,14 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 	})
 
 	const onSubmit: SubmitHandler<UpdateReviewInputs> = async values => {
+		if (
+			isRecommended === review.isRecommended &&
+			Number(values.grade) === review.grade &&
+			values.text === review.text
+		) {
+			return setIsEditing(false)
+		}
+
 		try {
 			const fieldsReview = {
 				reviewId: review._id,
@@ -173,7 +181,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 				</div>
 			)}
 
-			<div className='flex items-center justify-between mx-6'>
+			<div className='flex items-center justify-between ml-3 mr-4'>
 				<div className='text-xs'>
 					<div>Опубликовано</div>
 					<div>{published}</div>

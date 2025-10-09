@@ -1,12 +1,18 @@
 import axios from 'axios'
+import { SetStateAction } from 'react'
 import { fetchUpdateUser } from '../redux/slices/auth'
 import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../redux/slices/llikedReviewsSlice'
-import { IUser } from '../types/types'
+import { IFullGame, IGame, IReview, IUser } from '../types/types'
 
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
+
+type OutsiderFetchProps = {
+	object: IUser
+	setStateAction: React.Dispatch<SetStateAction<IReview[] | IGame[]>>
+}
 
 export const fetchImage = async (files: FileList, dispatch: any) => {
 	try {
@@ -72,4 +78,52 @@ export const fetchFeaturedGamesById = async (
 	Promise.all(allTasks).then(result => {
 		dispatch(setFeaturedGames(result))
 	})
+}
+
+export const fetchLikedReviewsForOutsider = (
+	object: IUser,
+	setStateAction: React.Dispatch<SetStateAction<IReview[]>>
+) => {
+	const task = async (id: string) => {
+		try {
+			const { data } = await axios.get(`${BASE_BACKEND_URL}/review/${id}`)
+
+			return data
+		} catch (err) {
+			console.log('error', err)
+		}
+	}
+
+	const allTasks = object.likedReviews.map((reviewId: string) => {
+		return task(reviewId)
+	})
+
+	Promise.all(allTasks).then(result => setStateAction(result))
+}
+
+export const fetchFeaturedGamesForOutsider = (
+	object: IUser,
+	setStateAction: React.Dispatch<SetStateAction<IFullGame[]>>
+) => {
+	const task = async (id: number) => {
+		try {
+			const response = await axios.get(`${BASE_URL}/game`, {
+				params: { id },
+				headers: {
+					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
+					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
+				},
+			})
+
+			return response.data
+		} catch (err) {
+			console.log('error', err)
+		}
+	}
+
+	const allTasks = object.featuredGames.map((gameId: number) => {
+		return task(gameId)
+	})
+
+	Promise.all(allTasks).then(result => setStateAction(result))
 }
