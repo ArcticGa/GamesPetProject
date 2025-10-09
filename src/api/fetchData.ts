@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { SetStateAction } from 'react'
 import { fetchUpdateUser } from '../redux/slices/auth'
-import { IFullGame, IReview, IUser } from '../types/types'
+import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
+import { setLikedReviews } from '../redux/slices/llikedReviewsSlice'
+import { IUser } from '../types/types'
 
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
@@ -24,10 +25,7 @@ export const fetchImage = async (files: FileList, dispatch: any) => {
 	}
 }
 
-export const fetchReviewsById = (
-	userData: IUser,
-	setLikedReviews: React.Dispatch<SetStateAction<IReview[]>>
-) => {
+export const fetchLikedReviewsById = (userData: IUser, dispatch: any) => {
 	const likedReviews = userData.likedReviews
 
 	const task = async (id: string) => {
@@ -44,15 +42,13 @@ export const fetchReviewsById = (
 		return task(reviewId)
 	})
 
-	Promise.all(allTasks).then(result => setLikedReviews(result))
+	Promise.all(allTasks).then(result => dispatch(setLikedReviews(result)))
 }
 
-export const fetchGamesById = async (
+export const fetchFeaturedGamesById = async (
 	userData: IUser,
-	setFeaturedGames: React.Dispatch<SetStateAction<IFullGame[]>>
+	dispatch: any
 ) => {
-	const featGames = userData.featuredGames
-
 	const task = async (id: number) => {
 		try {
 			const response = await axios.get(`${BASE_URL}/game`, {
@@ -69,11 +65,11 @@ export const fetchGamesById = async (
 		}
 	}
 
-	const allTasks = featGames.map((gameId: number) => {
+	const allTasks = userData.featuredGames.map((gameId: number) => {
 		return task(gameId)
 	})
 
 	Promise.all(allTasks).then(result => {
-		setFeaturedGames(result)
+		dispatch(setFeaturedGames(result))
 	})
 }

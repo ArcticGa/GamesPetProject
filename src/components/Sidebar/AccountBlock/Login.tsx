@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AccountMenuIcon from '../../../assets/icons/account-menu.svg'
 import LogoutIcon from '../../../assets/icons/log-out.svg'
 import WriteDevIcon from '../../../assets/icons/message-developer.svg'
@@ -22,6 +22,7 @@ const Login = ({
 	const dispatch = useAppDispatch()
 
 	const [openBtns, setOpenBtns] = useState(false)
+	const accountBtnsRef = useRef(document.createElement('div'))
 
 	const openAccount = () => {
 		setOpenBtns(!openBtns)
@@ -32,10 +33,28 @@ const Login = ({
 		localStorage.removeItem('token')
 	}
 
+	useEffect(() => {
+		function handleClickOutside(event: any) {
+			if (
+				accountBtnsRef.current &&
+				!accountBtnsRef.current.contains(event.target)
+			) {
+				setOpenBtns(false)
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [])
+
 	return (
 		<div className={stylesLogin(sidebarStatus)}>
 			{openBtns && sidebarStatus && (
-				<div className='mb-8 p-3 rounded-xl bg-main-blocks w-60 absolute -bottom-9 left-70'>
+				<div
+					ref={accountBtnsRef}
+					className='mb-8 p-3 rounded-xl bg-main-blocks w-60 absolute -bottom-9 left-70'
+				>
 					<div className='flex p-3 mb-2.5 rounded-xl bg-main-background items-center cursor-pointer'>
 						{sidebarStatus && (
 							<div className='leading-4'>Написать разработчику</div>

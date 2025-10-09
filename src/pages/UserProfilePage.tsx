@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react'
-import { fetchGamesById, fetchReviewsById } from '../api/fetchData'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
 import NotAuth from '../components/ProfilePage/NotAuth'
 import SortBtnsBlock from '../components/ProfilePage/SortComponent/SortBtnsBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import { IFullGame, IReview } from '../types/types'
 
 const UserProfilePage = () => {
 	const dispatch = useAppDispatch()
 	const { userData } = useAppSelector(state => state.authSlice)
 	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
+	const { featuredGames } = useAppSelector(state => state.featuredGamesSlice)
+	const { likedReviews } = useAppSelector(state => state.likedReviewsSlice)
 
 	const [activeSortBtn, setActiveSortBtn] = useState(0)
-	const [featuredGames, setFeaturedGames] = useState<IFullGame[]>([])
-	const [likedReviews, setLikedReviews] = useState<IReview[]>([])
 
 	useEffect(() => {
 		if (userData) {
 			dispatch(fetchOwnReviews(userData._id))
-			fetchGamesById(userData, setFeaturedGames)
-			fetchReviewsById(userData, setLikedReviews)
 		}
 	}, [userData, dispatch])
 

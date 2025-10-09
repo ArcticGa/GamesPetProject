@@ -36,7 +36,7 @@ const Logo = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 				</>
 			)}
 
-			{openInfo && <InfoBlock />}
+			{openInfo && <InfoBlock setOpenInfo={setOpenInfo} />}
 		</div>
 	)
 }

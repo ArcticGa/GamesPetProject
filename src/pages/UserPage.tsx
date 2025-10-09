@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { fetchGamesById, fetchReviewsById } from '../api/fetchData'
+import Gif from '../assets/GameImages/notfoundimg.gif'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
 import SortBtnsBlock from '../components/ProfilePage/SortComponent/SortBtnsBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { fetchUserById } from '../redux/slices/dataSlices/userById'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import { IFullGame, IReview } from '../types/types'
 
 const UserPage = () => {
 	const dispatch = useAppDispatch()
@@ -16,10 +15,10 @@ const UserPage = () => {
 	const { userData } = useAppSelector(state => state.authSlice)
 	const { user, status } = useAppSelector(state => state.getUserByIdSlice)
 	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
+	const { featuredGames } = useAppSelector(state => state.featuredGamesSlice)
+	const { likedReviews } = useAppSelector(state => state.likedReviewsSlice)
 
 	const [activeSortBtn, setActiveSortBtn] = useState(0)
-	const [featuredGames, setFeaturedGames] = useState<IFullGame[]>([])
-	const [likedReviews, setLikedReviews] = useState<IReview[]>([])
 
 	useEffect(() => {
 		if (userData) {
@@ -38,15 +37,18 @@ const UserPage = () => {
 	useEffect(() => {
 		if (user) {
 			dispatch(fetchOwnReviews(user._id))
-			fetchGamesById(user, setFeaturedGames)
-			fetchReviewsById(user, setLikedReviews)
 		}
 	}, [user, dispatch])
 
+	console.log(user)
+
 	return status === 'loading' ? (
 		<div>Загрузка</div>
-	) : status === 'error' ? (
-		<div>Ошибка</div>
+	) : status === 'error' || user === null ? (
+		<div className='flex flex-col items-center justify-center h-[920px]'>
+			<div className='text-2xl font-bold'>Пользователь не найден</div>
+			<img src={Gif} alt='gif' />
+		</div>
 	) : (
 		status === 'success' &&
 		user && (

@@ -1,8 +1,5 @@
-import ClockIcon from '../assets/icons/clock.svg'
 import CrownIcon from '../assets/icons/crown-icon.svg'
-import CrownWhiteIcon from '../assets/icons/crown-white.svg'
 import GamepadIcon from '../assets/icons/gamepad.svg'
-import GitlabIcon from '../assets/icons/gitlab.svg'
 import HomeIcon from '../assets/icons/home.svg'
 
 export const arraySortProfileBtns = [
@@ -28,12 +25,6 @@ export const linksArray = [
 		path: 'gamesoftheyear',
 		bgImage: CrownIcon,
 	},
-]
-
-export const categoriesArray = [
-	{ _id: 1, name: 'Лучшее', image: CrownWhiteIcon },
-	{ _id: 2, name: 'Новинки', image: GitlabIcon },
-	{ _id: 3, name: 'Скоро выйдут', image: ClockIcon },
 ]
 
 export const arrayGenres = [

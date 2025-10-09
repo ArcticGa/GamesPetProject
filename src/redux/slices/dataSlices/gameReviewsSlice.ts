@@ -16,8 +16,8 @@ type paramsType = {
 }
 
 type updatedFieldsType = {
-	isLikePlus?: string
-	isDislikePlus?: string
+	isLikePlus?: number
+	isDislikePlus?: number
 	grade?: number
 	isRecommended?: boolean
 	text?: string

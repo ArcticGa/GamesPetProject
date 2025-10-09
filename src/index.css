@@ -59,3 +59,21 @@ aside {
 	background: no-repeat url('/src/assets/GameImages/BackgroundMain.png');
 	background-size: cover;
 }
+
+/* Swiper Css */
+.swiper {
+	margin-bottom: 44px;
+	padding-bottom: 40px;
+}
+
+.swiper-scrollbar {
+	display: none;
+}
+
+.swiper-pagination-bullet {
+	border: 1px solid var(--color-links-and-borders);
+}
+
+.swiper-pagination-bullet-active {
+	background-color: var(--color-links-and-borders);
+}

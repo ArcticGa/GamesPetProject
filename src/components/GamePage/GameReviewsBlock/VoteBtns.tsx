@@ -34,7 +34,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 				fetchUpdateReview({
 					reviewId: data._id,
 					updatedFields: {
-						isLikePlus: 'minus',
+						isLikePlus: -1,
 					},
 				})
 			)
@@ -49,7 +49,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 				fetchUpdateReview({
 					reviewId: data._id,
 					updatedFields: {
-						isDislikePlus: 'minus',
+						isDislikePlus: -1,
 					},
 				})
 			)
@@ -61,7 +61,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 			fetchUpdateReview({
 				reviewId: data._id,
 				updatedFields: {
-					isLikePlus: 'plus',
+					isLikePlus: 1,
 				},
 			})
 		)
@@ -75,7 +75,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 				fetchUpdateReview({
 					reviewId: data._id,
 					updatedFields: {
-						isDislikePlus: 'minus',
+						isDislikePlus: -1,
 					},
 				})
 			)
@@ -90,7 +90,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 				fetchUpdateReview({
 					reviewId: data._id,
 					updatedFields: {
-						isLikePlus: 'minus',
+						isLikePlus: -1,
 					},
 				})
 			)
@@ -102,7 +102,7 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 			fetchUpdateReview({
 				reviewId: data._id,
 				updatedFields: {
-					isDislikePlus: 'plus',
+					isDislikePlus: 1,
 				},
 			})
 		)

@@ -1,6 +1,32 @@
-const InfoBlock = () => {
+import { SetStateAction, useEffect, useRef } from 'react'
+
+const InfoBlock = ({
+	setOpenInfo,
+}: {
+	setOpenInfo: React.Dispatch<SetStateAction<boolean>>
+}) => {
+	const infoBlockRef = useRef(document.createElement('div'))
+
+	useEffect(() => {
+		function handleClickOutside(event: any) {
+			if (
+				infoBlockRef.current &&
+				!infoBlockRef.current.contains(event.target)
+			) {
+				setOpenInfo(false)
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [])
+
 	return (
-		<div className='absolute -top-6 left-70 z-10 bg-main-blocks text-xs w-82 p-3 rounded-2xl'>
+		<div
+			ref={infoBlockRef}
+			className='absolute -top-6 left-70 z-10 bg-main-blocks text-xs w-82 p-3 rounded-2xl'
+		>
 			<div>
 				<div className='mb-3 text-xs'>
 					Проект находится на стадии разработки. Список игр и жанров будет
