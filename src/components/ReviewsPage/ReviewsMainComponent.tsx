@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import Gif from '../../assets/GameImages/notfoundimg.gif'
 import { fetchGameReviews } from '../../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortParamsArr } from '../../utils/miniArrays'
@@ -43,21 +44,35 @@ const ReviewsMainComponent = () => {
 						</SortBlock>
 					))}
 				</div>
-				<div
-					className='cursor-pointer bg-links-and-borders py-2 px-6 rounded-xl'
-					onClick={() => setIsAddReview(true)}
-				>
-					Добавить обзор
-				</div>
+				{userData && (
+					<div
+						className='cursor-pointer bg-links-and-borders py-2 px-6 rounded-xl'
+						onClick={() => setIsAddReview(true)}
+					>
+						Добавить обзор
+					</div>
+				)}
 			</div>
 			{isAddReview && userData && (
 				<AddReview userData={userData} setIsAddReview={setIsAddReview} />
 			)}
-			<div className='flex flex-wrap'>
-				{sortedArray.map(review => (
-					<ReviewFull key={review._id} review={review} />
-				))}
-			</div>
+
+			{sortedArray.length !== 0 ? (
+				<div className='flex flex-wrap'>
+					{sortedArray.map(review => (
+						<ReviewFull key={review._id} review={review} />
+					))}
+				</div>
+			) : (
+				<div
+					className={`flex flex-col items-center ${
+						isAddReview ? 'mt-10' : 'mt-50'
+					}`}
+				>
+					<div className=' text-2xl font-bold'>Обзоров пока нет</div>
+					<img src={Gif} alt='gif' />
+				</div>
+			)}
 		</>
 	)
 }

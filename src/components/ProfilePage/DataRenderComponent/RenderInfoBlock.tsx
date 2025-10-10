@@ -5,9 +5,11 @@ import GameBlock from './GameBlock'
 const RenderInfoBlock = ({
 	array,
 	arrayType,
+	isOwn,
 }: {
 	array: IReview[] | IFullGame[]
 	arrayType: 'games' | 'ownReviews' | 'likedReviews'
+	isOwn: boolean
 }) => {
 	const allEqual = (arr: IReview[] | IFullGame[]) => {
 		return arr.every(item => {
@@ -31,6 +33,7 @@ const RenderInfoBlock = ({
 								<GameBlock
 									key={(game as IFullGame).id}
 									game={game as IFullGame}
+									isOwn={isOwn}
 								/>
 							)
 					)

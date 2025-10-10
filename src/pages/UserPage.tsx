@@ -64,15 +64,27 @@ const UserPage = () => {
 					setActiveSortBtn={setActiveSortBtn}
 				/>
 				{activeSortBtn === 0 && (
-					<RenderInfoBlock array={featuredGames} arrayType='games' />
+					<RenderInfoBlock
+						array={featuredGames}
+						arrayType='games'
+						isOwn={false}
+					/>
 				)}
 
 				{activeSortBtn === 1 && (
-					<RenderInfoBlock array={reviews} arrayType='ownReviews' />
+					<RenderInfoBlock
+						array={reviews}
+						arrayType='ownReviews'
+						isOwn={false}
+					/>
 				)}
 
 				{activeSortBtn === 2 && (
-					<RenderInfoBlock array={likedReviews} arrayType='likedReviews' />
+					<RenderInfoBlock
+						array={likedReviews}
+						arrayType='likedReviews'
+						isOwn={false}
+					/>
 				)}
 			</div>
 		)

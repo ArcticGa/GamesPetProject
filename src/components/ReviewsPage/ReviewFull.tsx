@@ -35,6 +35,9 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 
 	const handleDelete = () => {
 		try {
+			const isDelete = confirm('Вы точно хотите удалить обзор?')
+			if (!isDelete) return
+
 			dispatch(fetchDeleteReview(review._id))
 			dispatch(fetchUpdateUser({ ownReviewsUpdate: -1 }))
 		} catch (err) {

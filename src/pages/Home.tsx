@@ -1,17 +1,22 @@
-import { Autoplay, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { useAppSelector } from '../redux/store'
-
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import 'swiper/css/bundle'
+import { Autoplay, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { fetchFeaturedGamesById } from '../api/fetchData'
+import CrownIcon from '../assets/icons/crown-icon.svg'
 import GamesBlock from '../components/HomePage/GamesBlock'
+import GameYear from '../components/HomePage/GameYear'
 import '../index.css'
+import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
-import { arrayGenres } from '../utils/miniArrays'
+import { arrayGenres, awardsList } from '../utils/miniArrays'
 
 const Home = () => {
+	const dispatch = useAppDispatch()
+	const { gamesYear } = useAppSelector(state => state.gameYearSlice)
 	const { games, status } = useAppSelector(state => state.gamesSlice)
+	const { userData } = useAppSelector(state => state.authSlice)
 	const { featuredGames } = useAppSelector(state => state.featuredGamesSlice)
 	const [randomGames, setRandomGames] = useState<IGame[]>([])
 	const [viewedGames, setViewedGames] = useState<IGame[]>([])
@@ -57,6 +62,18 @@ const Home = () => {
 		}
 	}, [games])
 
+	useEffect(() => {
+		if (userData) {
+			fetchFeaturedGamesById(userData, dispatch)
+		}
+	}, [userData])
+
+	useEffect(() => {
+		if (gamesYear.length === 0) {
+			dispatch(fetchGamesYear(2024))
+		}
+	}, [])
+
 	return status === 'loading' ? (
 		<div>Загрузка...</div>
 	) : status === 'error' ? (
@@ -80,7 +97,6 @@ const Home = () => {
 					pagination={{
 						dynamicBullets: true,
 					}}
-					scrollbar={{ draggable: true }}
 				>
 					{randomGames.map(game => (
 						<SwiperSlide key={game.id}>
@@ -97,7 +113,7 @@ const Home = () => {
 
 				{viewedGames.length !== 0 && (
 					<GamesBlock
-						array={viewedGames}
+						array={viewedGames.slice(0, 15)}
 						titleBlock='Вы недавно смотрели'
 						type='games'
 					/>
@@ -111,7 +127,43 @@ const Home = () => {
 					/>
 				)}
 
+				<div className='mb-10'>
+					<div className='flex items-center justify-between mb-4'>
+						<div className='flex items-center text-xl text-[#f7b62a]'>
+							Игры года: 2024
+							<img
+								className='w-10 rotate-25 ml-2'
+								src={CrownIcon}
+								alt='crown-icon'
+							/>
+						</div>
+					</div>
+					<div className='flex justify-between'>
+						{awardsList.slice(0, 3).map(award => (
+							<GameYear key={award.id} award={award} gamesYear={gamesYear} />
+						))}
+					</div>
+				</div>
+
 				<GamesBlock array={arrayGenres} titleBlock='Жанры' type='genres' />
+
+				{!userData && (
+					<div className='flex flex-col items-center justify-center mb-10'>
+						<Link
+							to={'/auth'}
+							className='max-w-[600px] text-center bg-main-blocks py-6 rounded-2xl border-1 border-main-background hover:border-links-and-borders transition-all delay-20'
+						>
+							<div className='mb-4'>
+								Если вы еще не зарегистрированы, советую это сделать. Вы сможете
+								добавлять игры в список Избранных, писать обзоры, а так же
+								читать и оценивать чужие.
+							</div>
+							<span className='text-links-and-borders border-b-1 text-xl '>
+								Зарегистрироваться
+							</span>
+						</Link>
+					</div>
+				)}
 			</div>
 		)
 	)

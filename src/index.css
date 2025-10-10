@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:wght@200..1000&display=swap');
 @import 'tailwindcss';
+@import 'swiper/css/bundle';
 
 @theme {
 	--color-main-background: #131417;
@@ -66,8 +67,12 @@ aside {
 	padding-bottom: 40px;
 }
 
-.swiper-scrollbar {
-	display: none;
+.swiper- .swiper-scrollbar {
+	background-color: var(--color-main-background);
+}
+
+.swiper-scrollbar-drag {
+	background-color: var(--color-links-and-borders);
 }
 
 .swiper-pagination-bullet {

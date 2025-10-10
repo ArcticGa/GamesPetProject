@@ -14,7 +14,11 @@ const GamePage = () => {
 	const { id } = useParams()
 
 	useEffect(() => {
-		if (id !== undefined) {
+		if (id) {
+			if (game && game.id === Number(id)) {
+				return
+			}
+
 			dispatch(fetchGameById(id))
 		}
 	}, [id, dispatch])
@@ -32,7 +36,7 @@ const GamePage = () => {
 				<GameMainBlock game={game} />
 				<div className='mt-12 mx-12'>
 					<GameInfoBlock />
-					<GameReviewsBlock />
+					<GameReviewsBlock game={game} />
 					<GameSimilarsBlock />
 				</div>
 			</div>

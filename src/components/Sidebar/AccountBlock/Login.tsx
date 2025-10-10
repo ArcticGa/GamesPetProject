@@ -29,6 +29,9 @@ const Login = ({
 	}
 
 	const logoutHandler = () => {
+		const isLogout = confirm('Вы точно хотите выйти из аккаунта?')
+		if (!isLogout) return
+
 		dispatch(logout())
 		localStorage.removeItem('token')
 	}

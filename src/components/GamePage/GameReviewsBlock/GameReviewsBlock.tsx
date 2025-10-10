@@ -3,17 +3,15 @@ import { useEffect } from 'react'
 import { Link } from 'react-router'
 import { fetchGameReviews } from '../../../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
+import { IFullGame } from '../../../types/types'
 import ReviewFull from '../../ReviewsPage/ReviewFull'
 
-const GameReviewsBlock = () => {
+const GameReviewsBlock = ({ game }: { game: IFullGame }) => {
 	const dispatch = useAppDispatch()
-	const { game } = useAppSelector(state => state.gameByIdSlice)
 	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
 
 	useEffect(() => {
-		if (game) {
-			dispatch(fetchGameReviews(game.id))
-		}
+		dispatch(fetchGameReviews(game.id))
 	}, [game, dispatch])
 
 	return (

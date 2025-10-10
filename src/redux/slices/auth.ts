@@ -22,6 +22,8 @@ type updatedFieldsType = {
 	ownReviewId?: string
 	delOwnReviewId?: string
 	ownReviewsUpdate?: number
+	addGameId?: number
+	removeGameId?: number
 }
 
 export enum Status {

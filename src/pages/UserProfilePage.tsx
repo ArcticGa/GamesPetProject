@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { fetchFeaturedGamesById, fetchLikedReviewsById } from '../api/fetchData'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
 import NotAuth from '../components/ProfilePage/NotAuth'
@@ -18,6 +19,8 @@ const UserProfilePage = () => {
 	useEffect(() => {
 		if (userData) {
 			dispatch(fetchOwnReviews(userData._id))
+			fetchFeaturedGamesById(userData, dispatch)
+			fetchLikedReviewsById(userData, dispatch)
 		}
 	}, [userData, dispatch])
 
@@ -29,15 +32,19 @@ const UserProfilePage = () => {
 				setActiveSortBtn={setActiveSortBtn}
 			/>
 			{activeSortBtn === 0 && (
-				<RenderInfoBlock array={featuredGames} arrayType='games' />
+				<RenderInfoBlock array={featuredGames} arrayType='games' isOwn={true} />
 			)}
 
 			{activeSortBtn === 1 && (
-				<RenderInfoBlock array={reviews} arrayType='ownReviews' />
+				<RenderInfoBlock array={reviews} arrayType='ownReviews' isOwn={true} />
 			)}
 
 			{activeSortBtn === 2 && (
-				<RenderInfoBlock array={likedReviews} arrayType='likedReviews' />
+				<RenderInfoBlock
+					array={likedReviews}
+					arrayType='likedReviews'
+					isOwn={true}
+				/>
 			)}
 		</div>
 	) : (

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
-import { fetchFeaturedGamesById, fetchLikedReviewsById } from './api/fetchData'
 import MainLayout from './layouts/MainLayout'
 import AuthPage from './pages/AuthPage'
 import ForDeveloper from './pages/ForDeveloper'
@@ -28,13 +27,6 @@ function App() {
 			dispatch(fetchAuthMe())
 		}
 	}, [dispatch])
-
-	useEffect(() => {
-		if (userData) {
-			fetchLikedReviewsById(userData, dispatch)
-			fetchFeaturedGamesById(userData, dispatch)
-		}
-	}, [userData, dispatch])
 
 	useEffect(() => {
 		dispatch(setActiveLink(location.pathname))

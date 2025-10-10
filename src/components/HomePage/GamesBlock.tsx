@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { IGame } from '../../types/types'
 
@@ -13,7 +14,8 @@ const GamesBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 		<div className='mb-10'>
 			<div className='mb-4 text-xl'>{titleBlock}</div>
 			<Swiper
-				className='!p-0 !m-0'
+				modules={[Scrollbar]}
+				className='!pb-4 !m-0'
 				slidesPerView={5}
 				grabCursor
 				scrollbar={{ draggable: true }}
@@ -43,7 +45,7 @@ const GamesBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 						<SwiperSlide key={index}>
 							<Link
 								to={`/sorted/${item}`}
-								className='h-[150px] bg-main-blocks mr-2 flex items-center justify-center text-xl font-bold rounded-xl'
+								className='h-[150px] w-[267px] bg-main-blocks flex items-center justify-center text-xl font-bold rounded-xl border-1 border-main-background hover:border-links-and-borders'
 							>
 								{item}
 							</Link>

@@ -8,12 +8,13 @@ import { awardsList } from '../utils/miniArrays'
 import AniGif from '../assets/GameImages/notfoundimg.gif'
 
 const GamesOfYear = () => {
-	const [year, setYear] = useState(2025)
+	const [year, setYear] = useState(2024)
 
 	const dispatch = useAppDispatch()
 	const { gamesYear, status } = useAppSelector(state => state.gameYearSlice)
 
 	useEffect(() => {
+		if (gamesYear.length !== 0) return
 		dispatch(fetchGamesYear(year))
 	}, [year, dispatch])
 

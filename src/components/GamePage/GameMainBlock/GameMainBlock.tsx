@@ -62,7 +62,8 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 			</div>
 
 			{activeBtn === 2 && <Description description={game?.description} />}
-			<Options activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
+
+			<Options game={game} activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
 		</div>
 	)
 }
