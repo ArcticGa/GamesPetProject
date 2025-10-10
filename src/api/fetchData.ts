@@ -2,16 +2,33 @@ import axios from 'axios'
 import { SetStateAction } from 'react'
 import { fetchUpdateUser } from '../redux/slices/auth'
 import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
-import { setLikedReviews } from '../redux/slices/llikedReviewsSlice'
-import { IFullGame, IGame, IReview, IUser } from '../types/types'
+import { setLikedReviews } from '../redux/slices/likedReviewsSlice'
+import { IFullGame, IReview, IUser } from '../types/types'
+
+type DevMsgFields = {
+	text: string
+}
 
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
-type OutsiderFetchProps = {
-	object: IUser
-	setStateAction: React.Dispatch<SetStateAction<IReview[] | IGame[]>>
+export const fetchPostDevMsg = async (fields: DevMsgFields) => {
+	try {
+		const { data } = await axios.post(
+			`${BASE_BACKEND_URL}/for-developer`,
+			fields,
+			{
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			}
+		)
+
+		return data
+	} catch (error) {
+		console.warn(error)
+	}
 }
 
 export const fetchImage = async (files: FileList, dispatch: any) => {

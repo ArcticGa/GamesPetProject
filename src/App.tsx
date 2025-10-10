@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router'
 import { fetchFeaturedGamesById, fetchLikedReviewsById } from './api/fetchData'
 import MainLayout from './layouts/MainLayout'
 import AuthPage from './pages/AuthPage'
+import ForDeveloper from './pages/ForDeveloper'
 import GamePage from './pages/GamePage'
 import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
@@ -51,6 +52,7 @@ function App() {
 				<Route path='auth' element={<AuthPage />} />
 				<Route path='profile' element={<UserProfilePage />} />
 				<Route path='user/:userId' element={<UserPage />} />
+				<Route path='for-developer' element={<ForDeveloper />} />
 				<Route path='*' element={<NotFound />} />
 			</Route>
 		</Routes>

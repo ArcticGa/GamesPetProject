@@ -57,7 +57,9 @@ const Login = ({
 				>
 					<div className='flex p-3 mb-2.5 rounded-xl bg-main-background items-center cursor-pointer'>
 						{sidebarStatus && (
-							<div className='leading-4'>Написать разработчику</div>
+							<Link to={'/for-developer'} className='leading-4'>
+								Написать разработчику
+							</Link>
 						)}
 						<img className='w-6' src={WriteDevIcon} alt='text-icon' />
 					</div>
