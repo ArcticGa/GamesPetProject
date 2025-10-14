@@ -7,6 +7,7 @@ import CrownIcon from '../assets/icons/crown-icon.svg'
 import GamesBlock from '../components/HomePage/GamesBlock'
 import GameYear from '../components/HomePage/GameYear'
 import '../index.css'
+import { fetchGamesByCategory } from '../redux/slices/dataSlices/gamesByCategory'
 import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
@@ -19,7 +20,11 @@ const Home = () => {
 	const { userData } = useAppSelector(state => state.authSlice)
 	const { featuredGames } = useAppSelector(state => state.featuredGamesSlice)
 	const [randomGames, setRandomGames] = useState<IGame[]>([])
+	const [randomGamesByGenre, setRandomGamesByGenre] = useState<IGame[]>([])
 	const [viewedGames, setViewedGames] = useState<IGame[]>([])
+	const { gamesByCategory } = useAppSelector(
+		state => state.gamesByCategorySlice
+	)
 
 	const getRandomGames = () => {
 		const newArr: IGame[] = []
@@ -55,6 +60,34 @@ const Home = () => {
 		setViewedGames(newArr)
 	}
 
+	const getRandomGenre = () => {
+		const lastGenre = localStorage.getItem('lastGenre')
+		if (lastGenre) {
+			return lastGenre
+		} else {
+			const randomGenreIndex = Math.floor(Math.random() * arrayGenres.length)
+			return arrayGenres[randomGenreIndex]
+		}
+	}
+
+	const getRandomGamesByGenre = (array: IGame[]) => {
+		const newArr: IGame[] = []
+		for (let i = 0; i < 12; i++) {
+			const randomNumber = Math.floor(Math.random() * array.length)
+
+			if (array[randomNumber]) {
+				const index = newArr.findIndex(
+					item => item.id === array[randomNumber].id
+				)
+				if (index === -1) {
+					newArr.push(array[randomNumber])
+				}
+			}
+		}
+
+		return newArr
+	}
+
 	useEffect(() => {
 		if (games) {
 			getRandomGames()
@@ -72,7 +105,15 @@ const Home = () => {
 		if (gamesYear.length === 0) {
 			dispatch(fetchGamesYear(2024))
 		}
+
+		const randomGenre = getRandomGenre()
+		dispatch(fetchGamesByCategory(randomGenre))
 	}, [])
+
+	useEffect(() => {
+		const array = getRandomGamesByGenre(gamesByCategory)
+		setRandomGamesByGenre(array)
+	}, [gamesByCategory])
 
 	return status === 'loading' ? (
 		<div>Загрузка...</div>
@@ -127,6 +168,14 @@ const Home = () => {
 					/>
 				)}
 
+				{randomGamesByGenre.length !== 0 && (
+					<GamesBlock
+						array={randomGamesByGenre}
+						titleBlock='Рекомендации'
+						type='games'
+					/>
+				)}
+
 				<div className='mb-10'>
 					<div className='flex items-center justify-between mb-4'>
 						<div className='flex items-center text-xl text-[#f7b62a]'>
@@ -156,7 +205,8 @@ const Home = () => {
 							<div className='mb-4'>
 								Если вы еще не зарегистрированы, советую это сделать. Вы сможете
 								добавлять игры в список Избранных, писать обзоры, а так же
-								читать и оценивать чужие.
+								читать и оценивать чужие. Или написать лично разработчику о
+								ваших пожеланиях (хороших или плохих)
 							</div>
 							<span className='text-links-and-borders border-b-1 text-xl '>
 								Зарегистрироваться

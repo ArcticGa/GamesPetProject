@@ -6,6 +6,8 @@ import UserIcon from '../../../assets/icons/user.svg'
 
 import { Link } from 'react-router'
 import { logout } from '../../../redux/slices/auth'
+import { setFeaturedGames } from '../../../redux/slices/featuredGamesSlice'
+import { setLikedReviews } from '../../../redux/slices/likedReviewsSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { IUser } from '../../../types/types'
 import { stylesLogin } from './Utils'
@@ -33,6 +35,8 @@ const Login = ({
 		if (!isLogout) return
 
 		dispatch(logout())
+		dispatch(setFeaturedGames([]))
+		dispatch(setLikedReviews([]))
 		localStorage.removeItem('token')
 	}
 

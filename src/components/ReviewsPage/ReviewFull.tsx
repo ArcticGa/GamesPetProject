@@ -185,8 +185,8 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 			)}
 
 			<div className='flex items-center justify-between ml-3 mr-4'>
-				<div className='text-xs'>
-					<div>Опубликовано</div>
+				<div className='text-xs text-gray-400'>
+					<div>Опубликовано:</div>
 					<div>{published}</div>
 				</div>
 				{userData ? (

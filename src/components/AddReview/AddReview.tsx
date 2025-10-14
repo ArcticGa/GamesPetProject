@@ -141,8 +141,8 @@ const AddReview = ({
 					<textarea
 						{...register('text', {
 							minLength: {
-								value: 100,
-								message: 'Минимальное количество символов: 100',
+								value: 50,
+								message: 'Минимальное количество символов: 50',
 							},
 							maxLength: {
 								value: 1500,

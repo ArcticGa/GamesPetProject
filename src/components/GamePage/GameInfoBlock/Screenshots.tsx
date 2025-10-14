@@ -5,15 +5,19 @@ const Screenshots = () => {
 	const { game } = useAppSelector(state => state.gameByIdSlice)
 	const [activeImg, setActiveImg] = useState(0)
 
-	return (
+	return game ? (
 		<div>
 			<div className='text-xl font-bold mb-3'>Скриншоты из игры</div>
 			<div className='mb-4 max-w-170'>
-				<img
-					className='rounded-lg'
-					src={game?.screenshots[activeImg].image}
-					alt='image-game'
-				/>
+				{game.screenshots.length !== 0 ? (
+					<img
+						className='rounded-lg'
+						src={game.screenshots[activeImg].image}
+						alt='image-game'
+					/>
+				) : (
+					<div>Скриншотов нет</div>
+				)}
 			</div>
 			<div className='flex items-center justify-evenly'>
 				{game?.screenshots?.map((screen, index) => (
@@ -29,6 +33,8 @@ const Screenshots = () => {
 				))}
 			</div>
 		</div>
+	) : (
+		<div>Ошибка</div>
 	)
 }
 

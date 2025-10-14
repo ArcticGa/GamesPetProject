@@ -11,7 +11,7 @@ const GameBlock = ({ game, isOwn }: { game: IFullGame; isOwn: boolean }) => {
 	}
 
 	return (
-		<div className='relative'>
+		<div className='relative mb-4'>
 			{isOwn && (
 				<div
 					onClick={handleDelete}
@@ -22,7 +22,7 @@ const GameBlock = ({ game, isOwn }: { game: IFullGame; isOwn: boolean }) => {
 			)}
 			<Link key={game.id} to={`/game/${game.id}`} className='mb-3 relative'>
 				<img
-					className='rounded-2xl w-79 mx-3'
+					className='rounded-2xl w-78 mx-3'
 					src={game.thumbnail}
 					alt='game-icon'
 				/>

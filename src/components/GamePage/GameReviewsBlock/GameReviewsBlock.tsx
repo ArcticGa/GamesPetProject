@@ -25,9 +25,9 @@ const GameReviewsBlock = ({ game }: { game: IFullGame }) => {
 					Все обзоры...
 				</Link>
 			</div>
-			<div className='flex justify-around'>
+			<div className={`flex ${reviews.length === 0 && 'justify-center'}`}>
 				{reviews.length === 0 ? (
-					<div className='text-xl mt-14 italic text-center'>
+					<div className='text-xl mt-14 italic text-center '>
 						<div>Обзоров пока нет. Будьте первыми </div>
 						<div>( Все обзоры... → Добавить обзор )</div>
 					</div>

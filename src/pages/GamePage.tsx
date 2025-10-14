@@ -14,6 +14,12 @@ const GamePage = () => {
 	const { id } = useParams()
 
 	useEffect(() => {
+		if (game) {
+			localStorage.setItem('lastGenre', game.genre)
+		}
+	}, [game])
+
+	useEffect(() => {
 		if (id) {
 			if (game && game.id === Number(id)) {
 				return
@@ -21,7 +27,7 @@ const GamePage = () => {
 
 			dispatch(fetchGameById(id))
 		}
-	}, [id, dispatch])
+	}, [id])
 
 	return status === 'loading' ? (
 		<div>Загрузка...</div>

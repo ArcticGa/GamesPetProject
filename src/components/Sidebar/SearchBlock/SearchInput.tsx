@@ -22,7 +22,7 @@ const SearchInput: FC<ISearchInputProps> = ({
 					className='ml-2 border-0 outline-0'
 					autoComplete='off'
 					type='text'
-					placeholder='Поиск'
+					placeholder='Поиск игр'
 				/>
 			)}
 
