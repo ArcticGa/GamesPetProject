@@ -5,8 +5,8 @@ import { fetchGameReviews } from '../../redux/slices/dataSlices/gameReviewsSlice
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortParamsArr } from '../../utils/miniArrays'
 import AddReview from '../AddReview/AddReview'
+import SortButton from '../MicroComponents/SortButton'
 import ReviewFull from './ReviewFull'
-import SortBlock from './SortBlock'
 import { sortReviewsArray } from './Utils'
 
 const ReviewsMainComponent = () => {
@@ -34,14 +34,14 @@ const ReviewsMainComponent = () => {
 			<div className='flex items-center justify-between mb-8'>
 				<div className='flex'>
 					{sortParamsArr.map((param, index) => (
-						<SortBlock
+						<SortButton
 							key={index}
 							setActiveSortItem={setActiveSortItem}
 							activeSortItem={activeSortItem}
 							number={index}
 						>
 							{param}
-						</SortBlock>
+						</SortButton>
 					))}
 				</div>
 				{userData && (

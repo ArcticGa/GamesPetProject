@@ -9,7 +9,7 @@ import SearchGamesComponent from './SearchGamesComponent'
 import SearchInput from './SearchInput'
 import { filterFunc } from './Utils'
 
-const SearchMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
+const SearchMain = () => {
 	const [value, setValue] = useState('')
 	const [filteredArray, setFilteredArray] = useState<IGame[]>([])
 	const dispatch = useAppDispatch()
@@ -19,28 +19,20 @@ const SearchMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 
 	useEffect(() => {
 		dispatch(fetchGames())
-	}, [dispatch])
+	}, [])
 
 	useEffect(() => {
 		if (games.length === 0) return
 
-		if (!sidebarStatus) {
-			return setValue('')
-		}
-
 		dispatch(setSearchBlock(debounced.length > 0))
 		setFilteredArray(filterFunc(debounced, games))
-	}, [games, debounced, sidebarStatus, dispatch])
+	}, [games, debounced])
 
 	return (
 		<div className='relative'>
 			<div className='flex items-center p-2.5 border-b border-b-white mb-9'>
 				<img src={SearchIcon} alt='search-icon' />
-				<SearchInput
-					value={value}
-					setValue={setValue}
-					sidebarStatus={sidebarStatus}
-				/>
+				<SearchInput value={value} setValue={setValue} />
 			</div>
 
 			{activeSearch && (

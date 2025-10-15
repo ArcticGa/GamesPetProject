@@ -16,9 +16,8 @@ const Recommendations = () => {
 	const getRandomGenre = () => {
 		const lastGenre = localStorage.getItem('lastGenre')
 		if (lastGenre) {
-			if (lastGenre === 'Card Game') {
-				return 'card'
-			}
+			if (lastGenre === 'Card Game') return 'card'
+
 			return lastGenre
 		} else {
 			const randomGenreIndex = Math.floor(Math.random() * arrayGenres.length)

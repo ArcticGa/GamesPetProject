@@ -34,10 +34,10 @@ const GenresList = ({ openedGenres }: { openedGenres: boolean }) => {
 				<div className='max-h-37 pr-2 flex flex-col overflow-x-auto whitespace-nowrap scrollbar'>
 					{filteredGenresArray.map((genre, index) => (
 						<Link
-							to={`/sorted/${genre}`}
+							to={`/games-by-genre/${genre}`}
 							key={index}
 							className={`cursor-pointer mb-1.5 py-1  text-center rounded-md ${
-								activeLink === `/sorted/${genre}`
+								activeLink === `/games-by-genre/${genre}`
 									? 'bg-links-and-borders'
 									: 'bg-main-blocks'
 							} `}

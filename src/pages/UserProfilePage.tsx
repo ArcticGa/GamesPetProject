@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { fetchFeaturedGamesById, fetchLikedReviewsById } from '../api/fetchData'
+import SortButton from '../components/MicroComponents/SortButton'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
 import NotAuth from '../components/ProfilePage/NotAuth'
-import SortBtnsBlock from '../components/ProfilePage/SortComponent/SortBtnsBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
+import { arraySortProfileBtns } from '../utils/miniArrays'
 
 const UserProfilePage = () => {
 	const dispatch = useAppDispatch()
@@ -27,10 +28,19 @@ const UserProfilePage = () => {
 	return userData ? (
 		<div className='px-4'>
 			<MainProfileBlock userData={userData} isOwn={true} />
-			<SortBtnsBlock
-				activeSortBtn={activeSortBtn}
-				setActiveSortBtn={setActiveSortBtn}
-			/>
+			<div className='flex items-center justify-center mb-8'>
+				{arraySortProfileBtns.map((button, index) => (
+					<SortButton
+						key={index}
+						activeSortItem={activeSortBtn}
+						setActiveSortItem={setActiveSortBtn}
+						number={index}
+					>
+						{button}
+					</SortButton>
+				))}
+			</div>
+
 			{activeSortBtn === 0 && (
 				<RenderInfoBlock array={featuredGames} arrayType='games' isOwn={true} />
 			)}

@@ -5,13 +5,14 @@ import {
 	fetchLikedReviewsForOutsider,
 } from '../api/fetchData'
 import Gif from '../assets/GameImages/notfoundimg.gif'
+import SortButton from '../components/MicroComponents/SortButton'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
-import SortBtnsBlock from '../components/ProfilePage/SortComponent/SortBtnsBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { fetchUserById } from '../redux/slices/dataSlices/userById'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IFullGame, IReview } from '../types/types'
+import { arraySortProfileBtns } from '../utils/miniArrays'
 
 const UserPage = () => {
 	const dispatch = useAppDispatch()
@@ -59,10 +60,18 @@ const UserPage = () => {
 		user && (
 			<div className='px-4'>
 				<MainProfileBlock userData={user} isOwn={false} />
-				<SortBtnsBlock
-					activeSortBtn={activeSortBtn}
-					setActiveSortBtn={setActiveSortBtn}
-				/>
+				<div className='flex items-center justify-center mb-8'>
+					{arraySortProfileBtns.map((button, index) => (
+						<SortButton
+							key={index}
+							activeSortItem={activeSortBtn}
+							setActiveSortItem={setActiveSortBtn}
+							number={index}
+						>
+							{button}
+						</SortButton>
+					))}
+				</div>
 				{activeSortBtn === 0 && (
 					<RenderInfoBlock
 						array={featuredGames}

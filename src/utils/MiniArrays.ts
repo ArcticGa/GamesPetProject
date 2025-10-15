@@ -1,5 +1,6 @@
 import CrownIcon from '../assets/icons/crown-icon.svg'
 import GamepadIcon from '../assets/icons/gamepad.svg'
+import GridIcon from '../assets/icons/grid.svg'
 import HomeIcon from '../assets/icons/home.svg'
 
 export const arraySortProfileBtns = [
@@ -8,18 +9,50 @@ export const arraySortProfileBtns = [
 	'Понравившиеся обзоры',
 ]
 
+export const sortBtns = [
+	{
+		_id: 1,
+		title: 'По дате релиза',
+		param: 'release-date',
+	},
+	{
+		_id: 2,
+		title: 'По популярности',
+		param: 'popularity',
+	},
+	{
+		_id: 3,
+		title: 'По алфавиту',
+		param: 'alphabetical',
+	},
+	{
+		_id: 4,
+		title: 'По актуальности',
+		param: 'relevance',
+	},
+]
+
 export const linksArray = [
 	{
+		_id: 1,
 		icon: HomeIcon,
 		name: 'Главная',
 		path: '',
 	},
 	{
+		_id: 2,
 		icon: GamepadIcon,
 		name: 'Рекомендации',
 		path: 'recommendations',
 	},
 	{
+		_id: 3,
+		icon: GridIcon,
+		name: 'Сортировка',
+		path: 'sorting',
+	},
+	{
+		_id: 4,
 		icon: CrownIcon,
 		name: 'Игры года',
 		path: 'gamesoftheyear',

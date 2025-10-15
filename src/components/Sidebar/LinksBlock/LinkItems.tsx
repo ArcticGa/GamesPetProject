@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import { linksArray } from '../../../utils/miniArrays'
 import { changePage, stylesBlockHandler } from './Utils'
 
-const LinkItems = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
+const LinkItems = () => {
 	const dispatch = useAppDispatch()
 	const { activeLink } = useAppSelector(state => state.linksSlice)
 
@@ -13,10 +13,10 @@ const LinkItems = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
 			key={index}
 			onClick={() => changePage(`/${link.path}`, activeLink, dispatch)}
 			to={`/${link.path}`}
-			className={stylesBlockHandler(activeLink, `/${link.path}`, sidebarStatus)}
+			className={stylesBlockHandler(activeLink, `/${link.path}`)}
 		>
 			<img src={link.icon} alt={link.name} />
-			{sidebarStatus && <span className='ml-2 pt-1'>{link.name}</span>}
+			<span className='ml-2 pt-1'>{link.name}</span>
 
 			{activeLink === `/${link.path}` && (
 				<div>

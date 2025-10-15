@@ -13,27 +13,12 @@ export const changePage = (
 
 const stylesBlock = 'relative overflow-hidden flex mb-3 p-2 rounded-xl'
 
-export const stylesBlockHandler = (
-	activeLink: string,
-	path: string,
-	sidebarStatus: boolean
-) => {
-	if (activeLink !== path)
-		return `${stylesBlock} ${stylesBlockJustify(sidebarStatus)}`
+export const stylesBlockHandler = (activeLink: string, path: string) => {
+	if (activeLink !== path) return `${stylesBlock}`
 	if (activeLink === path && activeLink !== '/gamesoftheyear') {
-		return `${stylesBlock} ${stylesBlockJustify(
-			sidebarStatus
-		)} bg-links-and-borders`
+		return `${stylesBlock} bg-links-and-borders`
 	}
 	if (activeLink === '/gamesoftheyear') {
-		return `${stylesBlock} ${stylesBlockJustify(
-			sidebarStatus
-		)} bg-game-year-button`
+		return `${stylesBlock} bg-game-year-button`
 	}
-}
-
-const stylesBlockJustify = (sidebarStatus: boolean) => {
-	if (sidebarStatus === false) return 'justify-center'
-
-	return ''
 }

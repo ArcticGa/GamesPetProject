@@ -2,14 +2,10 @@ import { useAppSelector } from '../../../redux/store'
 import Login from './Login'
 import NotLogin from './NotLogin'
 
-const AccountMain = ({ sidebarStatus }: { sidebarStatus: boolean }) => {
+const AccountMain = () => {
 	const { userData } = useAppSelector(state => state.authSlice)
 
-	return userData ? (
-		<Login sidebarStatus={sidebarStatus} userData={userData} />
-	) : (
-		<NotLogin sidebarStatus={sidebarStatus} />
-	)
+	return userData ? <Login userData={userData} /> : <NotLogin />
 }
 
 export default AccountMain

@@ -49,6 +49,8 @@ const Home = () => {
 		const jsonArray = localStorage.getItem('viewedGames')
 		if (jsonArray) {
 			const gamesIds: number[] = JSON.parse(jsonArray)
+			if (gamesIds.length === 20) console.log('yes')
+
 			gamesIds.forEach(id => {
 				const game = games.find(game => game.id === id)
 				if (game) {
@@ -63,6 +65,7 @@ const Home = () => {
 	const getRandomGenre = () => {
 		const lastGenre = localStorage.getItem('lastGenre')
 		if (lastGenre) {
+			if (lastGenre === 'Card Game') return 'card'
 			return lastGenre
 		} else {
 			const randomGenreIndex = Math.floor(Math.random() * arrayGenres.length)

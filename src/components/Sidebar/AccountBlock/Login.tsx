@@ -10,17 +10,10 @@ import { setFeaturedGames } from '../../../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../../../redux/slices/likedReviewsSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { IUser } from '../../../types/types'
-import { stylesLogin } from './Utils'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
-const Login = ({
-	sidebarStatus,
-	userData,
-}: {
-	sidebarStatus: boolean
-	userData: IUser
-}) => {
+const Login = ({ userData }: { userData: IUser }) => {
 	const dispatch = useAppDispatch()
 
 	const [openBtns, setOpenBtns] = useState(false)
@@ -56,18 +49,17 @@ const Login = ({
 	}, [])
 
 	return (
-		<div className={stylesLogin(sidebarStatus)}>
-			{openBtns && sidebarStatus && (
+		<div className='bg-main-background rounded-2xl relative p-3.5'>
+			{openBtns && (
 				<div
 					ref={accountBtnsRef}
 					className='mb-8 p-3 rounded-xl bg-main-blocks w-60 absolute -bottom-9 left-70'
 				>
 					<div className='flex p-3 mb-2.5 rounded-xl bg-main-background items-center cursor-pointer'>
-						{sidebarStatus && (
-							<Link to={'/for-developer'} className='leading-4'>
-								Написать разработчику
-							</Link>
-						)}
+						<Link to={'/for-developer'} className='leading-4'>
+							Написать разработчику
+						</Link>
+
 						<img className='w-6' src={WriteDevIcon} alt='text-icon' />
 					</div>
 
@@ -92,9 +84,7 @@ const Login = ({
 
 			<div
 				onClick={() => openAccount()}
-				className={`${
-					sidebarStatus ? 'justify-between' : 'justify-center'
-				} flex items-center  cursor-pointer`}
+				className='justify-between flex items-center  cursor-pointer'
 			>
 				<div className='flex items-center justify-center'>
 					<img
@@ -102,15 +92,13 @@ const Login = ({
 						src={BASE_BACKEND_URL + userData.avatarUrl}
 						alt='user-avatar'
 					/>
-					{sidebarStatus && (
-						<span className='ml-2 text-xl max-w-[150px] overflow-hidden'>
-							{userData.nickname}
-						</span>
-					)}
+
+					<span className='ml-2 text-xl max-w-[150px] overflow-hidden'>
+						{userData.nickname}
+					</span>
 				</div>
-				{sidebarStatus && (
-					<img className='w-5' src={AccountMenuIcon} alt='logout-icon' />
-				)}
+
+				<img className='w-5' src={AccountMenuIcon} alt='logout-icon' />
 			</div>
 		</div>
 	)

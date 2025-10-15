@@ -9,14 +9,12 @@ import gameYearSlice from './slices/dataSlices/gameYearsSlice'
 import getUserByIdSlice from './slices/dataSlices/userById'
 import featuredGamesSlice from './slices/featuredGamesSlice'
 import likedReviewsSlice from './slices/likedReviewsSlice'
-import hideSidebarSlice from './slices/sidebarSlices/hideSidebarSlice'
 import linksSlice from './slices/sidebarSlices/linksSlice'
 import statusSearchBlockSlice from './slices/sidebarSlices/statusSearchBlockSlice'
 
 export const store = configureStore({
 	reducer: {
 		linksSlice,
-		hideSidebarSlice,
 		statusSearchBlockSlice,
 		gamesSlice,
 		gameByIdSlice,
