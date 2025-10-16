@@ -1,5 +1,4 @@
 import AccountMain from './AccountBlock/AccountMain'
-import GenresMain from './GenresBlock/GenresMain'
 import LinkItems from './LinksBlock/LinkItems'
 import Logo from './LogoBlock/Logo'
 import SearchMain from './SearchBlock/SearchMain'
@@ -13,7 +12,6 @@ const Sidebar = () => {
 
 				<div className='flex-1 items-center'>
 					<LinkItems />
-					<GenresMain />
 				</div>
 
 				<AccountMain />

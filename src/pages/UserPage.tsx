@@ -12,7 +12,7 @@ import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { fetchUserById } from '../redux/slices/dataSlices/userById'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IFullGame, IReview } from '../types/types'
-import { arraySortProfileBtns } from '../utils/miniArrays'
+import { arraySortProfileBtns } from '../utils/miniArraysList'
 
 const UserPage = () => {
 	const dispatch = useAppDispatch()

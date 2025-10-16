@@ -3,7 +3,7 @@ import Award from '../components/YearPage/Award'
 import TitleYear from '../components/YearPage/TitleYear'
 import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import { awardsList } from '../utils/miniArrays'
+import { awardsList } from '../utils/miniArraysList'
 
 import AniGif from '../assets/GameImages/notfoundimg.gif'
 

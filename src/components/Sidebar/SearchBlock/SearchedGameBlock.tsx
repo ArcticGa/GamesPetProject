@@ -4,13 +4,15 @@ import { setSearchBlock } from '../../../redux/slices/sidebarSlices/statusSearch
 import { useAppDispatch } from '../../../redux/store'
 import { IGame } from '../../../types/types'
 
+type SearchGameBlockProps = {
+	filteredArray: IGame[]
+	setValue: React.Dispatch<SetStateAction<string>>
+}
+
 const SearchedGameBlock = ({
 	filteredArray,
 	setValue,
-}: {
-	filteredArray: IGame[]
-	setValue: React.Dispatch<SetStateAction<string>>
-}) => {
+}: SearchGameBlockProps) => {
 	const dispatch = useAppDispatch()
 
 	const openGame = () => {

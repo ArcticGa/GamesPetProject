@@ -7,11 +7,11 @@ import CrownIcon from '../assets/icons/crown-icon.svg'
 import GamesBlock from '../components/HomePage/GamesBlock'
 import GameYear from '../components/HomePage/GameYear'
 import '../index.css'
-import { fetchGamesByCategory } from '../redux/slices/dataSlices/gamesByCategory'
 import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
+import { fetchSortedGames } from '../redux/slices/dataSlices/sortGames'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
-import { arrayGenres, awardsList } from '../utils/miniArrays'
+import { arrayGenres, awardsList } from '../utils/miniArraysList'
 
 const Home = () => {
 	const dispatch = useAppDispatch()
@@ -22,9 +22,7 @@ const Home = () => {
 	const [randomGames, setRandomGames] = useState<IGame[]>([])
 	const [randomGamesByGenre, setRandomGamesByGenre] = useState<IGame[]>([])
 	const [viewedGames, setViewedGames] = useState<IGame[]>([])
-	const { gamesByCategory } = useAppSelector(
-		state => state.gamesByCategorySlice
-	)
+	const { sortedGames } = useAppSelector(state => state.sortGamesSlice)
 
 	const getRandomGames = () => {
 		const newArr: IGame[] = []
@@ -109,14 +107,14 @@ const Home = () => {
 			dispatch(fetchGamesYear(2024))
 		}
 
-		const randomGenre = getRandomGenre()
-		dispatch(fetchGamesByCategory(randomGenre))
+		const randomGenre = getRandomGenre().toLowerCase()
+		dispatch(fetchSortedGames({ category: randomGenre }))
 	}, [])
 
 	useEffect(() => {
-		const array = getRandomGamesByGenre(gamesByCategory)
+		const array = getRandomGamesByGenre(sortedGames)
 		setRandomGamesByGenre(array)
-	}, [gamesByCategory])
+	}, [sortedGames])
 
 	return status === 'loading' ? (
 		<div>Загрузка...</div>

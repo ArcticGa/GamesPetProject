@@ -6,7 +6,7 @@ import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainPr
 import NotAuth from '../components/ProfilePage/NotAuth'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import { arraySortProfileBtns } from '../utils/miniArrays'
+import { arraySortProfileBtns } from '../utils/miniArraysList'
 
 const UserProfilePage = () => {
 	const dispatch = useAppDispatch()

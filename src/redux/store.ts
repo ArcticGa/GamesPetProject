@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import authSlice from './slices/auth'
 import gameByIdSlice from './slices/dataSlices/gameByIdSlice'
 import gameReviewsSlice from './slices/dataSlices/gameReviewsSlice'
-import gamesByCategorySlice from './slices/dataSlices/gamesByCategory'
 import gamesSlice from './slices/dataSlices/gamesSlice'
 import gameYearSlice from './slices/dataSlices/gameYearsSlice'
+import sortGamesSlice from './slices/dataSlices/sortGames'
 import getUserByIdSlice from './slices/dataSlices/userById'
 import featuredGamesSlice from './slices/featuredGamesSlice'
 import likedReviewsSlice from './slices/likedReviewsSlice'
@@ -18,7 +18,7 @@ export const store = configureStore({
 		statusSearchBlockSlice,
 		gamesSlice,
 		gameByIdSlice,
-		gamesByCategorySlice,
+		sortGamesSlice,
 		gameReviewsSlice,
 		gameYearSlice,
 		authSlice,

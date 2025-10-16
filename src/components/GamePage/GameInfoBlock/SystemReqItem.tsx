@@ -1,4 +1,4 @@
-import { systemReqsArrayHelper } from '../../../utils/miniArrays'
+import { systemReqsArrayHelper } from '../../../utils/miniArraysList'
 
 const SystemReqItem = ({ name, info }: { name: string; info: string }) => {
 	const getName = (name: string) => {

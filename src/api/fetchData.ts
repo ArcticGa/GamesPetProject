@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { SetStateAction } from 'react'
 import { fetchUpdateUser } from '../redux/slices/auth'
+
 import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../redux/slices/likedReviewsSlice'
 import { IFullGame, IReview, IUser } from '../types/types'

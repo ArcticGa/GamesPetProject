@@ -9,7 +9,6 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
-import SortedGamesByGenre from './pages/SortedGamesByGenre'
 import SortingGamesPage from './pages/SortingGamesPage'
 import UserPage from './pages/UserPage'
 import UserProfilePage from './pages/UserProfilePage'
@@ -41,10 +40,10 @@ function App() {
 				<Route path='gamesoftheyear' element={<GamesOfYear />} />
 				<Route path='game/:id' element={<GamePage />} />
 				<Route path='game/:id/reviews' element={<Reviews />} />
-				<Route
+				{/* <Route
 					path='games-by-genre/:category'
 					element={<SortedGamesByGenre />}
-				/>
+				/> */}
 				<Route path='auth' element={<AuthPage />} />
 				<Route path='profile' element={<UserProfilePage />} />
 				<Route path='user/:userId' element={<UserPage />} />

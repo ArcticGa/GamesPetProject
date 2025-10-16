@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
-import { linksArray } from '../../../utils/miniArrays'
+import { linksArray } from '../../../utils/miniArraysList'
 import { changePage, stylesBlockHandler } from './Utils'
 
 const LinkItems = () => {

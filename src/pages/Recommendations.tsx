@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import { fetchGamesByCategory } from '../redux/slices/dataSlices/gamesByCategory'
+import { fetchSortedGames } from '../redux/slices/dataSlices/sortGames'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
-import { arrayGenres } from '../utils/miniArrays'
+import { arrayGenres } from '../utils/miniArraysList'
 
 const Recommendations = () => {
 	const [randomGames, setRandomGames] = useState<IGame[]>([])
 
 	const dispatch = useAppDispatch()
-	const { gamesByCategory, status } = useAppSelector(
-		state => state.gamesByCategorySlice
-	)
+	const { sortedGames, status } = useAppSelector(state => state.sortGamesSlice)
 
 	const getRandomGenre = () => {
 		const lastGenre = localStorage.getItem('lastGenre')
@@ -44,14 +42,14 @@ const Recommendations = () => {
 	}
 
 	useEffect(() => {
-		const randomGenre = getRandomGenre()
-		dispatch(fetchGamesByCategory(randomGenre))
+		const randomGenre = getRandomGenre().toLowerCase()
+		dispatch(fetchSortedGames({ category: randomGenre }))
 	}, [])
 
 	useEffect(() => {
-		const array = getRandomGames(gamesByCategory)
+		const array = getRandomGames(sortedGames)
 		setRandomGames(array)
-	}, [gamesByCategory])
+	}, [sortedGames])
 
 	return status === 'loading' ? (
 		<div>Загрузка</div>
