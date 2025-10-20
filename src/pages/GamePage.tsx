@@ -7,6 +7,7 @@ import GameInfoBlock from '../components/GamePage/GameInfoBlock/GameInfoBlock'
 import GameMainBlock from '../components/GamePage/GameMainBlock/GameMainBlock'
 import GameReviewsBlock from '../components/GamePage/GameReviewsBlock/GameReviewsBlock'
 import GameSimilarsBlock from '../components/GamePage/GameSimilarsBlock/GameSimilarsBlock'
+import SkeletonFullGame from '../components/MicroComponents/Skeletons/SkeletonFullGame'
 
 const GamePage = () => {
 	const dispatch = useAppDispatch()
@@ -30,7 +31,7 @@ const GamePage = () => {
 	}, [id])
 
 	return status === 'loading' ? (
-		<div>Загрузка...</div>
+		<SkeletonFullGame />
 	) : status === 'error' ? (
 		<div className='w-full h-[900px] flex items-center justify-center text-2xl italic'>
 			К сожалению игра не найдена

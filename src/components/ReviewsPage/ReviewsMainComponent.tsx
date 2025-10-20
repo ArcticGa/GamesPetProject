@@ -5,13 +5,14 @@ import { fetchGameReviews } from '../../redux/slices/dataSlices/gameReviewsSlice
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortParamsArr } from '../../utils/miniArraysList'
 import AddReview from '../AddReview/AddReview'
+import SkeletonReviews from '../MicroComponents/Skeletons/SkeletonReviews'
 import SortButton from '../MicroComponents/SortButton'
 import ReviewFull from './ReviewFull'
 import { sortReviewsArray } from './Utils'
 
 const ReviewsMainComponent = () => {
 	const dispatch = useAppDispatch()
-	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
+	const { reviews, status } = useAppSelector(state => state.gameReviewsSlice)
 	const { userData } = useAppSelector(state => state.authSlice)
 	const { id } = useParams()
 
@@ -57,7 +58,11 @@ const ReviewsMainComponent = () => {
 				<AddReview userData={userData} setIsAddReview={setIsAddReview} />
 			)}
 
-			{sortedArray.length !== 0 ? (
+			{status === 'loading' ? (
+				<SkeletonReviews />
+			) : status === 'error' ? (
+				<div>Произошла ошибка сервера</div>
+			) : status === 'success' && sortedArray.length !== 0 ? (
 				<div className='flex flex-wrap'>
 					{sortedArray.map(review => (
 						<ReviewFull key={review._id} review={review} />

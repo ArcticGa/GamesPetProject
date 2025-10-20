@@ -5,6 +5,7 @@ import {
 	fetchLikedReviewsForOutsider,
 } from '../api/fetchData'
 import Gif from '../assets/GameImages/notfoundimg.gif'
+import SkeletonProfile from '../components/MicroComponents/Skeletons/SkeletonProfile'
 import SortButton from '../components/MicroComponents/SortButton'
 import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
 import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
@@ -49,7 +50,7 @@ const UserPage = () => {
 	}, [user, dispatch])
 
 	return status === 'loading' ? (
-		<div>Загрузка</div>
+		<SkeletonProfile />
 	) : status === 'error' || user === null ? (
 		<div className='flex flex-col items-center justify-center h-[920px]'>
 			<div className='text-2xl font-bold'>Пользователь не найден</div>

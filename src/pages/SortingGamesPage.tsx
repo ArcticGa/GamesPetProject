@@ -5,6 +5,7 @@ import SortButton from '../components/MicroComponents/SortButton'
 
 import NotFoundGif from '../assets/GameImages/notfoundimg.gif'
 import Pagination from '../components/MicroComponents/Pagination'
+import SkeletonGame from '../components/MicroComponents/Skeletons/SkeletonGame'
 import {
 	fetchFilteredGames,
 	fetchSortedGames,
@@ -15,7 +16,7 @@ import { arrayGenres, sortBtns } from '../utils/miniArraysList'
 
 const SortingGamesPage = () => {
 	const dispatch = useAppDispatch()
-	const { sortedGames } = useAppSelector(state => state.sortGamesSlice)
+	const { sortedGames, status } = useAppSelector(state => state.sortGamesSlice)
 
 	const [currentPage, setCurrentPage] = useState(1)
 	const [activeSortButton, setActiveSortButton] = useState(0)
@@ -78,23 +79,35 @@ const SortingGamesPage = () => {
 					{Array.isArray(sortedGames) ? (
 						<>
 							<div className='grid grid-cols-4 gap-4 flex-1'>
-								{sortedGames.slice(firstGameIndex, lastGameIndex).map(game => (
-									<Link className='' to={`/game/${game.id}`} key={game.id}>
-										<img
-											className='rounded-xl'
-											src={game.thumbnail}
-											alt='game-image'
-										/>
-										<div className='text-center mt-2'>{game.title}</div>
-									</Link>
-								))}
+								{status === 'loading'
+									? [...new Array(12)].map((_, index) => (
+											<SkeletonGame key={index} width={300} height={250} />
+									  ))
+									: sortedGames
+											.slice(firstGameIndex, lastGameIndex)
+											.map(game => (
+												<Link
+													className=''
+													to={`/game/${game.id}`}
+													key={game.id}
+												>
+													<img
+														className='rounded-xl'
+														src={game.thumbnail}
+														alt='game-image'
+													/>
+													<div className='text-center mt-2'>{game.title}</div>
+												</Link>
+											))}
 							</div>
 
-							<Pagination
-								gamesArray={sortedGames}
-								currentPage={currentPage}
-								setCurrentPage={setCurrentPage}
-							/>
+							{status === 'success' && (
+								<Pagination
+									gamesArray={sortedGames}
+									currentPage={currentPage}
+									setCurrentPage={setCurrentPage}
+								/>
+							)}
 						</>
 					) : (
 						<div className='self-center flex flex-col items-center'>

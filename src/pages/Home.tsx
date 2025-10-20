@@ -6,6 +6,7 @@ import { fetchFeaturedGamesById } from '../api/fetchData'
 import CrownIcon from '../assets/icons/crown-icon.svg'
 import GamesBlock from '../components/HomePage/GamesBlock'
 import GameYear from '../components/HomePage/GameYear'
+import SkeletonHome from '../components/MicroComponents/Skeletons/SkeletonHome'
 import '../index.css'
 import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
 import { fetchSortedGames } from '../redux/slices/dataSlices/sortGames'
@@ -108,7 +109,7 @@ const Home = () => {
 		}
 
 		const randomGenre = getRandomGenre().toLowerCase()
-		dispatch(fetchSortedGames({ category: randomGenre }))
+		dispatch(fetchSortedGames(randomGenre))
 	}, [])
 
 	useEffect(() => {
@@ -117,9 +118,9 @@ const Home = () => {
 	}, [sortedGames])
 
 	return status === 'loading' ? (
-		<div>Загрузка...</div>
+		<SkeletonHome />
 	) : status === 'error' ? (
-		<div>Ошибка...</div>
+		<div>Ошибка</div>
 	) : (
 		status === 'success' && (
 			<div className='px-20 mt-8'>
@@ -194,8 +195,6 @@ const Home = () => {
 						))}
 					</div>
 				</div>
-
-				<GamesBlock array={arrayGenres} titleBlock='Жанры' type='genres' />
 
 				{!userData && (
 					<div className='flex flex-col items-center justify-center mb-10'>
