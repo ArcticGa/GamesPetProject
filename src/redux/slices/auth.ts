@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { LoginInputs } from '../../components/AuthPage/Forms/LoginForm'
 import { RegisterInputs } from '../../components/AuthPage/Forms/RegisterForm'
@@ -91,8 +91,11 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setUserData(state, action) {
+		setUserData(state, action: PayloadAction<IUser>) {
 			state.userData = action.payload
+		},
+		setAuthStatus(state, action: PayloadAction<Status>) {
+			state.status = action.payload
 		},
 		logout(state) {
 			state.userData = null
@@ -151,5 +154,5 @@ export const authSlice = createSlice({
 	},
 })
 
-export const { setUserData, logout } = authSlice.actions
+export const { setUserData, setAuthStatus, logout } = authSlice.actions
 export default authSlice.reducer

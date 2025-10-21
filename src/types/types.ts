@@ -58,6 +58,7 @@ export interface IGameYear {
 	bigImageUrl: string
 	description: string
 	awardIds: number[]
+	steamLink: string
 	year: number
 }
 

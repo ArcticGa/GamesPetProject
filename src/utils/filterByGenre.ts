@@ -1,6 +1,6 @@
-import { IGame } from '../../types/types'
+import { IGame } from '../types/types'
 
-export const useFilterByGenre = (arr: IGame[], value: string | undefined) => {
+export const filterByGenre = (arr: IGame[], value: string | undefined) => {
 	if (value === undefined) return
 
 	const filteredGames = arr.filter(item => {

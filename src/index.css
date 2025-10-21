@@ -53,12 +53,7 @@ body {
 }
 
 aside {
-	height: 920px;
-}
-
-.bgImage {
-	background: no-repeat url('/src/assets/GameImages/BackgroundMain.png');
-	background-size: cover;
+	height: 95vh;
 }
 
 /* Swiper Css */

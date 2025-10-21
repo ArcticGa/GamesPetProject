@@ -79,26 +79,24 @@ const SortingGamesPage = () => {
 					{Array.isArray(sortedGames) ? (
 						<>
 							<div className='grid grid-cols-4 gap-4 flex-1'>
-								{status === 'loading'
-									? [...new Array(12)].map((_, index) => (
-											<SkeletonGame key={index} width={300} height={250} />
-									  ))
-									: sortedGames
-											.slice(firstGameIndex, lastGameIndex)
-											.map(game => (
-												<Link
-													className=''
-													to={`/game/${game.id}`}
-													key={game.id}
-												>
-													<img
-														className='rounded-xl'
-														src={game.thumbnail}
-														alt='game-image'
-													/>
-													<div className='text-center mt-2'>{game.title}</div>
-												</Link>
-											))}
+								{status === 'loading' ? (
+									[...new Array(12)].map((_, index) => (
+										<SkeletonGame key={index} width={300} height={250} />
+									))
+								) : status === 'error' ? (
+									<div>Ошибка</div>
+								) : (
+									sortedGames.slice(firstGameIndex, lastGameIndex).map(game => (
+										<Link className='' to={`/game/${game.id}`} key={game.id}>
+											<img
+												className='rounded-xl'
+												src={game.thumbnail}
+												alt='game-image'
+											/>
+											<div className='text-center mt-2'>{game.title}</div>
+										</Link>
+									))
+								)}
 							</div>
 
 							{status === 'success' && (

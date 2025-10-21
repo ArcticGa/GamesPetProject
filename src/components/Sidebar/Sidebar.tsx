@@ -3,9 +3,13 @@ import LinkItems from './LinksBlock/LinkItems'
 import Logo from './LogoBlock/Logo'
 import SearchMain from './SearchBlock/SearchMain'
 
-const Sidebar = () => {
+const Sidebar = ({ sidebar }: { sidebar: boolean }) => {
 	return (
-		<aside className='m-6 bg-main-blocks rounded-2xl fixed z-10 w-2xs py-6 px-4'>
+		<aside
+			className={`m-6 bg-main-blocks rounded-2xl fixed z-10 max-w-2xs py-6 px-4 max-xl:w-full ${
+				sidebar ? 'max-xl:block' : 'max-xl:hidden'
+			} `}
+		>
 			<nav className='h-full flex flex-col relative'>
 				<Logo />
 				<SearchMain />

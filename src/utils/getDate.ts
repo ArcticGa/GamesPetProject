@@ -1,6 +1,6 @@
-import { monthsArray } from '../miniArraysList'
+import { monthsArray } from './miniArraysList'
 
-export const useGetDate = (timestamp: number) => {
+export const getDate = (timestamp: number) => {
 	const myDate = new Date(timestamp)
 	const day = myDate.getDate()
 	const month = monthsArray[myDate.getMonth()]

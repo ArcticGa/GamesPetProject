@@ -29,50 +29,41 @@ const UserProfilePage = () => {
 	return status === 'loading' ? (
 		<SkeletonProfile />
 	) : status === 'error' ? (
-		<NotAuth />
-	) : (
-		status === 'success' &&
-		userData && (
-			<div className='px-4'>
-				<MainProfileBlock userData={userData} isOwn={true} />
-				<div className='flex items-center justify-center mb-8'>
-					{arraySortProfileBtns.map((button, index) => (
-						<SortButton
-							key={index}
-							activeSortItem={activeSortBtn}
-							setActiveSortItem={setActiveSortBtn}
-							number={index}
-						>
-							{button}
-						</SortButton>
-					))}
-				</div>
-
-				{activeSortBtn === 0 && (
-					<RenderInfoBlock
-						array={featuredGames}
-						arrayType='games'
-						isOwn={true}
-					/>
-				)}
-
-				{activeSortBtn === 1 && (
-					<RenderInfoBlock
-						array={reviews}
-						arrayType='ownReviews'
-						isOwn={true}
-					/>
-				)}
-
-				{activeSortBtn === 2 && (
-					<RenderInfoBlock
-						array={likedReviews}
-						arrayType='likedReviews'
-						isOwn={true}
-					/>
-				)}
+		<div>Ошибка</div>
+	) : status === 'success' && userData ? (
+		<div className='px-4'>
+			<MainProfileBlock userData={userData} isOwn={true} />
+			<div className='flex items-center justify-center mb-8'>
+				{arraySortProfileBtns.map((button, index) => (
+					<SortButton
+						key={index}
+						activeSortItem={activeSortBtn}
+						setActiveSortItem={setActiveSortBtn}
+						number={index}
+					>
+						{button}
+					</SortButton>
+				))}
 			</div>
-		)
+
+			{activeSortBtn === 0 && (
+				<RenderInfoBlock array={featuredGames} arrayType='games' isOwn={true} />
+			)}
+
+			{activeSortBtn === 1 && (
+				<RenderInfoBlock array={reviews} arrayType='ownReviews' isOwn={true} />
+			)}
+
+			{activeSortBtn === 2 && (
+				<RenderInfoBlock
+					array={likedReviews}
+					arrayType='likedReviews'
+					isOwn={true}
+				/>
+			)}
+		</div>
+	) : (
+		<NotAuth />
 	)
 }
 

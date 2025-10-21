@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import '../../../index.css'
 import { useAppSelector } from '../../../redux/store'
 import { IGame } from '../../../types/types'
-import { useFilterByGenre } from '../../../utils/hooks/filterByGenre'
+import { filterByGenre } from '../../../utils/filterByGenre'
 import GamesBlock from '../../HomePage/GamesBlock'
 
 const GameSimilarsBlock = () => {
@@ -10,7 +10,7 @@ const GameSimilarsBlock = () => {
 	const { games } = useAppSelector(state => state.gamesSlice)
 	const { game } = useAppSelector(state => state.gameByIdSlice)
 
-	const filteredArr = useFilterByGenre(games, game?.genre)
+	const filteredArr = filterByGenre(games, game?.genre)
 	const updatedArr = filteredArr?.filter(item => item?.id !== game?.id)
 
 	useEffect(() => {

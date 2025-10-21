@@ -1,5 +1,5 @@
 import { IReview } from '../../types/types'
-import { useGetDate } from '../../utils/hooks/getDate'
+import { getDate } from '../../utils/getDate'
 
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -29,7 +29,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 	const [isRecommended, setIsRecommended] = useState(review.isRecommended)
 
 	const date = new Date(review.createdAt)
-	const published = useGetDate(date.getTime())
+	const published = getDate(date.getTime())
 
 	const isOwner = userData && userData._id === review.user._id
 

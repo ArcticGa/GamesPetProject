@@ -83,7 +83,7 @@ const Award = ({ data, gamesYear }: IAwardProps) => {
 						</div>
 						<div className='flex items-center justify-between'>
 							{finalists?.map(finalist => (
-								<Finalist key={finalist.id} image={finalist.imageUrl} />
+								<Finalist key={finalist.id} finalist={finalist} />
 							))}
 						</div>
 					</div>

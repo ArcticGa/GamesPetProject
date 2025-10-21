@@ -15,7 +15,6 @@ const GamesOfYear = () => {
 	const { gamesYear, status } = useAppSelector(state => state.gameYearSlice)
 
 	useEffect(() => {
-		if (gamesYear.length !== 0) return
 		dispatch(fetchGamesYear(year))
 	}, [year])
 
@@ -25,12 +24,12 @@ const GamesOfYear = () => {
 				<div>
 					<div>Данная страница является Информационной.</div>
 					<div>Игры приведенные ниже НЕ ИМЕЮТ отдельных страниц на сайте.</div>
-					<div>( Прошу прощение, доделаю этот момент позже )</div>
+					<div>(Игры ведут на отдельную страницу в Steam)</div>
 				</div>
-				<img className='w-26 absolute -top-1 right-10' src={AniGif} alt='gif' />
+				<img className='w-25 absolute top-0 right-10' src={AniGif} alt='gif' />
 			</div>
 
-			<TitleYear setYear={setYear} />
+			<TitleYear year={year} setYear={setYear} />
 
 			{status === 'loading' ? (
 				<>

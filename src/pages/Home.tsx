@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { fetchFeaturedGamesById } from '../api/fetchData'
 import CrownIcon from '../assets/icons/crown-icon.svg'
+import Footer from '../components/Footer/Footer'
 import GamesBlock from '../components/HomePage/GamesBlock'
 import GameYear from '../components/HomePage/GameYear'
 import SkeletonHome from '../components/MicroComponents/Skeletons/SkeletonHome'
@@ -178,23 +179,25 @@ const Home = () => {
 					/>
 				)}
 
-				<div className='mb-10'>
-					<div className='flex items-center justify-between mb-4'>
-						<div className='flex items-center text-xl text-[#f7b62a]'>
-							Игры года: 2024
-							<img
-								className='w-10 rotate-25 ml-2'
-								src={CrownIcon}
-								alt='crown-icon'
-							/>
+				{gamesYear && (
+					<div className='mb-10'>
+						<div className='flex items-center justify-between mb-4'>
+							<div className='flex items-center text-xl text-[#f7b62a]'>
+								Игры года: 2024
+								<img
+									className='w-10 rotate-25 ml-2'
+									src={CrownIcon}
+									alt='crown-icon'
+								/>
+							</div>
+						</div>
+						<div className='flex justify-between'>
+							{awardsList.slice(0, 3).map(award => (
+								<GameYear key={award.id} award={award} gamesYear={gamesYear} />
+							))}
 						</div>
 					</div>
-					<div className='flex justify-between'>
-						{awardsList.slice(0, 3).map(award => (
-							<GameYear key={award.id} award={award} gamesYear={gamesYear} />
-						))}
-					</div>
-				</div>
+				)}
 
 				{!userData && (
 					<div className='flex flex-col items-center justify-center mb-10'>
@@ -214,6 +217,8 @@ const Home = () => {
 						</Link>
 					</div>
 				)}
+
+				<Footer />
 			</div>
 		)
 	)

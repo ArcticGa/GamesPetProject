@@ -12,7 +12,7 @@ import Reviews from './pages/ReviewsPage'
 import SortingGamesPage from './pages/SortingGamesPage'
 import UserPage from './pages/UserPage'
 import UserProfilePage from './pages/UserProfilePage'
-import { fetchAuthMe } from './redux/slices/auth'
+import { fetchAuthMe, setAuthStatus, Status } from './redux/slices/auth'
 import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
 import { useAppDispatch } from './redux/store'
 
@@ -24,6 +24,8 @@ function App() {
 		const token = localStorage.getItem('token')
 		if (token) {
 			dispatch(fetchAuthMe())
+		} else {
+			dispatch(setAuthStatus(Status.SUCCESS))
 		}
 	}, [])
 
@@ -40,10 +42,6 @@ function App() {
 				<Route path='gamesoftheyear' element={<GamesOfYear />} />
 				<Route path='game/:id' element={<GamePage />} />
 				<Route path='game/:id/reviews' element={<Reviews />} />
-				{/* <Route
-					path='games-by-genre/:category'
-					element={<SortedGamesByGenre />}
-				/> */}
 				<Route path='auth' element={<AuthPage />} />
 				<Route path='profile' element={<UserProfilePage />} />
 				<Route path='user/:userId' element={<UserPage />} />

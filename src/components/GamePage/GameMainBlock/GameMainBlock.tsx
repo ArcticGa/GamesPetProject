@@ -5,7 +5,8 @@ import Info from './Info'
 import Options from './Options'
 
 const GameMainBlock = ({ game }: { game: IFullGame }) => {
-	const [activeBtn, setActiveBtn] = useState(1)
+	const [activeBtn, setActiveBtn] = useState(2)
+	const [randomScreenshot, setRandomScreenshot] = useState('')
 
 	const addGameToViewedArray = () => {
 		if (!game.id) return
@@ -23,15 +24,30 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 		}
 	}
 
+	const getRandomScreenshot = () => {
+		if (!game.screenshots) return
+
+		const randomIndex = Math.ceil(Math.random() * game.screenshots.length)
+		console.log(randomIndex)
+
+		return setRandomScreenshot(game?.screenshots[randomIndex - 1]?.image)
+	}
+
 	useEffect(() => {
+		getRandomScreenshot()
 		addGameToViewedArray()
 	}, [])
 
 	return (
 		<div
-			className={`${
-				activeBtn === 1 ? 'bgImage' : 'bg-main-blocks'
-			}  w-full h-[500px] rounded-3xl pl-[50px] pr-[20px] flex items-center justify-between`}
+			className='bg-main-blocks w-full h-[500px] rounded-3xl pl-[50px] pr-[20px] flex items-center justify-between'
+			style={{
+				backgroundImage: `linear-gradient(rgba(0,0,0,${
+					activeBtn === 2 ? '0.7' : '0.2'
+				}), rgba(0,0,0,${
+					activeBtn === 2 ? '0.7' : '0.2'
+				})), url('${randomScreenshot}')`,
+			}}
 		>
 			<div>
 				<img

@@ -54,8 +54,10 @@ const Recommendations = () => {
 
 	return (
 		<div className='pt-4'>
-			<div className='flex items-center mb-6'>
-				<div className='text-xl font-bold'>Рекомендации для вас</div>
+			<div className='flex items-center max-md:flex-col mb-6'>
+				<div className='text-xl font-bold max-md:mb-4'>
+					Рекомендации для вас
+				</div>
 				<div className='bg-main-blocks rounded-2xl p-2 max-w-[300px] text-xs text-center ml-4'>
 					Рекомендации подбираются по категориям игр которые вы смотрите
 				</div>
@@ -70,7 +72,7 @@ const Recommendations = () => {
 				<div>Ошибка</div>
 			) : (
 				status === 'success' && (
-					<div className='grid grid-cols-4 gap-5 flex-1'>
+					<div className='grid grid-cols-4 gap-5 flex-1 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-3'>
 						{randomGames.map(game => (
 							<Link to={`/game/${game.id}`} key={game.id}>
 								<img
@@ -78,7 +80,9 @@ const Recommendations = () => {
 									src={game.thumbnail}
 									alt='game-image'
 								/>
-								<div className='text-center mt-2 text-lg'>{game.title}</div>
+								<div className='text-center mt-2 text-lg max-lg:text-base max-sm:text-xs'>
+									{game.title}
+								</div>
 							</Link>
 						))}
 					</div>
