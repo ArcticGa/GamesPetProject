@@ -31,9 +31,9 @@ const UserProfilePage = () => {
 	) : status === 'error' ? (
 		<div>Ошибка</div>
 	) : status === 'success' && userData ? (
-		<div className='px-4'>
+		<div className='px-4 max-lg:p-0'>
 			<MainProfileBlock userData={userData} isOwn={true} />
-			<div className='flex items-center justify-center mb-8'>
+			<div className='flex items-center justify-center mb-8 flex-wrap'>
 				{arraySortProfileBtns.map((button, index) => (
 					<SortButton
 						key={index}

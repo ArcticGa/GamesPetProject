@@ -19,7 +19,7 @@ const Screenshots = () => {
 					<div>Скриншотов нет</div>
 				)}
 			</div>
-			<div className='flex items-center justify-evenly'>
+			<div className='flex items-center justify-evenly flex-wrap'>
 				{game?.screenshots?.map((screen, index) => (
 					<img
 						key={screen.id}

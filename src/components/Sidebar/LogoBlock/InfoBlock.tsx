@@ -25,7 +25,7 @@ const InfoBlock = ({
 	return (
 		<div
 			ref={infoBlockRef}
-			className='absolute -top-6 left-70 z-10 bg-main-blocks text-xs w-82 p-3 rounded-2xl'
+			className='absolute -top-6 left-70 z-10 bg-main-blocks text-xs w-82 p-3 rounded-2xl max-md:left-0 max-md:top-15 max-md:max-w-[250px] max-md:border-1 max-md:border-links-and-borders'
 		>
 			<div>
 				<div className='mb-3 text-xs'>

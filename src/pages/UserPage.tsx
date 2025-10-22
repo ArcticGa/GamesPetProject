@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import {
 	fetchFeaturedGamesForOutsider,
 	fetchLikedReviewsForOutsider,
@@ -18,8 +18,6 @@ import { arraySortProfileBtns } from '../utils/miniArraysList'
 const UserPage = () => {
 	const dispatch = useAppDispatch()
 	const { userId } = useParams()
-	const navigate = useNavigate()
-	const { userData } = useAppSelector(state => state.authSlice)
 	const { user, status } = useAppSelector(state => state.getUserByIdSlice)
 	const { reviews } = useAppSelector(state => state.gameReviewsSlice)
 
@@ -28,18 +26,10 @@ const UserPage = () => {
 	const [activeSortBtn, setActiveSortBtn] = useState(0)
 
 	useEffect(() => {
-		if (userData) {
-			if (userData._id === userId) {
-				navigate('/profile')
-			}
-		}
-	}, [userData, userId, navigate])
-
-	useEffect(() => {
 		if (userId && !user) {
 			dispatch(fetchUserById(userId))
 		}
-	}, [userId, user, dispatch])
+	}, [userId, user])
 
 	useEffect(() => {
 		if (user) {
@@ -47,21 +37,21 @@ const UserPage = () => {
 			fetchLikedReviewsForOutsider(user, setLikedReviews)
 			fetchFeaturedGamesForOutsider(user, setFeaturedGames)
 		}
-	}, [user, dispatch])
+	}, [user])
 
 	return status === 'loading' ? (
 		<SkeletonProfile />
 	) : status === 'error' || user === null ? (
-		<div className='flex flex-col items-center justify-center h-[920px]'>
+		<div className='flex flex-col items-center justify-center h-[92vh]'>
 			<div className='text-2xl font-bold'>Пользователь не найден</div>
 			<img src={Gif} alt='gif' />
 		</div>
 	) : (
 		status === 'success' &&
 		user && (
-			<div className='px-4'>
+			<div className='px-4 max-sm:p-0'>
 				<MainProfileBlock userData={user} isOwn={false} />
-				<div className='flex items-center justify-center mb-8'>
+				<div className='flex items-center justify-center mb-8 flex-wrap'>
 					{arraySortProfileBtns.map((button, index) => (
 						<SortButton
 							key={index}

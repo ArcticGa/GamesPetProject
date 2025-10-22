@@ -13,6 +13,7 @@ import { fetchGamesYear } from '../redux/slices/dataSlices/gameYearsSlice'
 import { fetchSortedGames } from '../redux/slices/dataSlices/sortGames'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
+import { changeSlidesPerView } from '../utils/changeSlidesPerView'
 import { arrayGenres, awardsList } from '../utils/miniArraysList'
 
 const Home = () => {
@@ -124,11 +125,11 @@ const Home = () => {
 		<div>Ошибка</div>
 	) : (
 		status === 'success' && (
-			<div className='px-20 mt-8'>
+			<div className='px-20 mt-8 max-xl:px-0'>
 				<Swiper
 					modules={[Pagination, Autoplay]}
 					spaceBetween={15}
-					slidesPerView={4}
+					slidesPerView={changeSlidesPerView()}
 					grabCursor
 					loop
 					navigation
@@ -191,7 +192,7 @@ const Home = () => {
 								/>
 							</div>
 						</div>
-						<div className='flex justify-between'>
+						<div className='flex justify-between max-xl:flex-col max-xl:items-center'>
 							{awardsList.slice(0, 3).map(award => (
 								<GameYear key={award.id} award={award} gamesYear={gamesYear} />
 							))}

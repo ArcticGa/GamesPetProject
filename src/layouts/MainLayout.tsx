@@ -11,7 +11,7 @@ const MainLayout = () => {
 		<div className='relative'>
 			<div
 				onClick={() => setSidebar(!sidebar)}
-				className='fixed top-3 right-6 bg-links-and-borders rounded-md xl:hidden'
+				className='fixed z-20 top-3 right-6 bg-links-and-borders rounded-md xl:hidden'
 			>
 				<img
 					className='w-10'
@@ -20,7 +20,7 @@ const MainLayout = () => {
 				/>
 			</div>
 			<Sidebar sidebar={sidebar} />
-			<div className='ml-85 py-6 pr-6 max-xl:ml-6'>
+			<div className='ml-85 py-6 pr-6 max-xl:ml-6 xl:pb-0'>
 				<Outlet />
 			</div>
 		</div>

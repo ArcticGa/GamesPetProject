@@ -14,7 +14,7 @@ const SearchGamesComponent = ({
 
 	return (
 		activeSearch && (
-			<div className='absolute top-0 left-70 max-h-[820px] no-scrollbar overflow-auto w-100 rounded-2xl bg-main-blocks p-2.5'>
+			<div className='fixed top-28 left-80 max-h-[820px] scrollbar overflow-auto w-100 rounded-2xl bg-main-blocks p-2.5 z-50 max-sm:top-35 max-sm:left-0 max-lg:border-1 max-lg:border-links-and-borders max-sm:w-97 max-sm:max-h-[520px]'>
 				{filteredArray.length === 0 ? (
 					<div className='text-center'>Сожалеем, но ничего не найдено</div>
 				) : (

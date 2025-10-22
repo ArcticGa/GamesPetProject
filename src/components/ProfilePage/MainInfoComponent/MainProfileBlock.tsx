@@ -16,8 +16,8 @@ const MainProfileBlock = ({
 	const [isChangeNickname, setIsChangeNickname] = useState(false)
 
 	return (
-		<div className='flex flex-col bg-main-blocks py-4 px-15 rounded-2xl mb-8'>
-			<div className='flex items-center justify-between'>
+		<div className='bg-main-blocks py-4 px-15 rounded-2xl mb-8 max-sm:px-4'>
+			<div className='flex items-center justify-between max-2xl:flex-col'>
 				<Avatar isOwn={isOwn} userData={userData} />
 				<Nickname
 					isOwn={isOwn}
@@ -28,10 +28,10 @@ const MainProfileBlock = ({
 				<InfoUserBlock isOwn={isOwn} userData={userData} />
 
 				{isChangeNickname ? (
-					<img className='w-42' src={BoochiGif} alt='gif' />
+					<img className='w-42 max-2xl:hidden' src={BoochiGif} alt='gif' />
 				) : (
 					<img
-						className={`${isOwn ? 'w-45' : 'w-41'}`}
+						className={`${isOwn ? 'w-45' : 'w-41'} max-2xl:hidden`}
 						src={isOwn ? FrirenGif : BoochiGif}
 						alt='gif'
 					/>

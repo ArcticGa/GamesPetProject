@@ -18,7 +18,7 @@ const ChangeFormBtn = ({
 				selectedForm === form
 					? 'border-links-and-borders text-white font-bold'
 					: 'border-[#D8D8D8] text-[#c6c6c6]'
-			} cursor-pointer py-2 px-9 border-b-2  w-[50%] text-center text-base`}
+			} cursor-pointer py-2 px-9 border-b-2  w-[50%] text-center text-base max-sm:px-0`}
 		>
 			{form === 'login' && 'Вход'}
 			{form === 'register' && 'Регистрация'}

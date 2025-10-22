@@ -7,8 +7,8 @@ const AuthPage = () => {
 	const [selectedForm, setSelectedForm] = useState('login')
 
 	return (
-		<div className='w-full h-[920px] flex justify-center items-center'>
-			<div className='bg-main-blocks rounded-2xl p-8 min-w-[500px]'>
+		<div className='w-full h-[92vh] flex justify-center items-center'>
+			<div className='bg-main-blocks rounded-2xl p-8 min-w-[500px] max-sm:min-w-[200px]'>
 				<div className='flex justify-between mb-6'>
 					<ChangeFormBtn
 						form={'login'}

@@ -20,7 +20,7 @@ const SortButton = ({
 				activeSortItem === number
 					? 'text-links-and-borders  border-links-and-borders'
 					: 'border-main-blocks'
-			} cursor-pointer border-1  py-2 px-4 bg-main-blocks rounded-xl mr-4`}
+			} cursor-pointer border-1 max-2xl:mb-2 py-2 px-4 bg-main-blocks rounded-xl mr-4 max-lg:text-sm max-lg:mr-2 max-lg:py-2 max-lg:px-2.5`}
 		>
 			{children}
 		</div>

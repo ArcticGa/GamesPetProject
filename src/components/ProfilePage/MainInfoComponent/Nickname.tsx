@@ -44,17 +44,17 @@ const Nickname = ({
 	}
 
 	return (
-		<div>
+		<div className='max-2xl:mb-4'>
 			<div className='text-sm text-gray-400 text-center'>Никнейм:</div>
 			{!isChangeNickname ? (
 				<div className='flex items-center'>
-					<div className='text-3xl font-bold mr-3 border-b-2 border-main-blocks'>
+					<div className={'text-3xl font-bold border-b-2 border-main-blocks'}>
 						{userData.nickname}
 					</div>
 					{isOwn && (
 						<div
 							onClick={() => setIsChangeNickname(true)}
-							className='bg-links-and-borders rounded-md p-1 cursor-pointer'
+							className='bg-links-and-borders rounded-md p-1 cursor-pointer ml-3'
 						>
 							<img className='w-5' src={PenIcon} alt='changeBtn-icon' />
 						</div>

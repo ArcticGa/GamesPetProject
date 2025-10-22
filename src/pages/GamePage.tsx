@@ -41,7 +41,7 @@ const GamePage = () => {
 		game && (
 			<div>
 				<GameMainBlock game={game} />
-				<div className='mt-12 mx-12'>
+				<div className='mt-12 mx-12 max-2xl:m-0 max-2xl:mt-6'>
 					<GameInfoBlock />
 					<GameReviewsBlock game={game} />
 					<GameSimilarsBlock />

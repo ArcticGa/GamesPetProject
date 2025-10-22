@@ -109,24 +109,24 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 	}
 
 	return (
-		<div className='flex'>
+		<div className='flex text-nowrap'>
 			<div
 				onClick={likeHandler}
 				className={`${
 					liked ? 'bg-green-700' : 'bg-main-background'
-				} flex items-center  rounded-lg px-4 py-1.5 mr-1 cursor-pointer`}
+				} flex items-center rounded-lg px-4 py-1.5 cursor-pointer max-sm:px-2`}
 			>
-				<img className='w-5' src={LikeIcon} alt='like-icon' />
-				<div className='ml-2 text-sm'>Да ({data.likes})</div>
+				<img className='w-5 max-sm:w-4' src={LikeIcon} alt='like-icon' />
+				<div className='ml-2 text-sm max-sm:text-xs'>Да ({data.likes})</div>
 			</div>
 			<div
 				onClick={dislikeHandler}
 				className={`${
 					disliked ? 'bg-red-700' : 'bg-main-background'
-				} flex items-center  rounded-lg px-4 py-1.5 cursor-pointer`}
+				} flex items-center ml-2 rounded-lg px-4 py-1.5 cursor-pointer max-sm:px-2`}
 			>
-				<img className='w-5' src={DislikeIcon} alt='dislike-icon' />
-				<div className='ml-2 text-sm'>Нет ({data.dislikes})</div>
+				<img className='w-5 max-sm:w-4' src={DislikeIcon} alt='dislike-icon' />
+				<div className='ml-2 text-sm max-sm:text-xs'>Нет ({data.dislikes})</div>
 			</div>
 		</div>
 	)

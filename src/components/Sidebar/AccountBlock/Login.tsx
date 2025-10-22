@@ -53,7 +53,7 @@ const Login = ({ userData }: { userData: IUser }) => {
 			{openBtns && (
 				<div
 					ref={accountBtnsRef}
-					className='mb-8 p-3 rounded-xl bg-main-blocks w-60 absolute -bottom-9 left-70'
+					className='mb-8 p-3 rounded-xl bg-main-blocks w-60 absolute -bottom-9 left-70 max-sm:bottom-10 max-sm:left-0 max-sm:border-1 max-sm:border-links-and-borders z-10'
 				>
 					<div className='flex p-3 mb-2.5 rounded-xl bg-main-background items-center cursor-pointer'>
 						<Link to={'/for-developer'} className='leading-4'>

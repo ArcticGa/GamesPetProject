@@ -42,13 +42,13 @@ const Options: FC<IOptionsProps> = ({ game, activeBtn, setActiveBtn }) => {
 	}
 
 	return (
-		<div>
+		<div className='max-2xl:absolute top-0 left-0'>
 			{userData && (
 				<div
 					onClick={handleLike}
 					className={`${
 						isLiked ? 'border-youtube-link' : 'border-main-background'
-					} bg-main-blocks border-4  py-4 px-2 flex flex-col items-center rounded-full mb-4 cursor-pointer`}
+					} bg-main-blocks border-4  py-4 px-4 flex flex-col items-center rounded-full mb-4 cursor-pointer`}
 				>
 					<img
 						className='w-5'
@@ -58,7 +58,7 @@ const Options: FC<IOptionsProps> = ({ game, activeBtn, setActiveBtn }) => {
 				</div>
 			)}
 
-			<div className='bg-main-blocks border-1 border-links-and-borders py-4 px-2 flex flex-col items-center rounded-full'>
+			<div className='bg-main-blocks border-1 border-links-and-borders py-4 px-2 flex flex-col items-center rounded-full max-2xl:hidden'>
 				<img
 					onClick={() => setActiveBtn(1)}
 					className={`${

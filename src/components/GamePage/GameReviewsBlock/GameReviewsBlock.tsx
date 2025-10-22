@@ -25,7 +25,11 @@ const GameReviewsBlock = ({ game }: { game: IFullGame }) => {
 					Все обзоры...
 				</Link>
 			</div>
-			<div className={`flex ${reviews.length === 0 && 'justify-center'}`}>
+			<div
+				className={`flex flex-wrap ${
+					reviews.length === 0 ? 'justify-center' : null
+				}`}
+			>
 				{reviews.length === 0 ? (
 					<div className='text-xl mt-14 italic text-center '>
 						<div>Обзоров пока нет. Будьте первыми </div>

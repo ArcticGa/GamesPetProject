@@ -25,7 +25,7 @@ const Avatar = ({ isOwn, userData }: AvatarProps) => {
 	}
 
 	return isOwn ? (
-		<div>
+		<div className='max-2xl:mb-4'>
 			<div
 				onClick={() => inputFileRef.current.click()}
 				onMouseEnter={() => setShowImgUpload(true)}
@@ -43,7 +43,7 @@ const Avatar = ({ isOwn, userData }: AvatarProps) => {
 				</div>
 
 				{showImgUpload && (
-					<div className='flex items-center justify-center absolute top-0 left-0 bg-gray-500 w-full h-full rounded-full z-20 opacity-70'>
+					<div className='flex items-center justify-center absolute top-0 left-0 bg-gray-500 w-full h-full rounded-full z-10 opacity-70'>
 						<div className='w-2/3 text-center'>Выбрать аватар</div>
 					</div>
 				)}
@@ -59,7 +59,7 @@ const Avatar = ({ isOwn, userData }: AvatarProps) => {
 		</div>
 	) : (
 		<img
-			className='z-10 w-40 h-40 rounded-full'
+			className='z-5 w-40 h-40 rounded-full max-2xl:mb-4'
 			src={`${BASE_BACKEND_URL}${userData.avatarUrl}`}
 			alt='userAvatar'
 		/>

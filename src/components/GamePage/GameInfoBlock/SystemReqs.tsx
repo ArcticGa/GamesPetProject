@@ -18,11 +18,11 @@ const SystemReqs = () => {
 	}, [game])
 
 	return (
-		<div>
+		<div className='max-2xl:mb-6'>
 			<div className='text-xl font-bold mb-3'>
 				Системные требования {game?.title}
 			</div>
-			<div className='bg-main-blocks p-6 rounded-3xl w-150'>
+			<div className='bg-main-blocks p-6 rounded-3xl w-150 max-2xl:w-full'>
 				<div className='text-lg font-bold mb-4 border-b-1 border-links-and-borders'>
 					Windows
 				</div>

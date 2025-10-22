@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { Scrollbar } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { IGame } from '../../types/types'
+import { changeSlidesPerView } from '../../utils/changeSlidesPerView'
 
 type GamesBlockProps = {
 	array: IGame[] | string[]
@@ -16,7 +17,7 @@ const GamesBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 			<Swiper
 				modules={[Scrollbar]}
 				className='!pb-4 !m-0'
-				slidesPerView={5}
+				slidesPerView={changeSlidesPerView()}
 				grabCursor
 				scrollbar={{ draggable: true }}
 			>

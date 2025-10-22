@@ -21,7 +21,7 @@ const RenderInfoBlock = ({
 		<div
 			className={`${
 				arrayType === 'games'
-					? 'flex items-center flex-wrap mx-20 '
+					? 'flex items-center flex-wrap mx-20 max-sm:m-0'
 					: 'flex justify-center flex-wrap'
 			} `}
 		>

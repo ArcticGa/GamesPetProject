@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import DeleteIcon from '../assets/icons/close-icon.svg'
 import SortButton from '../components/MicroComponents/SortButton'
@@ -18,9 +18,12 @@ const SortingGamesPage = () => {
 	const dispatch = useAppDispatch()
 	const { sortedGames, status } = useAppSelector(state => state.sortGamesSlice)
 
+	const categoriesRef = useRef(document.createElement('div'))
+
 	const [currentPage, setCurrentPage] = useState(1)
 	const [activeSortButton, setActiveSortButton] = useState(0)
 	const [searchGenreValue, setSearchGenreValue] = useState('')
+	const [openCategories, setOpenCategories] = useState(false)
 	const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 	const [lastFetchTags, setLastFetchTags] = useState<string[]>([])
 	const [filteredGenresArray, setFilteredGenresArray] =
@@ -43,11 +46,27 @@ const SortingGamesPage = () => {
 		if (selectedCategories.length === 0) return
 		if (selectedCategories.length === lastFetchTags.length) return
 
+		setOpenCategories(false)
 		setLastFetchTags(selectedCategories)
 		setActiveSortButton(-1)
 		const tags = selectedCategories.join('.')
 		dispatch(fetchFilteredGames(tags))
 	}
+
+	useEffect(() => {
+		function handleClickOutside(event: any) {
+			if (
+				categoriesRef.current &&
+				!categoriesRef.current.contains(event.target)
+			) {
+				setOpenCategories(false)
+			}
+		}
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [])
 
 	useEffect(() => {
 		filterGenres(arrayGenres, searchGenreValue, setFilteredGenresArray)
@@ -59,11 +78,11 @@ const SortingGamesPage = () => {
 	}, [activeSortButton])
 
 	return (
-		<div className='mt-4'>
+		<div className='mt-4 max-lg:mt-1'>
 			<div className='text-xl font-bold mb-6'>Сортировка игр</div>
 			<div className='flex justify-between'>
-				<div className='flex flex-col w-[80%] h-[840px]'>
-					<div className='flex mb-6'>
+				<div className='flex flex-col w-[80%] 2xl:h-[86vh] max-lg:w-full max-sm:'>
+					<div className='flex items-center mb-6 max-lg:flex-wrap'>
 						{sortBtns.map((btn, index) => (
 							<SortButton
 								key={btn._id}
@@ -74,11 +93,18 @@ const SortingGamesPage = () => {
 								{btn.title}
 							</SortButton>
 						))}
+
+						<div
+							onClick={() => setOpenCategories(true)}
+							className='bg-links-and-borders cursor-pointer py-2 px-4 rounded-xl mr-4 lg:hidden max-lg:text-sm max-lg:mr-2 max-lg:py-2 max-lg:px-2.5'
+						>
+							По категориям
+						</div>
 					</div>
 
 					{Array.isArray(sortedGames) ? (
 						<>
-							<div className='grid grid-cols-4 gap-4 flex-1'>
+							<div className='grid grid-cols-4 gap-4 flex-1 max-xl:grid-cols-3 max-md:grid-cols-2 max-md:gap-2'>
 								{status === 'loading' ? (
 									[...new Array(12)].map((_, index) => (
 										<SkeletonGame key={index} width={300} height={250} />
@@ -93,7 +119,9 @@ const SortingGamesPage = () => {
 												src={game.thumbnail}
 												alt='game-image'
 											/>
-											<div className='text-center mt-2'>{game.title}</div>
+											<div className='text-center mt-2 max-lg:text-sm'>
+												{game.title}
+											</div>
 										</Link>
 									))
 								)}
@@ -117,9 +145,16 @@ const SortingGamesPage = () => {
 					)}
 				</div>
 
-				<div className='max-w-[265px]'>
-					<div className='text-center mb-2.5'>По категориям</div>
-					<div className='ml-4 px-4 pt-4 pb-2 bg-main-blocks rounded-2xl'>
+				<div
+					className={`max-w-[265px] max-lg:fixed top-15 right-0 ${
+						openCategories ? 'max-lg:block' : 'max-lg:hidden'
+					} `}
+				>
+					<div className='text-center mb-2.5 max-lg:hidden'>По категориям</div>
+					<div
+						ref={categoriesRef}
+						className='ml-4 px-4 pt-4 pb-2 bg-main-blocks rounded-2xl'
+					>
 						<div className='flex flex-wrap mb-2.5'>
 							{selectedCategories.map((category, index) => (
 								<div
@@ -147,7 +182,7 @@ const SortingGamesPage = () => {
 						/>
 
 						{filteredGenresArray.length !== 0 ? (
-							<div className='max-h-[500px] pr-2 flex flex-col overflow-x-auto whitespace-nowrap scrollbar'>
+							<div className='max-h-[500px] pr-2 flex flex-col overflow-x-auto whitespace-nowrap scrollbar max-lg:max-h-[350px]'>
 								{filteredGenresArray.map((category, index) => (
 									<div
 										key={index}

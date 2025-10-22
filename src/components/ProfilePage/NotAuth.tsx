@@ -3,7 +3,7 @@ import Gif from '../../assets/GameImages/notfoundimg.gif'
 
 const NotAuth = () => {
 	return (
-		<div className='flex flex-col justify-center items-center h-[920px] '>
+		<div className='flex flex-col justify-center items-center h-[92vh] '>
 			<div className='text-2xl'>Вы не авторизованы</div>
 			<Link
 				to={'/auth'}

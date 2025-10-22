@@ -53,7 +53,7 @@ const LoginForm = () => {
 	}, [userData, navigate])
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className='mx-10'>
+		<form onSubmit={handleSubmit(onSubmit)} className='mx-10 max-sm:mx-0'>
 			<div>
 				<div
 					className={`flex ${

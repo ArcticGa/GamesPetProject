@@ -9,7 +9,7 @@ type InfoUserProps = {
 const InfoUserBlock = ({ isOwn, userData }: InfoUserProps) => {
 	return (
 		<>
-			<div>
+			<div className='max-2xl:mb-4'>
 				<div className='text-center text-sm text-gray-400'>
 					Общая информация
 				</div>

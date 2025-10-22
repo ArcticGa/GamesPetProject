@@ -5,7 +5,6 @@ import { fetchGameReviews } from '../../redux/slices/dataSlices/gameReviewsSlice
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { sortParamsArr } from '../../utils/miniArraysList'
 import AddReview from '../AddReview/AddReview'
-import SkeletonReviews from '../MicroComponents/Skeletons/SkeletonReviews'
 import SortButton from '../MicroComponents/SortButton'
 import ReviewFull from './ReviewFull'
 import { sortReviewsArray } from './Utils'
@@ -32,8 +31,8 @@ const ReviewsMainComponent = () => {
 
 	return (
 		<>
-			<div className='flex items-center justify-between mb-8'>
-				<div className='flex'>
+			<div className='flex items-center justify-between mb-8 max-xl:flex-col max-xl:mb-2'>
+				<div className='flex flex-wrap '>
 					{sortParamsArr.map((param, index) => (
 						<SortButton
 							key={index}
@@ -47,7 +46,7 @@ const ReviewsMainComponent = () => {
 				</div>
 				{userData && (
 					<div
-						className='cursor-pointer bg-links-and-borders py-2 px-6 rounded-xl'
+						className='cursor-pointer bg-links-and-borders py-2 px-6 rounded-xl text-nowrap text-center max-xl:my-6 max-xl:w-full'
 						onClick={() => setIsAddReview(true)}
 					>
 						Добавить обзор
@@ -58,11 +57,7 @@ const ReviewsMainComponent = () => {
 				<AddReview userData={userData} setIsAddReview={setIsAddReview} />
 			)}
 
-			{status === 'loading' ? (
-				<SkeletonReviews />
-			) : status === 'error' ? (
-				<div>Произошла ошибка сервера</div>
-			) : status === 'success' && sortedArray.length !== 0 ? (
+			{sortedArray.length !== 0 ? (
 				<div className='flex flex-wrap'>
 					{sortedArray.map(review => (
 						<ReviewFull key={review._id} review={review} />
@@ -70,11 +65,11 @@ const ReviewsMainComponent = () => {
 				</div>
 			) : (
 				<div
-					className={`flex flex-col items-center ${
+					className={`flex flex-col items-center max-xl:mt-1 ${
 						isAddReview ? 'mt-10' : 'mt-50'
 					}`}
 				>
-					<div className=' text-2xl font-bold'>Обзоров пока нет</div>
+					<div className='text-2xl font-bold'>Обзоров пока нет</div>
 					<img src={Gif} alt='gif' />
 				</div>
 			)}

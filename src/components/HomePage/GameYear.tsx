@@ -14,7 +14,7 @@ const GameYear = ({ award, gamesYear }: GameYearProps) => {
 		winnerGame && (
 			<Link
 				to={'/gamesoftheyear'}
-				className='flex justify-center items-center py-6 w-[32.5%] rounded-2xl border-1 border-main-background hover:border-links-and-borders cursor-pointer'
+				className='flex justify-center items-center py-6 w-[32.5%] max-xl:w-full rounded-2xl border-1 border-main-background hover:border-links-and-borders cursor-pointe max-xl:mb-4'
 				style={{
 					backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${award.bgImage}')`,
 				}}
@@ -28,7 +28,7 @@ const GameYear = ({ award, gamesYear }: GameYearProps) => {
 						/>
 						{award.titleAward === 'Игра года' && (
 							<img
-								className='absolute -top-10 -right-10 w-20 rotate-40'
+								className='absolute -top-10 -right-10 w-20 rotate-40 max-sm:hidden'
 								src={CrownIcon}
 								alt='crown-icon'
 							/>

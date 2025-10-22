@@ -59,7 +59,7 @@ const RegisterForm = () => {
 	}, [userData, navigate])
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className='mx-10'>
+		<form onSubmit={handleSubmit(onSubmit)} className='mx-10 max-sm:mx-0'>
 			<div
 				className={`flex ${
 					focusName ? ' border-links-and-borders' : 'border-[#3F424D]'

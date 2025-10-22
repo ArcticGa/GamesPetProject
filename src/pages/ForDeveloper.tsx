@@ -28,7 +28,7 @@ const ForDeveloper = () => {
 	}
 
 	return userData ? (
-		<div className='w-full h-[920px] flex items-center justify-center'>
+		<div className='w-full h-[90vh] flex items-center justify-center'>
 			<div className='max-w-[550px]'>
 				<div className='bg-main-blocks p-2 mb-3 text-center font-bold rounded-2xl'>
 					<div className='mb-4'>

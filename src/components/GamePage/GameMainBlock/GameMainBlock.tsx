@@ -40,7 +40,7 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 
 	return (
 		<div
-			className='bg-main-blocks w-full h-[500px] rounded-3xl pl-[50px] pr-[20px] flex items-center justify-between'
+			className='relative bg-main-blocks w-full rounded-3xl pl-[50px] pr-[20px] flex items-center justify-between flex-wrap py-10 max-2xl:p-4'
 			style={{
 				backgroundImage: `linear-gradient(rgba(0,0,0,${
 					activeBtn === 2 ? '0.7' : '0.2'
@@ -49,13 +49,13 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 				})), url('${randomScreenshot}')`,
 			}}
 		>
-			<div>
+			<div className='max-xl:'>
 				<img
 					className='w-80 rounded-t-lg'
 					src={game.thumbnail}
 					alt='game-img'
 				/>
-				<div>
+				<div className='max-xl2:mb-4'>
 					<div className='text-2xl max-w-80 mb-3 text-center font-bold bg-main-background border-1 border-t-0 border-links-and-borders p-1 rounded-b-lg'>
 						{game.title}
 					</div>
@@ -66,7 +66,7 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 				<Info title='Дата выхода:' info={game.release_date} />
 				<Info title='Жанр:' info={game.genre} />
 
-				<div className='mt-7'>
+				<div className='mt-7 max-2xl:mb-6'>
 					<a
 						className='bg-main-background border-1 border-links-and-borders text-xl px-4 py-2 rounded-lg'
 						href={game.game_url}

@@ -85,20 +85,27 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className='p-4 bg-main-blocks rounded-2xl w-full max-w-[470px] mr-4 mb-4 flex flex-col justify-between'
+			className='p-4 bg-main-blocks rounded-2xl w-full max-w-[470px] mr-4 mb-4 flex flex-col justify-between max-sm:p-1.5 max-sm:mr-0'
 		>
-			<div className='flex items-center justify-between rounded-2xl bg-main-background shadow-lg px-6 py-3 mb-4'>
-				<Link to={`/user/${review.user._id}`} className='flex items-center'>
+			<div className='flex items-center justify-between rounded-2xl bg-main-background shadow-lg px-6 py-3 mb-4 max-sm:px-3 max-sm:py-2'>
+				<Link
+					to={
+						review.user._id === userData?._id
+							? `/profile`
+							: `/user/${review.user._id}`
+					}
+					className='flex items-center'
+				>
 					<img
-						className='mr-2 w-12 h-12 rounded-full'
+						className='mr-2 w-12 h-12 rounded-full max-sm:w-10 max-sm:h-10'
 						src={BASE_BACKEND_URL + review.user.avatarUrl}
 						alt='user-avatar'
 					/>
 					<div>
-						<div className='font-bold text-lg max-w-[93px] overflow-hidden'>
+						<div className='font-bold text-lg max-w-[93px] overflow-hidden max-sm:text-base max-sm:max-w-[60px]'>
 							{review.user.nickname}
 						</div>
-						<div className='text-xs text-[#c5c5c5]'>
+						<div className='text-xs text-[#c5c5c5] max-sm:text-mini'>
 							Обзоров: {review.user.ownReviews}
 						</div>
 					</div>
@@ -106,9 +113,10 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 				{isEditing ? (
 					<div
 						onClick={() => setIsRecommended(!isRecommended)}
-						className='flex items-center bg-main-blocks text-sm px-2.5 py-2 rounded-xl cursor-pointer'
+						className='flex items-center bg-main-blocks text-sm px-2.5 py-2 rounded-xl cursor-pointer max-sm:mx-1 max-sm:text-xs'
 					>
 						<img
+							className='max-sm:hidden'
 							src={isRecommended ? RedHeartIcon : HeartIcon}
 							alt='heart-icon'
 						/>
@@ -117,12 +125,13 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 						</div>
 					</div>
 				) : (
-					<div className='flex items-center bg-main-blocks text-sm px-2.5 py-2 rounded-xl'>
+					<div className='flex items-center bg-main-blocks text-sm px-2.5 py-2 rounded-xl max-sm:mx-2 max-sm:text-xs'>
 						<img
+							className='max-sm:hidden'
 							src={review.isRecommended ? RedHeartIcon : HeartIcon}
 							alt='heart-icon'
 						/>
-						<div className='ml-2'>
+						<div className='ml-2 max-sm:m-0'>
 							{review.isRecommended ? 'Рекомендую' : 'Не рекомендую'}
 						</div>
 					</div>
@@ -131,7 +140,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 					<div className='flex flex-col items-center'>
 						<select
 							{...register('grade')}
-							className='outline-none border-0 text-3xl cursor-pointer'
+							className='outline-none border-0 text-3xl cursor-pointer max-sm:text-2xl'
 							defaultValue={review.grade}
 						>
 							{[...Array(10)].map((_, index) => (
@@ -145,12 +154,18 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 								</option>
 							))}
 						</select>
-						<div className='text-xs text-[#c5c5c5]'>Оценка</div>
+						<div className='text-xs text-[#c5c5c5] max-sm:text-mini'>
+							Оценка
+						</div>
 					</div>
 				) : (
 					<div className='flex flex-col items-center'>
-						<div className='text-bold text-3xl'>{review.grade}</div>
-						<div className='text-xs text-[#c5c5c5]'>Оценка</div>
+						<div className='text-bold text-3xl max-sm:text-2xl'>
+							{review.grade}
+						</div>
+						<div className='text-xs text-[#c5c5c5] max-sm:text-mini'>
+							Оценка
+						</div>
 					</div>
 				)}
 			</div>

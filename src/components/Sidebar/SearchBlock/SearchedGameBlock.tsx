@@ -26,14 +26,14 @@ const SearchedGameBlock = ({
 			to={`/game/${game.id}`}
 			onClick={() => openGame()}
 			className={`flex bg-main-background items-center cursor-pointer p-3 px-4 rounded-xl ${
-				filteredArray.length > 1 ? 'mb-2' : ''
+				filteredArray.length > 1 ? 'mb-2' : null
 			} `}
 		>
 			<div className='mr-3'>
 				<img className='w-30' src={game?.thumbnail} alt={game.title} />
 			</div>
 			<div>
-				<div className='font-bold text-sm'>{game?.title}</div>
+				<div className='font-bold text-sm max-sm:text-xs'>{game?.title}</div>
 				<div className='text-xs text-gray-500'>{game.developer}</div>
 				<span className='text-mini py-0.5 px-2 mr-1 bg-genres-bg text-genres-text rounded-lg'>
 					{game?.genre}

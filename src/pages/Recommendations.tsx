@@ -72,7 +72,7 @@ const Recommendations = () => {
 				<div>Ошибка</div>
 			) : (
 				status === 'success' && (
-					<div className='grid grid-cols-4 gap-5 flex-1 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-3'>
+					<div className='grid grid-cols-4 gap-5 flex-1 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-2'>
 						{randomGames.map(game => (
 							<Link to={`/game/${game.id}`} key={game.id}>
 								<img
