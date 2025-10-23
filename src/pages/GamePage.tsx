@@ -3,11 +3,11 @@ import { useParams } from 'react-router'
 import { fetchGameById } from '../redux/slices/dataSlices/gameByIdSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 
-import GameInfoBlock from '../components/GamePage/GameInfoBlock/GameInfoBlock'
-import GameMainBlock from '../components/GamePage/GameMainBlock/GameMainBlock'
-import GameReviewsBlock from '../components/GamePage/GameReviewsBlock/GameReviewsBlock'
-import GameSimilarsBlock from '../components/GamePage/GameSimilarsBlock/GameSimilarsBlock'
 import SkeletonFullGame from '../components/MicroComponents/Skeletons/SkeletonFullGame'
+import GameInfoBlock from '../components/PagesComponents/GamePage/GameInfoBlock/GameInfoBlock'
+import GameMainBlock from '../components/PagesComponents/GamePage/GameMainBlock/GameMainBlock'
+import GameReviewsBlock from '../components/PagesComponents/GamePage/GameReviewsBlock/GameReviewsBlock'
+import GameSimilarsBlock from '../components/PagesComponents/GamePage/GameSimilarsBlock/GameSimilarsBlock'
 
 const GamePage = () => {
 	const dispatch = useAppDispatch()

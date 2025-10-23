@@ -4,11 +4,11 @@ import {
 	fetchFeaturedGamesForOutsider,
 	fetchLikedReviewsForOutsider,
 } from '../api/fetchData'
-import Gif from '../assets/GameImages/notfoundimg.gif'
+import NotFound from '../components/MicroComponents/NotFound'
 import SkeletonProfile from '../components/MicroComponents/Skeletons/SkeletonProfile'
 import SortButton from '../components/MicroComponents/SortButton'
-import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
-import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
+import RenderInfoBlock from '../components/PagesComponents/ProfilePage/DataRenderComponent/RenderInfoBlock'
+import MainProfileBlock from '../components/PagesComponents/ProfilePage/MainInfoComponent/MainProfileBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { fetchUserById } from '../redux/slices/dataSlices/userById'
 import { useAppDispatch, useAppSelector } from '../redux/store'
@@ -42,10 +42,7 @@ const UserPage = () => {
 	return status === 'loading' ? (
 		<SkeletonProfile />
 	) : status === 'error' || user === null ? (
-		<div className='flex flex-col items-center justify-center h-[92vh]'>
-			<div className='text-2xl font-bold'>Пользователь не найден</div>
-			<img src={Gif} alt='gif' />
-		</div>
+		<NotFound text='Пользователь не найден' />
 	) : (
 		status === 'success' &&
 		user && (

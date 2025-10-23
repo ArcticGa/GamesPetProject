@@ -1,4 +1,4 @@
-import ReviewsMainComponent from '../components/ReviewsPage/ReviewsMainComponent'
+import ReviewsMainComponent from '../components/PagesComponents/ReviewsPage/ReviewsMainComponent'
 
 const ReviewsPage = () => {
 	return (

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { fetchFeaturedGamesById, fetchLikedReviewsById } from '../api/fetchData'
+import NotFound from '../components/MicroComponents/NotFound'
 import SkeletonProfile from '../components/MicroComponents/Skeletons/SkeletonProfile'
 import SortButton from '../components/MicroComponents/SortButton'
-import RenderInfoBlock from '../components/ProfilePage/DataRenderComponent/RenderInfoBlock'
-import MainProfileBlock from '../components/ProfilePage/MainInfoComponent/MainProfileBlock'
-import NotAuth from '../components/ProfilePage/NotAuth'
+import RenderInfoBlock from '../components/PagesComponents/ProfilePage/DataRenderComponent/RenderInfoBlock'
+import MainProfileBlock from '../components/PagesComponents/ProfilePage/MainInfoComponent/MainProfileBlock'
 import { fetchOwnReviews } from '../redux/slices/dataSlices/gameReviewsSlice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { arraySortProfileBtns } from '../utils/miniArraysList'
@@ -63,7 +63,11 @@ const UserProfilePage = () => {
 			)}
 		</div>
 	) : (
-		<NotAuth />
+		<NotFound
+			text='Вы не авторизованы'
+			link='/auth'
+			linkText='Войти в аккаунт'
+		/>
 	)
 }
 

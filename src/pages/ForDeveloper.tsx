@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { fetchPostDevMsg } from '../api/fetchData'
+import HeaderMsgDev from '../components/PagesComponents/MsgDevPage/HeaderMsgDev'
 import { useAppSelector } from '../redux/store'
 
 type FormInputs = {
@@ -30,16 +31,7 @@ const ForDeveloper = () => {
 	return userData ? (
 		<div className='w-full h-[90vh] flex items-center justify-center'>
 			<div className='max-w-[550px]'>
-				<div className='bg-main-blocks p-2 mb-3 text-center font-bold rounded-2xl'>
-					<div className='mb-4'>
-						Привет, на связи разработчик. На этой странице вы можете написать
-						что-нибудь мне, например пожелания, замечания, просьбы, баги и т.д.
-					</div>
-					<div className='border-2 border-youtube-link py-1 rounded-2xl text-gray-500'>
-						Бессмысленные сообщения, спам и подобное не отправлять. Спасибо за
-						понимание.
-					</div>
-				</div>
+				<HeaderMsgDev />
 
 				{errors.text && (
 					<div className='bg-youtube-link p-2 rounded-lg mb-3'>

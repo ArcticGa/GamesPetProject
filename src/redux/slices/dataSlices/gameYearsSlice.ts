@@ -1,31 +1,31 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IGameYear } from '../../../types/types'
+import { IGameYear, Status } from '../../../types/types'
 
 interface IGamesYearSliceState {
 	gamesYear: IGameYear[]
 	status: 'loading' | 'success' | 'error'
-}
-
-export enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
+	error: string | null
 }
 
 export const fetchGamesYear = createAsyncThunk<IGameYear[], number>(
 	'games/fetchGamesYearStatus',
-	async year => {
-		const { data } = await axios.get(
-			`https://68d4fe69e29051d1c0acd263.mockapi.io/games-finalists?year=${year}`
-		)
-		return data
+	async (year, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(
+				`https://68d4fe69e29051d1c0acd263.mockapi.io/games-finalists?year=${year}`
+			)
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
 	}
 )
 
 const initialState: IGamesYearSliceState = {
 	gamesYear: [],
 	status: Status.LOADING,
+	error: null,
 }
 
 export const gameYearSlice = createSlice({
@@ -46,9 +46,10 @@ export const gameYearSlice = createSlice({
 				state.status = Status.SUCCESS
 				state.gamesYear = action.payload
 			})
-			.addCase(fetchGamesYear.rejected, state => {
+			.addCase(fetchGamesYear.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.gamesYear = []
+				state.error = action.payload as string
 			})
 	},
 })

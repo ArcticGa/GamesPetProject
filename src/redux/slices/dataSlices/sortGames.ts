@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IGame } from '../../../types/types'
+import { IGame, Status } from '../../../types/types'
+
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 
@@ -8,12 +9,6 @@ interface ISortGamesState {
 	sortedGames: IGame[]
 	status: 'loading' | 'success' | 'error'
 	error: string | null
-}
-
-export enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
 }
 
 export const fetchSortedGames = createAsyncThunk<IGame[], string>(

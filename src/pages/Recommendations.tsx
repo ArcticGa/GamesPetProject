@@ -1,46 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import SkeletonGame from '../components/MicroComponents/Skeletons/SkeletonGame'
+import HeaderRecommendations from '../components/PagesComponents/RecommendationsPage/HeaderRecommendations'
 import { fetchSortedGames } from '../redux/slices/dataSlices/sortGames'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { IGame } from '../types/types'
-import { arrayGenres } from '../utils/miniArraysList'
+import { getRandomGames, getRandomGenre } from '../utils/getRandomItems'
 
 const Recommendations = () => {
-	const [randomGames, setRandomGames] = useState<IGame[]>([])
-
 	const dispatch = useAppDispatch()
 	const { sortedGames, status } = useAppSelector(state => state.sortGamesSlice)
 
-	const getRandomGenre = () => {
-		const lastGenre = localStorage.getItem('lastGenre')
-		if (lastGenre) {
-			if (lastGenre === 'Card Game') return 'card'
-
-			return lastGenre
-		} else {
-			const randomGenreIndex = Math.floor(Math.random() * arrayGenres.length)
-			return arrayGenres[randomGenreIndex]
-		}
-	}
-
-	const getRandomGames = (array: IGame[]) => {
-		const newArr: IGame[] = []
-		for (let i = 0; i < 12; i++) {
-			const randomNumber = Math.floor(Math.random() * array.length)
-
-			if (array[randomNumber]) {
-				const index = newArr.findIndex(
-					item => item.id === array[randomNumber].id
-				)
-				if (index === -1) {
-					newArr.push(array[randomNumber])
-				}
-			}
-		}
-
-		return newArr
-	}
+	const [randomGames, setRandomGames] = useState<IGame[]>([])
 
 	useEffect(() => {
 		const randomGenre = getRandomGenre().toLowerCase()
@@ -48,20 +19,13 @@ const Recommendations = () => {
 	}, [])
 
 	useEffect(() => {
-		const array = getRandomGames(sortedGames)
-		setRandomGames(array)
+		setRandomGames(getRandomGames(sortedGames, 12))
 	}, [sortedGames])
 
 	return (
 		<div className='pt-4'>
-			<div className='flex items-center max-md:flex-col mb-6'>
-				<div className='text-xl font-bold max-md:mb-4'>
-					Рекомендации для вас
-				</div>
-				<div className='bg-main-blocks rounded-2xl p-2 max-w-[300px] text-xs text-center ml-4'>
-					Рекомендации подбираются по категориям игр которые вы смотрите
-				</div>
-			</div>
+			<HeaderRecommendations />
+
 			{status === 'loading' ? (
 				<div className='grid grid-cols-4 gap-5 flex-1'>
 					{[...new Array(12)].map((_, index) => (

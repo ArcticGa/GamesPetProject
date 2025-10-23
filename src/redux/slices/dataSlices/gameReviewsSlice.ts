@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IReview } from '../../../types/types'
+import { IReview, Status } from '../../../types/types'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
@@ -30,30 +30,32 @@ type createReviewParams = {
 	isRecommended: boolean
 }
 
-export enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
-}
-
 export const fetchGameReviews = createAsyncThunk<IReview[], number | string>(
 	'reviews/fetchGameReviews',
-	async id => {
-		const { data } = await axios.get(
-			`${BASE_BACKEND_URL}/reviewsByGameId/${id}`
-		)
-		return data
+	async (id, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(
+				`${BASE_BACKEND_URL}/reviewsByGameId/${id}`
+			)
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
 	}
 )
 
 export const fetchOwnReviews = createAsyncThunk<IReview[], string>(
 	'reviews/fetchOwnReviews',
-	async userId => {
-		const { data } = await axios.get(
-			`${BASE_BACKEND_URL}/reviewsByUserId/${userId}`
-		)
+	async (userId, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(
+				`${BASE_BACKEND_URL}/reviewsByUserId/${userId}`
+			)
 
-		return data
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
 	}
 )
 
@@ -139,9 +141,10 @@ export const gameReviewsSlice = createSlice({
 				state.status = Status.SUCCESS
 				state.reviews = action.payload
 			})
-			.addCase(fetchGameReviews.rejected, state => {
+			.addCase(fetchGameReviews.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.reviews = []
+				state.error = action.payload as string
 			})
 			.addCase(fetchOwnReviews.pending, state => {
 				state.status = Status.LOADING
@@ -151,9 +154,10 @@ export const gameReviewsSlice = createSlice({
 				state.status = Status.SUCCESS
 				state.reviews = action.payload
 			})
-			.addCase(fetchOwnReviews.rejected, state => {
+			.addCase(fetchOwnReviews.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.reviews = []
+				state.error = action.payload as string
 			})
 			.addCase(fetchUpdateReview.pending, state => {
 				state.status = Status.LOADING

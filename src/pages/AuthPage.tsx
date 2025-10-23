@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import ChangeFormBtn from '../components/AuthPage/ChangeFormBtn'
-import LoginForm from '../components/AuthPage/Forms/LoginForm'
-import RegisterForm from '../components/AuthPage/Forms/RegisterForm'
+import ChangeFormBtn from '../components/PagesComponents/AuthPage/ChangeFormBtn'
+import LoginForm from '../components/PagesComponents/AuthPage/Forms/LoginForm'
+import RegisterForm from '../components/PagesComponents/AuthPage/Forms/RegisterForm'
 
 const AuthPage = () => {
 	const [selectedForm, setSelectedForm] = useState('login')

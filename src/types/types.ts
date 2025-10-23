@@ -1,3 +1,12 @@
+// Interfaces
+export interface IAward {
+	titleAward: string
+	bgImage: string
+	winnerId: number
+	id: number
+}
+
+// Interfaces/API
 export interface IGame {
 	id: number
 	title: string
@@ -44,13 +53,6 @@ export interface IReview {
 	dislikes: number
 }
 
-export interface IAward {
-	titleAward: string
-	bgImage: string
-	winnerId: number
-	id: number
-}
-
 export interface IGameYear {
 	id: number
 	name: string
@@ -75,4 +77,30 @@ export interface IUser {
 	updatedAt: string
 	__v: number
 	token: string
+}
+
+// Types
+// AuthTypes
+export type LoginInputs = {
+	nickname: string
+	password: string
+}
+
+export type RegisterInputs = {
+	nickname: string
+	email: string
+	password: string
+}
+
+//ReviewTypes
+export type AddReviewInputs = {
+	grade: string
+	text: string
+}
+
+//Enums
+export enum Status {
+	LOADING = 'loading',
+	SUCCESS = 'success',
+	ERROR = 'error',
 }

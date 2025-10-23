@@ -1,20 +1,21 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
+import NotFound from './components/MicroComponents/NotFound'
 import MainLayout from './layouts/MainLayout'
 import AuthPage from './pages/AuthPage'
 import ForDeveloper from './pages/ForDeveloper'
 import GamePage from './pages/GamePage'
 import GamesOfYear from './pages/GamesOfYear'
 import Home from './pages/Home'
-import NotFound from './pages/NotFound'
 import Recommendations from './pages/Recommendations'
 import Reviews from './pages/ReviewsPage'
 import SortingGamesPage from './pages/SortingGamesPage'
 import UserPage from './pages/UserPage'
 import UserProfilePage from './pages/UserProfilePage'
-import { fetchAuthMe, setAuthStatus, Status } from './redux/slices/auth'
+import { fetchAuthMe, setAuthStatus } from './redux/slices/auth'
 import { setActiveLink } from './redux/slices/sidebarSlices/linksSlice'
 import { useAppDispatch } from './redux/store'
+import { Status } from './types/types'
 
 function App() {
 	const dispatch = useAppDispatch()
@@ -46,7 +47,16 @@ function App() {
 				<Route path='profile' element={<UserProfilePage />} />
 				<Route path='user/:userId' element={<UserPage />} />
 				<Route path='for-developer' element={<ForDeveloper />} />
-				<Route path='*' element={<NotFound />} />
+				<Route
+					path='*'
+					element={
+						<NotFound
+							text='Страница не найдена'
+							link='/'
+							linkText='На главную'
+						/>
+					}
+				/>
 			</Route>
 		</Routes>
 	)

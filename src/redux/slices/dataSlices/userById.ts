@@ -1,31 +1,31 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IUser } from '../../../types/types'
+import { IUser, Status } from '../../../types/types'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 interface IUserSliceState {
 	user: IUser | null
 	status: 'loading' | 'success' | 'error'
-}
-
-export enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
+	error: string | null
 }
 
 export const fetchUserById = createAsyncThunk<IUser, string>(
 	'game/fetchUserById',
-	async userId => {
-		const { data } = await axios.get(`${BASE_BACKEND_URL}/user/${userId}`)
-		return data
+	async (userId, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(`${BASE_BACKEND_URL}/user/${userId}`)
+			return data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
 	}
 )
 
 const initialState: IUserSliceState = {
 	user: null,
 	status: Status.LOADING,
+	error: null,
 }
 
 export const getUserByIdSlice = createSlice({
@@ -46,9 +46,10 @@ export const getUserByIdSlice = createSlice({
 				state.status = Status.SUCCESS
 				state.user = action.payload
 			})
-			.addCase(fetchUserById.rejected, state => {
+			.addCase(fetchUserById.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.user = null
+				state.error = action.payload as string
 			})
 	},
 })

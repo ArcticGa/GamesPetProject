@@ -1,39 +1,39 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { IGame } from '../../../types/types'
+import { IGame, Status } from '../../../types/types'
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 
 interface IGameSliceState {
 	games: IGame[]
 	status: 'loading' | 'success' | 'error'
-}
-
-export enum Status {
-	LOADING = 'loading',
-	SUCCESS = 'success',
-	ERROR = 'error',
+	error: string | null
 }
 
 export const fetchGames = createAsyncThunk<IGame[]>(
 	'games/fetchGamesStatus',
-	async () => {
-		const response = await axios.get(`${BASE_URL}/games`, {
-			params: {
-				platform: 'pc',
-			},
-			headers: {
-				'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-				'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
-			},
-		})
-		return response.data
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`${BASE_URL}/games`, {
+				params: {
+					platform: 'pc',
+				},
+				headers: {
+					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
+					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
+				},
+			})
+			return response.data
+		} catch (error: any) {
+			return rejectWithValue(error.response.data)
+		}
 	}
 )
 
 const initialState: IGameSliceState = {
 	games: [],
 	status: Status.LOADING,
+	error: null,
 }
 
 export const gamesSlice = createSlice({
@@ -54,9 +54,10 @@ export const gamesSlice = createSlice({
 				state.status = Status.SUCCESS
 				state.games = action.payload
 			})
-			.addCase(fetchGames.rejected, state => {
+			.addCase(fetchGames.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.games = []
+				state.error = action.payload as string
 			})
 	},
 })
