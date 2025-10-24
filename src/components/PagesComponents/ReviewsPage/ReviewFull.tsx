@@ -19,8 +19,6 @@ type UpdateReviewInputs = {
 	text: string
 }
 
-const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
-
 const ReviewFull = ({ review }: { review: IReview }) => {
 	const dispatch = useAppDispatch()
 	const { userData } = useAppSelector(state => state.authSlice)
@@ -98,7 +96,7 @@ const ReviewFull = ({ review }: { review: IReview }) => {
 				>
 					<img
 						className='mr-2 w-12 h-12 rounded-full max-sm:w-10 max-sm:h-10'
-						src={BASE_BACKEND_URL + review.user.avatarUrl}
+						src={review.user.avatarUrl}
 						alt='user-avatar'
 					/>
 					<div>

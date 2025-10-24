@@ -9,8 +9,6 @@ import { AddReviewInputs, IUser } from '../../../../types/types'
 import HeartIcon from '../../../../assets/icons/heart.svg'
 import RedHeartIcon from '../../../../assets/icons/redHeart.svg'
 
-const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
-
 type FormAddReviewProps = {
 	setErrorGrade: React.Dispatch<SetStateAction<boolean>>
 	userData: IUser
@@ -83,7 +81,7 @@ const FormReview = ({
 				<div className='flex items-center'>
 					<img
 						className='mr-2 w-12 h-12 rounded-full max-sm:w-10 max-sm:h-10'
-						src={BASE_BACKEND_URL + userData.avatarUrl}
+						src={userData.avatarUrl}
 						alt='user-avatar'
 					/>
 					<div>

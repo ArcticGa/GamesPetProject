@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { SetStateAction } from 'react'
-import { fetchUpdateUser } from '../redux/slices/auth'
 
+import { fetchUpdateUser } from '../redux/slices/auth'
 import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../redux/slices/likedReviewsSlice'
 import { IFullGame, IReview, IUser } from '../types/types'
@@ -36,13 +36,18 @@ export const fetchImage = async (files: FileList, dispatch: any) => {
 	try {
 		const formData = new FormData()
 		const selectedFile = files[0]
-		formData.append('image', selectedFile)
-		const { data } = await axios.post(`${BASE_BACKEND_URL}/uploads`, formData, {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-			},
-		})
-		dispatch(fetchUpdateUser({ avatarUrl: data }))
+		formData.append('file', selectedFile)
+		formData.append('upload_preset', 'games-world-static')
+		formData.append('cloud_name', 'duungkc2k')
+
+		const { data } = await axios.post(
+			`https://api.cloudinary.com/v1_1/duungkc2k/image/upload`,
+			formData
+		)
+
+		console.log(data)
+
+		dispatch(fetchUpdateUser({ avatarUrl: data.secure_url }))
 		return
 	} catch (err) {
 		console.warn(err)

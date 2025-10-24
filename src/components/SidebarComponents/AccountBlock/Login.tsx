@@ -11,8 +11,6 @@ import { setLikedReviews } from '../../../redux/slices/likedReviewsSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { IUser } from '../../../types/types'
 
-const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
-
 const Login = ({ userData }: { userData: IUser }) => {
 	const dispatch = useAppDispatch()
 
@@ -89,7 +87,7 @@ const Login = ({ userData }: { userData: IUser }) => {
 				<div className='flex items-center justify-center'>
 					<img
 						className='w-8 h-8 rounded-full'
-						src={BASE_BACKEND_URL + userData.avatarUrl}
+						src={userData.avatarUrl}
 						alt='user-avatar'
 					/>
 
