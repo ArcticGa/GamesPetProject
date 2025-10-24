@@ -77,7 +77,7 @@ const FormReview = ({
 					{errors?.text?.message}
 				</div>
 			)}
-			<div className='flex items-center justify-between bg-main-background px-6 py-3 rounded-2xl max-sm:px-3 max-sm:py-2'>
+			<div className='flex items-center justify-between bg-main-background px-4 py-3 rounded-2xl max-sm:px-3 max-sm:py-2'>
 				<div className='flex items-center'>
 					<img
 						className='mr-2 w-12 h-12 rounded-full max-sm:w-10 max-sm:h-10'

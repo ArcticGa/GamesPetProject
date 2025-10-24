@@ -8,61 +8,78 @@ type Props = {
 	setLiked: React.Dispatch<SetStateAction<boolean>>
 	disliked: boolean
 	setDisliked: React.Dispatch<SetStateAction<boolean>>
+	setDisableBtns: React.Dispatch<SetStateAction<boolean>>
 	data: IReview
 	dispatch: any
 }
 
 // ОСНОВНЫЕ ФУНКЦИИ
-export const likeHandler = ({
+export const likeHandler = async ({
 	liked,
 	setLiked,
 	disliked,
 	setDisliked,
+	setDisableBtns,
 	data,
 	dispatch,
 }: Props) => {
-	if (liked) {
-		setLiked(false)
-		delLike(data, dispatch)
-		return
-	}
+	setDisableBtns(true)
+	try {
+		if (liked) {
+			setLiked(false)
+			await delLike(data, dispatch)
+			return
+		}
 
-	if (disliked) {
-		setDisliked(false)
-		delDislike(data, dispatch)
-	}
+		if (disliked) {
+			setDisliked(false)
+			await delDislike(data, dispatch)
+		}
 
-	setLiked(true)
-	like(data, dispatch)
+		setLiked(true)
+		await like(data, dispatch)
+	} catch (error) {
+		console.warn(error)
+	} finally {
+		setDisableBtns(false)
+	}
 }
 
-export const dislikeHandler = ({
+export const dislikeHandler = async ({
 	liked,
 	setLiked,
 	disliked,
 	setDisliked,
+	setDisableBtns,
 	data,
 	dispatch,
 }: Props) => {
-	if (disliked) {
-		setDisliked(false)
-		delDislike(data, dispatch)
-		return
-	}
+	setDisableBtns(true)
+	try {
+		if (disliked) {
+			setDisliked(false)
+			await delDislike(data, dispatch)
+			return
+		}
 
-	if (liked) {
-		setLiked(false)
-		delLike(data, dispatch)
-	}
+		if (liked) {
+			setLiked(false)
+			await delLike(data, dispatch)
+		}
 
-	setDisliked(true)
-	dislike(data, dispatch)
+		setDisliked(true)
+		await dislike(data, dispatch)
+	} catch (error) {
+		console.warn(error)
+	} finally {
+		setDisableBtns(false)
+	}
 }
 
 // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-export const like = (data: IReview, dispatch: any) => {
-	dispatch(fetchUpdateUser({ likedReviewId: data._id }))
-	dispatch(
+export const like = async (data: IReview, dispatch: any) => {
+	await dispatch(fetchUpdateUser({ likedReviewId: data._id }))
+	await dispatch(
 		fetchUpdateReview({
 			reviewId: data._id,
 			updatedFields: {
@@ -72,9 +89,9 @@ export const like = (data: IReview, dispatch: any) => {
 	)
 }
 
-export const delLike = (data: IReview, dispatch: any) => {
-	dispatch(fetchUpdateUser({ delLikedReviewId: data._id }))
-	dispatch(
+export const delLike = async (data: IReview, dispatch: any) => {
+	await dispatch(fetchUpdateUser({ delLikedReviewId: data._id }))
+	await dispatch(
 		fetchUpdateReview({
 			reviewId: data._id,
 			updatedFields: {
@@ -84,9 +101,9 @@ export const delLike = (data: IReview, dispatch: any) => {
 	)
 }
 
-export const dislike = (data: IReview, dispatch: any) => {
-	dispatch(fetchUpdateUser({ dislikedReviewId: data._id }))
-	dispatch(
+export const dislike = async (data: IReview, dispatch: any) => {
+	await dispatch(fetchUpdateUser({ dislikedReviewId: data._id }))
+	await dispatch(
 		fetchUpdateReview({
 			reviewId: data._id,
 			updatedFields: {
@@ -96,9 +113,9 @@ export const dislike = (data: IReview, dispatch: any) => {
 	)
 }
 
-export const delDislike = (data: IReview, dispatch: any) => {
-	dispatch(fetchUpdateUser({ delDislikedReviewId: data._id }))
-	dispatch(
+export const delDislike = async (data: IReview, dispatch: any) => {
+	await dispatch(fetchUpdateUser({ delDislikedReviewId: data._id }))
+	await dispatch(
 		fetchUpdateReview({
 			reviewId: data._id,
 			updatedFields: {

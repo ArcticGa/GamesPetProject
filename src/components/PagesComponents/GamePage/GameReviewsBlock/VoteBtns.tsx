@@ -11,8 +11,17 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 
 	const [liked, setLiked] = useState(false)
 	const [disliked, setDisliked] = useState(false)
+	const [disableBtns, setDisableBtns] = useState(false)
 
-	const voteProps = { liked, setLiked, disliked, setDisliked, data, dispatch }
+	const voteProps = {
+		liked,
+		setLiked,
+		disliked,
+		setDisliked,
+		setDisableBtns,
+		data,
+		dispatch,
+	}
 
 	useEffect(() => {
 		if (userData) {
@@ -31,8 +40,8 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 		<div className='flex text-nowrap'>
 			<div
 				onClick={() => likeHandler(voteProps)}
-				className={`${
-					liked ? 'bg-green-700' : 'bg-main-background'
+				className={`${liked ? 'bg-green-700' : 'bg-main-background'} ${
+					disableBtns && 'pointer-events-none opacity-20'
 				} flex items-center rounded-lg px-4 py-1.5 cursor-pointer max-sm:px-2`}
 			>
 				<img className='w-5 max-sm:w-4' src={LikeIcon} alt='like-icon' />
@@ -40,8 +49,8 @@ const VoteBtns = ({ data }: { data: IReview }) => {
 			</div>
 			<div
 				onClick={() => dislikeHandler(voteProps)}
-				className={`${
-					disliked ? 'bg-red-700' : 'bg-main-background'
+				className={`${disliked ? 'bg-red-700' : 'bg-main-background'} ${
+					disableBtns && 'pointer-events-none opacity-20'
 				} flex items-center ml-2 rounded-lg px-4 py-1.5 cursor-pointer max-sm:px-2`}
 			>
 				<img className='w-5 max-sm:w-4' src={DislikeIcon} alt='dislike-icon' />
