@@ -29,7 +29,10 @@ const UserProfilePage = () => {
 	return status === 'loading' ? (
 		<SkeletonProfile />
 	) : status === 'error' ? (
-		<div>Ошибка</div>
+		<div>
+			Ошибка (Если ваш IP Российский, советую включить VPN, или использовать
+			прокси)
+		</div>
 	) : status === 'success' && userData ? (
 		<div className='px-4 max-lg:p-0'>
 			<MainProfileBlock userData={userData} isOwn={true} />

@@ -33,7 +33,10 @@ const Recommendations = () => {
 					))}
 				</div>
 			) : status === 'error' ? (
-				<div>Ошибка</div>
+				<div>
+					Ошибка (Если ваш IP Российский, советую включить VPN, или использовать
+					прокси)
+				</div>
 			) : (
 				status === 'success' && (
 					<div className='grid grid-cols-4 gap-5 flex-1 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-2'>

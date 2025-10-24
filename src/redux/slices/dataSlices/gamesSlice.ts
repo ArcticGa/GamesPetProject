@@ -19,6 +19,7 @@ export const fetchGames = createAsyncThunk<IGame[]>(
 					platform: 'pc',
 				},
 				headers: {
+					'Content-Type': 'application/json',
 					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
 					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
 				},

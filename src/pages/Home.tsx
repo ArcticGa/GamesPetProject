@@ -54,7 +54,10 @@ const Home = () => {
 	return status === 'loading' ? (
 		<SkeletonHome />
 	) : status === 'error' ? (
-		<div>Ошибка</div>
+		<div>
+			Ошибка (Если ваш IP Российский, советую включить VPN, или использовать
+			прокси)
+		</div>
 	) : (
 		status === 'success' && (
 			<div className='px-20 mt-8 max-xl:px-0'>
