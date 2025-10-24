@@ -45,8 +45,6 @@ export const fetchImage = async (files: FileList, dispatch: any) => {
 			formData
 		)
 
-		console.log(data)
-
 		dispatch(fetchUpdateUser({ avatarUrl: data.secure_url }))
 		return
 	} catch (err) {
