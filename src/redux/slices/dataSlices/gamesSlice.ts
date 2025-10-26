@@ -2,9 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IGame, Status } from '../../../types/types'
 
-const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
-const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
-
 interface IGameSliceState {
 	games: IGame[]
 	status: 'loading' | 'success' | 'error'
