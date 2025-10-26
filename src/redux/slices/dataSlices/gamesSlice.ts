@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IGame, Status } from '../../../types/types'
+
 const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
 const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 
@@ -14,14 +15,9 @@ export const fetchGames = createAsyncThunk<IGame[]>(
 	'games/fetchGamesStatus',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`${BASE_URL}/games`, {
+			const response = await axios.get(`/api/games`, {
 				params: {
 					platform: 'pc',
-				},
-				headers: {
-					'Content-Type': 'application/json',
-					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
 				},
 			})
 			return response.data
