@@ -1,36 +1,53 @@
 import axios from 'axios'
 import { SetStateAction } from 'react'
+import { AppDispatch } from '../redux/store'
 
 import { fetchUpdateUser } from '../redux/slices/auth'
+
 import { setFeaturedGames } from '../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../redux/slices/likedReviewsSlice'
-import { IFullGame, IReview, IUser } from '../types/types'
-
-type DevMsgFields = {
-	text: string
-}
+import { DevMsgFields, IFullGame, IReview, IUser } from '../types/types'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
-export const fetchPostDevMsg = async (fields: DevMsgFields) => {
-	try {
-		const { data } = await axios.post(
-			`${BASE_BACKEND_URL}/for-developer`,
-			fields,
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-			}
-		)
+// Конфигурация API для запросов на личный Backend (для Reviews)
+const api = axios.create({
+	baseURL: BASE_BACKEND_URL,
+	headers: {
+		'Content-Type': 'application/json',
+	},
+})
 
-		return data
-	} catch (error) {
-		console.warn(error)
+// Добавление Токена к каждому запросу
+api.interceptors.request.use(config => {
+	const token = localStorage.getItem('token')
+	if (token) config.headers.Authorization = `Bearer ${token}`
+	return config
+})
+
+// Основная функция обработки ошибок
+const handleError = (err: unknown, context: string) => {
+	if (axios.isAxiosError(err)) {
+		console.error(
+			`[${context}] AxiosError: ${err.response?.status || ''} ${err.message}`
+		)
+	} else {
+		console.error(`[${context}]`, err)
 	}
 }
 
-export const fetchImage = async (files: FileList, dispatch: any) => {
+// Функция отправки сообщения пользователя на Backend
+export const fetchPostDevMsg = async (fields: DevMsgFields) => {
+	try {
+		const { data } = await axios.post(`/for-developer`, fields)
+		return data
+	} catch (error) {
+		handleError(error, 'fetchPostDevMsg')
+	}
+}
+
+// Функция отправки изображения на сервис Cloudinary
+export const fetchImage = async (files: FileList, dispatch: AppDispatch) => {
 	try {
 		const formData = new FormData()
 		const selectedFile = files[0]
@@ -46,103 +63,96 @@ export const fetchImage = async (files: FileList, dispatch: any) => {
 		dispatch(fetchUpdateUser({ avatarUrl: data.secure_url }))
 		return
 	} catch (err) {
-		console.warn(err)
+		handleError(err, 'fetchImage')
 	}
 }
 
-// Последующий код может показаться ужасным и это так.
-// 4 почти одинаковые функции возвращающие Promise.all()
-// Эти функции используются в файлах UserPage.tsx (личная страница пользователя) и UserProfilePage.tsx (страница стороннего пользователя) и каждая из них должна получить и Понравившиеся и Созданные обзоры по reviewsId которые хранятся у самого пользователя в базе в виде массивов айдишников (по факту отрисовки страницы происходит КУЧА запросов на сервак в виде "Дай мне один Обзор по reviewId". А их может быть бесконечное множество)
-// Если у пользователя будет много созданных обзоров или понравившихся или и то и то, мой сервак просто умрет. Я это понимаю :(
-//Вся проблема кроется в моем бэкенде (ну и то что список Игр и Обзоров приходят с разных источников) .Это крайняя мера, так как бэкенд писал тоже я и он совсем плох.
+// Универсальная функция (helper) для загрузки множества элементов
+async function fetchItemsById<T, ID extends string | number>(
+	ids: ID[],
+	fetcher: (id: ID) => Promise<T | undefined>
+): Promise<T[]> {
+	try {
+		const result = await Promise.all(ids.map(fetcher))
+		return result.filter(Boolean) as T[]
+	} catch (error) {
+		handleError(error, 'fetchItemsById')
+		return []
+	}
+}
 
-// ВЫВОД: РАЗРАБ НЕ ОПЫТНЫЙ, ПРОЕКТ НЕ ПОДХОДИТ ДЛЯ БОЛЬШОГО КОЛИЧЕСТВА ОНЛАЙН ПОЛЬЗОВАТЕЛЕЙ В МОМЕНТЕ. Проект является примером того, что я умею и могу.
-// ---------- СПАСИБО ЗА ПОНИМАНИЕ ---------- //
-
-export const fetchLikedReviewsById = (userData: IUser, dispatch: any) => {
-	const likedReviews = userData.likedReviews
-
-	const task = async (id: string) => {
-		try {
-			const { data } = await axios.get(`${BASE_BACKEND_URL}/review/${id}`)
-
+// Функция для запроса залайканых обзоров авторизованного юзера
+export const fetchLikedReviewsById = async (
+	userData: IUser,
+	dispatch: AppDispatch
+) => {
+	try {
+		const fetchReview = async (id: string) => {
+			const { data } = await api.get<IReview>(`/reviews/${id}`)
 			return data
-		} catch (err) {
-			console.log('error', err)
 		}
+
+		const reviews = await fetchItemsById(userData.likedReviews, fetchReview)
+		dispatch(setLikedReviews(reviews))
+	} catch (error) {
+		handleError(error, 'fetchLikedReviewsById')
 	}
-
-	const allTasks = likedReviews.map((reviewId: string) => {
-		return task(reviewId)
-	})
-
-	Promise.all(allTasks).then(result => dispatch(setLikedReviews(result)))
 }
 
+// Функция для запроса избранных игр авторизованного юзера
 export const fetchFeaturedGamesById = async (
 	userData: IUser,
-	dispatch: any
+	dispatch: AppDispatch
 ) => {
-	const task = async (id: number) => {
-		try {
-			const response = await axios.get(`/api/games/getOne`, {
+	try {
+		const fetchGame = async (id: number) => {
+			const { data } = await axios.get<IFullGame>('/api/games/getOne', {
 				params: { id },
 			})
-			return response.data
-		} catch (err) {
-			console.log('error', err)
+
+			return data
 		}
-	}
 
-	const allTasks = userData.featuredGames.map((gameId: number) => {
-		return task(gameId)
-	})
-
-	Promise.all(allTasks).then(result => {
+		const result = await fetchItemsById(userData.featuredGames, fetchGame)
 		dispatch(setFeaturedGames(result))
-	})
+	} catch (error) {
+		handleError(error, 'fetchGame')
+	}
 }
 
-export const fetchLikedReviewsForOutsider = (
+// Функция для запроса залайканых обзоров стороннего юзера
+export const fetchLikedReviewsForOutsider = async (
 	object: IUser,
 	setStateAction: React.Dispatch<SetStateAction<IReview[]>>
 ) => {
-	const task = async (id: string) => {
-		try {
-			const { data } = await axios.get(`${BASE_BACKEND_URL}/review/${id}`)
-
+	try {
+		const fetchReview = async (id: string) => {
+			const { data } = await api.get<IReview>(`/review/${id}`)
 			return data
-		} catch (err) {
-			console.log('error', err)
 		}
+
+		const reviews = await fetchItemsById(object.likedReviews, fetchReview)
+		setStateAction(reviews)
+	} catch (error) {
+		handleError(error, 'fetchLikedReviewsForOutsider')
 	}
-
-	const allTasks = object.likedReviews.map((reviewId: string) => {
-		return task(reviewId)
-	})
-
-	Promise.all(allTasks).then(result => setStateAction(result))
 }
 
-export const fetchFeaturedGamesForOutsider = (
+// Функция для запроса избранных игр стороннего юзера
+export const fetchFeaturedGamesForOutsider = async (
 	object: IUser,
 	setStateAction: React.Dispatch<SetStateAction<IFullGame[]>>
 ) => {
-	const task = async (id: number) => {
-		try {
-			const response = await axios.get(`/api/games/getOne`, {
+	try {
+		const fetchGame = async (id: number) => {
+			const { data } = await axios.get<IFullGame>('/games/getOne', {
 				params: { id },
 			})
-
-			return response.data
-		} catch (err) {
-			console.log('error', err)
+			return data
 		}
+		const games = await fetchItemsById(object.featuredGames, fetchGame)
+		setStateAction(games)
+	} catch (error) {
+		handleError(error, 'fetchFeaturedGamesForOutsider')
 	}
-
-	const allTasks = object.featuredGames.map((gameId: number) => {
-		return task(gameId)
-	})
-
-	Promise.all(allTasks).then(result => setStateAction(result))
 }

@@ -97,6 +97,10 @@ export type AddReviewInputs = {
 	grade: string
 	text: string
 }
+// Msg to developer props
+export type DevMsgFields = {
+	text: string
+}
 
 //Enums
 export enum Status {
