@@ -20,9 +20,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		return res.send(cache.get(url))
 	}
 
-	console.log('Cache', cache)
-	console.log('Url', url)
-
 	try {
 		const response = await axios.get(url, { responseType: 'arraybuffer' })
 		cache.set(url, Buffer.from(response.data))

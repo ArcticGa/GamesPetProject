@@ -21,13 +21,10 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 		<div
 			className='relative bg-main-blocks w-full rounded-3xl pl-[50px] pr-[20px] flex items-center justify-between flex-wrap py-10 max-2xl:p-4'
 			style={{
-				backgroundImage: `linear-gradient(rgba(0,0,0,${
-					activeBtn === 2 ? '0.7' : '0.2'
-				}), rgba(0,0,0,${
-					activeBtn === 2 ? '0.7' : '0.2'
-				})), url('${`/api/image?url=${encodeURIComponent(
-					randomScreenshot ? randomScreenshot : ''
-				)}`}}')`,
+				backgroundImage: `linear-gradient(
+					rgba(0,0,0,${activeBtn === 2 ? '0.7' : '0.2'}),
+					rgba(0,0,0,${activeBtn === 2 ? '0.7' : '0.2'})
+				), url('/api/image?url=${encodeURIComponent(randomScreenshot || '')}')`,
 			}}
 		>
 			<div className='max-xl:'>
