@@ -20,10 +20,7 @@ const GamesList = () => {
 						<SkeletonGame key={index} width={300} height={250} />
 					))
 				) : status === 'error' ? (
-					<div>
-						Ошибка (Если ваш IP Российский, советую включить VPN, или
-						использовать прокси)
-					</div>
+					<div>Ошибка</div>
 				) : (
 					sortedGames.slice(firstGameIndex, lastGameIndex).map(game => (
 						<Link className='' to={`/game/${game.id}`} key={game.id}>
