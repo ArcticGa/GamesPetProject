@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { IGame, Status } from '../../../types/types'
+import axios, { AxiosError } from 'axios'
+import { ApiError, IGame, Status } from '../../../types/types'
 
 type fetchSortedGamesProps = {
 	category?: string
@@ -10,12 +10,13 @@ type fetchSortedGamesProps = {
 interface ISortGamesState {
 	sortedGames: IGame[]
 	status: 'loading' | 'success' | 'error'
-	error: string | null
+	error: string
 }
 
 export const fetchSortedGames = createAsyncThunk<
 	IGame[],
-	fetchSortedGamesProps
+	fetchSortedGamesProps,
+	{ rejectValue: ApiError }
 >('games/sorted', async ({ category, sortBy }, { rejectWithValue }) => {
 	try {
 		const response = await axios.get(`/api/games`, {
@@ -26,32 +27,43 @@ export const fetchSortedGames = createAsyncThunk<
 			},
 		})
 		return response.data
-	} catch (error: any) {
-		return rejectWithValue(error.response.data)
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
+			return rejectWithValue(error.response.data)
+		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
 })
 
-export const fetchFilteredGames = createAsyncThunk<IGame[], string>(
-	'games/filtered',
-	async (tags, { rejectWithValue }) => {
-		try {
-			const query = new URLSearchParams()
-			query.append('platform', 'pc')
-			if (tags) query.append('tags', tags)
+export const fetchFilteredGames = createAsyncThunk<
+	IGame[],
+	string,
+	{ rejectValue: ApiError }
+>('games/filtered', async (tags, { rejectWithValue }) => {
+	try {
+		const query = new URLSearchParams()
+		query.append('platform', 'pc')
+		if (tags) query.append('tags', tags)
 
-			const { data } = await axios.get(`/api/games/filter?${query.toString()}`)
+		const { data } = await axios.get(`/api/games/filter?${query.toString()}`)
 
-			return data
-		} catch (error: any) {
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
 const initialState: ISortGamesState = {
 	sortedGames: [],
 	status: Status.LOADING,
-	error: null,
+	error: '',
 }
 
 export const sortGamesSlice = createSlice({
@@ -75,7 +87,7 @@ export const sortGamesSlice = createSlice({
 			.addCase(fetchSortedGames.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.sortedGames = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchFilteredGames.pending, state => {
 				state.status = Status.LOADING
@@ -88,7 +100,7 @@ export const sortGamesSlice = createSlice({
 			.addCase(fetchFilteredGames.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.sortedGames = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 	},
 })

@@ -1,5 +1,6 @@
 import React, { SetStateAction, useEffect, useRef, useState } from 'react'
 import { filterGenres } from '../../../../utils/filterCategories'
+import { useClickOutside } from '../../../../utils/hooks/clickOutside'
 import { arrayGenres } from '../../../../utils/miniArraysList'
 import BtnsBlock from './BtnsBlock'
 import ListCategories from './ListCategories'
@@ -22,21 +23,7 @@ const CategoriesSortBlock = ({
 		useState<string[]>(arrayGenres)
 
 	const categoriesRef = useRef(document.createElement('div'))
-
-	useEffect(() => {
-		function handleClickOutside(event: any) {
-			if (
-				categoriesRef.current &&
-				!categoriesRef.current.contains(event.target)
-			) {
-				setOpenCategories(false)
-			}
-		}
-		document.addEventListener('mousedown', handleClickOutside)
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
-		}
-	}, [])
+	useClickOutside(categoriesRef, () => setOpenCategories(false))
 
 	useEffect(() => {
 		filterGenres(arrayGenres, searchGenreValue, setFilteredGenresArray)

@@ -1,13 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { IUser, LoginInputs, RegisterInputs, Status } from '../../types/types'
+import axios, { AxiosError } from 'axios'
+import {
+	ApiError,
+	IUser,
+	LoginInputs,
+	RegisterInputs,
+	Status,
+} from '../../types/types'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 interface IAuthSlice {
 	userData: IUser | null
 	status: 'loading' | 'success' | 'error'
-	error: string | null
+	error: string
 }
 
 type updatedFieldsType = {
@@ -24,77 +30,98 @@ type updatedFieldsType = {
 	removeGameId?: number
 }
 
-export const fetchAuth = createAsyncThunk<IUser, LoginInputs>(
-	'auth/fetchAuth',
-	async (params, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.post(
-				`${BASE_BACKEND_URL}/auth/login`,
-				params
-			)
-			return data
-		} catch (error: any) {
+export const fetchAuth = createAsyncThunk<
+	IUser,
+	LoginInputs,
+	{ rejectValue: ApiError }
+>('auth/fetchAuth', async (params, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.post(`${BASE_BACKEND_URL}/auth/login`, params)
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
-export const fetchRegister = createAsyncThunk<IUser, RegisterInputs>(
-	'auth/register',
-	async (params, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.post(
-				`${BASE_BACKEND_URL}/auth/register`,
-				params
-			)
-			return data
-		} catch (error: any) {
+export const fetchRegister = createAsyncThunk<
+	IUser,
+	RegisterInputs,
+	{ rejectValue: ApiError }
+>('auth/register', async (params, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.post(
+			`${BASE_BACKEND_URL}/auth/register`,
+			params
+		)
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
-export const fetchAuthMe = createAsyncThunk<IUser>(
-	'auth/me',
-	async (_, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.get(`${BASE_BACKEND_URL}/auth/me`, {
+export const fetchAuthMe = createAsyncThunk<
+	IUser,
+	void,
+	{ rejectValue: ApiError }
+>('auth/me', async (_, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.get(`${BASE_BACKEND_URL}/auth/me`, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+		})
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
+			return rejectWithValue(error.response.data)
+		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
+	}
+})
+
+export const fetchUpdateUser = createAsyncThunk<
+	IUser,
+	updatedFieldsType,
+	{ rejectValue: ApiError }
+>('user/update', async (updatedFields, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.patch(
+			`${BASE_BACKEND_URL}/user/update`,
+			updatedFields,
+			{
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('token')}`,
 				},
-			})
-			return data
-		} catch (error: any) {
+			}
+		)
+
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
-
-export const fetchUpdateUser = createAsyncThunk<IUser, updatedFieldsType>(
-	'user/update',
-	async (updatedFields, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.patch(
-				`${BASE_BACKEND_URL}/user/update`,
-				updatedFields,
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
-				}
-			)
-
-			return data
-		} catch (error: any) {
-			return rejectWithValue(error.response.data)
-		}
-	}
-)
+})
 
 const initialState: IAuthSlice = {
 	userData: null,
 	status: Status.LOADING,
-	error: null,
+	error: '',
 }
 
 export const authSlice = createSlice({
@@ -125,7 +152,7 @@ export const authSlice = createSlice({
 			.addCase(fetchAuth.rejected, (state, action) => {
 				state.userData = null
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchRegister.pending, state => {
 				state.userData = null
@@ -138,7 +165,7 @@ export const authSlice = createSlice({
 			.addCase(fetchRegister.rejected, (state, action) => {
 				state.userData = null
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchAuthMe.pending, state => {
 				state.userData = null
@@ -151,7 +178,7 @@ export const authSlice = createSlice({
 			.addCase(fetchAuthMe.rejected, (state, action) => {
 				state.userData = null
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchUpdateUser.pending, state => {
 				state.status = Status.LOADING
@@ -163,7 +190,7 @@ export const authSlice = createSlice({
 			.addCase(fetchUpdateUser.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.userData = null
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 	},
 })

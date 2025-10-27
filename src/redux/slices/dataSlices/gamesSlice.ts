@@ -1,32 +1,38 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { IGame, Status } from '../../../types/types'
+import axios, { AxiosError } from 'axios'
+import { ApiError, IGame, Status } from '../../../types/types'
 
 interface IGameSliceState {
 	games: IGame[]
 	status: 'loading' | 'success' | 'error'
-	error: string | null
+	error: string
 }
 
-export const fetchGames = createAsyncThunk<IGame[]>(
-	'games/fetchGamesStatus',
-	async (_, { rejectWithValue }) => {
-		try {
-			const query = new URLSearchParams()
-			query.append('platform', 'pc')
+export const fetchGames = createAsyncThunk<
+	IGame[],
+	void,
+	{ rejectValue: ApiError }
+>('games/fetchGamesStatus', async (_, { rejectWithValue }) => {
+	try {
+		const query = new URLSearchParams()
+		query.append('platform', 'pc')
 
-			const response = await axios.get(`/api/games?${query.toString()}`)
-			return response.data
-		} catch (error: any) {
+		const response = await axios.get(`/api/games?${query.toString()}`)
+		return response.data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
 const initialState: IGameSliceState = {
 	games: [],
 	status: Status.LOADING,
-	error: null,
+	error: '',
 }
 
 export const gamesSlice = createSlice({
@@ -50,7 +56,7 @@ export const gamesSlice = createSlice({
 			.addCase(fetchGames.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.games = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 	},
 })

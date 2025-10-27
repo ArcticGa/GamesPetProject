@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { IReview, Status } from '../../../types/types'
+import axios, { AxiosError } from 'axios'
+import { ApiError, IReview, Status } from '../../../types/types'
 
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 interface IReviewsSliceState {
 	reviews: IReview[]
 	status: 'loading' | 'success' | 'error'
-	error: string | null
+	error: string
 }
 
 type paramsType = {
@@ -30,97 +30,127 @@ type createReviewParams = {
 	isRecommended: boolean
 }
 
-export const fetchGameReviews = createAsyncThunk<IReview[], number | string>(
-	'reviews/fetchGameReviews',
-	async (id, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.get(
-				`${BASE_BACKEND_URL}/reviewsByGameId/${id}`
-			)
-			return data
-		} catch (error: any) {
+export const fetchGameReviews = createAsyncThunk<
+	IReview[],
+	number | string,
+	{ rejectValue: ApiError }
+>('reviews/fetchGameReviews', async (id, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.get(
+			`${BASE_BACKEND_URL}/reviewsByGameId/${id}`
+		)
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
-export const fetchOwnReviews = createAsyncThunk<IReview[], string>(
-	'reviews/fetchOwnReviews',
-	async (userId, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.get(
-				`${BASE_BACKEND_URL}/reviewsByUserId/${userId}`
-			)
+export const fetchOwnReviews = createAsyncThunk<
+	IReview[],
+	string,
+	{ rejectValue: ApiError }
+>('reviews/fetchOwnReviews', async (userId, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.get(
+			`${BASE_BACKEND_URL}/reviewsByUserId/${userId}`
+		)
 
-			return data
-		} catch (error: any) {
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
-export const fetchUpdateReview = createAsyncThunk<IReview, paramsType>(
-	'review/update',
-	async ({ reviewId, updatedFields }, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.patch(
-				`${BASE_BACKEND_URL}/review/update/${reviewId}`,
-				updatedFields,
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
-				}
-			)
-
-			return data
-		} catch (error: any) {
-			return rejectWithValue(error.response.data)
-		}
-	}
-)
-
-export const fetchCreateReview = createAsyncThunk<IReview, createReviewParams>(
-	'review/create',
-	async (fields, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.post(`${BASE_BACKEND_URL}/review`, fields, {
+export const fetchUpdateReview = createAsyncThunk<
+	IReview,
+	paramsType,
+	{ rejectValue: ApiError }
+>('review/update', async ({ reviewId, updatedFields }, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.patch(
+			`${BASE_BACKEND_URL}/review/update/${reviewId}`,
+			updatedFields,
+			{
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('token')}`,
 				},
-			})
+			}
+		)
 
-			return data
-		} catch (error: any) {
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
-export const fetchDeleteReview = createAsyncThunk<IReview, string>(
-	'review/delete',
-	async (reviewId, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.delete(
-				`${BASE_BACKEND_URL}/review/${reviewId}`,
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
-				}
-			)
+export const fetchCreateReview = createAsyncThunk<
+	IReview,
+	createReviewParams,
+	{ rejectValue: ApiError }
+>('review/create', async (fields, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.post(`${BASE_BACKEND_URL}/review`, fields, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+			},
+		})
 
-			return data
-		} catch (error: any) {
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
+
+export const fetchDeleteReview = createAsyncThunk<
+	IReview,
+	string,
+	{ rejectValue: ApiError }
+>('review/delete', async (reviewId, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.delete(
+			`${BASE_BACKEND_URL}/review/${reviewId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			}
+		)
+
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
+			return rejectWithValue(error.response.data)
+		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
+	}
+})
 
 const initialState: IReviewsSliceState = {
 	reviews: [],
 	status: Status.LOADING,
-	error: null,
+	error: '',
 }
 
 export const gameReviewsSlice = createSlice({
@@ -144,7 +174,7 @@ export const gameReviewsSlice = createSlice({
 			.addCase(fetchGameReviews.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.reviews = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchOwnReviews.pending, state => {
 				state.status = Status.LOADING
@@ -157,7 +187,7 @@ export const gameReviewsSlice = createSlice({
 			.addCase(fetchOwnReviews.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.reviews = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchUpdateReview.pending, state => {
 				state.status = Status.LOADING
@@ -173,7 +203,7 @@ export const gameReviewsSlice = createSlice({
 			})
 			.addCase(fetchUpdateReview.rejected, (state, action) => {
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchCreateReview.pending, state => {
 				state.status = Status.LOADING
@@ -184,7 +214,7 @@ export const gameReviewsSlice = createSlice({
 			})
 			.addCase(fetchCreateReview.rejected, (state, action) => {
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 			.addCase(fetchDeleteReview.pending, state => {
 				state.status = Status.LOADING
@@ -197,7 +227,7 @@ export const gameReviewsSlice = createSlice({
 			})
 			.addCase(fetchDeleteReview.rejected, (state, action) => {
 				state.status = Status.ERROR
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 	},
 })

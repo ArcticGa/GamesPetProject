@@ -1,6 +1,7 @@
 import { SetStateAction } from 'react'
 import { fetchUpdateUser } from '../redux/slices/auth'
 import { fetchUpdateReview } from '../redux/slices/dataSlices/gameReviewsSlice'
+import { AppDispatch } from '../redux/store'
 import { IReview } from '../types/types'
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 	setDisliked: React.Dispatch<SetStateAction<boolean>>
 	setDisableBtns: React.Dispatch<SetStateAction<boolean>>
 	data: IReview
-	dispatch: any
+	dispatch: AppDispatch
 }
 
 // ОСНОВНЫЕ ФУНКЦИИ
@@ -77,7 +78,7 @@ export const dislikeHandler = async ({
 }
 
 // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-export const like = async (data: IReview, dispatch: any) => {
+export const like = async (data: IReview, dispatch: AppDispatch) => {
 	await dispatch(fetchUpdateUser({ likedReviewId: data._id }))
 	await dispatch(
 		fetchUpdateReview({
@@ -89,7 +90,7 @@ export const like = async (data: IReview, dispatch: any) => {
 	)
 }
 
-export const delLike = async (data: IReview, dispatch: any) => {
+export const delLike = async (data: IReview, dispatch: AppDispatch) => {
 	await dispatch(fetchUpdateUser({ delLikedReviewId: data._id }))
 	await dispatch(
 		fetchUpdateReview({
@@ -101,7 +102,7 @@ export const delLike = async (data: IReview, dispatch: any) => {
 	)
 }
 
-export const dislike = async (data: IReview, dispatch: any) => {
+export const dislike = async (data: IReview, dispatch: AppDispatch) => {
 	await dispatch(fetchUpdateUser({ dislikedReviewId: data._id }))
 	await dispatch(
 		fetchUpdateReview({
@@ -113,7 +114,7 @@ export const dislike = async (data: IReview, dispatch: any) => {
 	)
 }
 
-export const delDislike = async (data: IReview, dispatch: any) => {
+export const delDislike = async (data: IReview, dispatch: AppDispatch) => {
 	await dispatch(fetchUpdateUser({ delDislikedReviewId: data._id }))
 	await dispatch(
 		fetchUpdateReview({

@@ -1,4 +1,5 @@
-import { SetStateAction, useEffect, useRef } from 'react'
+import { SetStateAction, useRef } from 'react'
+import { useClickOutside } from '../../../utils/hooks/clickOutside'
 
 const InfoBlock = ({
 	setOpenInfo,
@@ -6,21 +7,7 @@ const InfoBlock = ({
 	setOpenInfo: React.Dispatch<SetStateAction<boolean>>
 }) => {
 	const infoBlockRef = useRef(document.createElement('div'))
-
-	useEffect(() => {
-		function handleClickOutside(event: any) {
-			if (
-				infoBlockRef.current &&
-				!infoBlockRef.current.contains(event.target)
-			) {
-				setOpenInfo(false)
-			}
-		}
-		document.addEventListener('mousedown', handleClickOutside)
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
-		}
-	}, [])
+	useClickOutside(infoBlockRef, () => setOpenInfo(false))
 
 	return (
 		<div

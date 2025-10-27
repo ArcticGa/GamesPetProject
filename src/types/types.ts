@@ -101,6 +101,10 @@ export type AddReviewInputs = {
 export type DevMsgFields = {
 	text: string
 }
+// Redux Error Type
+export type ApiError = {
+	message: string
+}
 
 //Enums
 export enum Status {

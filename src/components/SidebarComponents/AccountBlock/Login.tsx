@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import AccountMenuIcon from '../../../assets/icons/account-menu.svg'
 import LogoutIcon from '../../../assets/icons/log-out.svg'
 import WriteDevIcon from '../../../assets/icons/message-developer.svg'
@@ -10,12 +10,15 @@ import { setFeaturedGames } from '../../../redux/slices/featuredGamesSlice'
 import { setLikedReviews } from '../../../redux/slices/likedReviewsSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { IUser } from '../../../types/types'
+import { useClickOutside } from '../../../utils/hooks/clickOutside'
 
 const Login = ({ userData }: { userData: IUser }) => {
 	const dispatch = useAppDispatch()
 
 	const [openBtns, setOpenBtns] = useState(false)
 	const accountBtnsRef = useRef(document.createElement('div'))
+
+	useClickOutside(accountBtnsRef, () => setOpenBtns(false))
 
 	const openAccount = () => {
 		setOpenBtns(!openBtns)
@@ -30,21 +33,6 @@ const Login = ({ userData }: { userData: IUser }) => {
 		dispatch(setLikedReviews([]))
 		localStorage.removeItem('token')
 	}
-
-	useEffect(() => {
-		function handleClickOutside(event: any) {
-			if (
-				accountBtnsRef.current &&
-				!accountBtnsRef.current.contains(event.target)
-			) {
-				setOpenBtns(false)
-			}
-		}
-		document.addEventListener('mousedown', handleClickOutside)
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
-		}
-	}, [])
 
 	return (
 		<div className='bg-main-background rounded-2xl relative p-3.5'>

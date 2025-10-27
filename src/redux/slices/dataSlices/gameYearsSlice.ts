@@ -1,31 +1,37 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { IGameYear, Status } from '../../../types/types'
+import axios, { AxiosError } from 'axios'
+import { ApiError, IGameYear, Status } from '../../../types/types'
 
 interface IGamesYearSliceState {
 	gamesYear: IGameYear[]
 	status: 'loading' | 'success' | 'error'
-	error: string | null
+	error: string
 }
 
-export const fetchGamesYear = createAsyncThunk<IGameYear[], number>(
-	'games/fetchGamesYearStatus',
-	async (year, { rejectWithValue }) => {
-		try {
-			const { data } = await axios.get(
-				`https://68d4fe69e29051d1c0acd263.mockapi.io/games-finalists?year=${year}`
-			)
-			return data
-		} catch (error: any) {
+export const fetchGamesYear = createAsyncThunk<
+	IGameYear[],
+	number,
+	{ rejectValue: ApiError }
+>('games/fetchGamesYearStatus', async (year, { rejectWithValue }) => {
+	try {
+		const { data } = await axios.get(
+			`https://68d4fe69e29051d1c0acd263.mockapi.io/games-finalists?year=${year}`
+		)
+		return data
+	} catch (err) {
+		const error = err as AxiosError<ApiError>
+		if (error.response?.data) {
 			return rejectWithValue(error.response.data)
 		}
+		//Если нет ответа от сервака
+		return rejectWithValue({ message: 'Network error' })
 	}
-)
+})
 
 const initialState: IGamesYearSliceState = {
 	gamesYear: [],
 	status: Status.LOADING,
-	error: null,
+	error: '',
 }
 
 export const gameYearSlice = createSlice({
@@ -49,7 +55,7 @@ export const gameYearSlice = createSlice({
 			.addCase(fetchGamesYear.rejected, (state, action) => {
 				state.status = Status.ERROR
 				state.gamesYear = []
-				state.error = action.payload as string
+				state.error = action.payload?.message ?? 'Неизвестная ошибка'
 			})
 	},
 })
