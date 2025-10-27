@@ -27,7 +27,7 @@ const Screenshots = () => {
 						className={` ${
 							activeImg !== index && 'opacity-20'
 						} cursor-pointer max-w-35 w-full rounded-lg`}
-						src={screen.image}
+						src={`/api/image?url=${encodeURIComponent(screen.image)}`}
 						alt='screenshot'
 					/>
 				))}

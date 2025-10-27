@@ -23,7 +23,7 @@ const GameBlock = ({ game, isOwn }: { game: IFullGame; isOwn: boolean }) => {
 			<Link key={game.id} to={`/game/${game.id}`} className='mb-3 relative'>
 				<img
 					className='rounded-2xl w-78 mx-3'
-					src={game.thumbnail}
+					src={`/api/image?url=${encodeURIComponent(game.thumbnail)}`}
 					alt='game-icon'
 				/>
 				<div className='text-center mt-2 text-lg'>{game.title}</div>

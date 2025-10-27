@@ -16,7 +16,7 @@ const SortingGamesPage = () => {
 
 	useEffect(() => {
 		if (activeSortButton === -1) return
-		dispatch(fetchSortedGames(sortBtns[activeSortButton].param))
+		dispatch(fetchSortedGames({ sortBy: sortBtns[activeSortButton].param }))
 	}, [activeSortButton])
 
 	return (

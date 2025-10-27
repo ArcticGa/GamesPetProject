@@ -25,13 +25,15 @@ const GameMainBlock = ({ game }: { game: IFullGame }) => {
 					activeBtn === 2 ? '0.7' : '0.2'
 				}), rgba(0,0,0,${
 					activeBtn === 2 ? '0.7' : '0.2'
-				})), url('${randomScreenshot}')`,
+				})), url('${`/api/image?url=${encodeURIComponent(
+					randomScreenshot ? randomScreenshot : ''
+				)}`}}')`,
 			}}
 		>
 			<div className='max-xl:'>
 				<img
 					className='w-80 rounded-t-lg'
-					src={game.thumbnail}
+					src={`/api/image?url=${encodeURIComponent(game.thumbnail)}`}
 					alt='game-img'
 				/>
 				<div className='max-xl2:mb-4'>

@@ -30,7 +30,7 @@ const SwiperBlock = ({ array, titleBlock, type }: GamesBlockProps) => {
 							>
 								<img
 									className='max-w-67 mb-2 rounded-xl'
-									src={item.thumbnail}
+									src={`/api/image?url=${encodeURIComponent(item.thumbnail)}`}
 									alt='game-image'
 								/>
 

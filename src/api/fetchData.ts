@@ -10,8 +10,6 @@ type DevMsgFields = {
 	text: string
 }
 
-const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
-const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
 const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_API_URL
 
 export const fetchPostDevMsg = async (fields: DevMsgFields) => {
@@ -87,14 +85,9 @@ export const fetchFeaturedGamesById = async (
 ) => {
 	const task = async (id: number) => {
 		try {
-			const response = await axios.get(`${BASE_URL}/game`, {
+			const response = await axios.get(`/api/games/getOne`, {
 				params: { id },
-				headers: {
-					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
-				},
 			})
-
 			return response.data
 		} catch (err) {
 			console.log('error', err)
@@ -137,12 +130,8 @@ export const fetchFeaturedGamesForOutsider = (
 ) => {
 	const task = async (id: number) => {
 		try {
-			const response = await axios.get(`${BASE_URL}/game`, {
+			const response = await axios.get(`/api/games/getOne`, {
 				params: { id },
-				headers: {
-					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
-				},
 			})
 
 			return response.data

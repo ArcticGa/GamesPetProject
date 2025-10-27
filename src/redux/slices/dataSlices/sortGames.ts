@@ -2,8 +2,10 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { IGame, Status } from '../../../types/types'
 
-const BASE_URL = import.meta.env.VITE_GAMES_BASE_API_URL
-const RAPIDAPI_KEY = import.meta.env.VITE_X_RAPIDAPI_KEY
+type fetchSortedGamesProps = {
+	category?: string
+	sortBy?: string
+}
 
 interface ISortGamesState {
 	sortedGames: IGame[]
@@ -11,41 +13,33 @@ interface ISortGamesState {
 	error: string | null
 }
 
-export const fetchSortedGames = createAsyncThunk<IGame[], string>(
-	'games/sorted',
-	async (sortBy, { rejectWithValue }) => {
-		try {
-			const response = await axios.get(`${BASE_URL}/games`, {
-				params: {
-					platform: 'pc',
-					'sort-by': sortBy,
-				},
-				headers: {
-					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
-				},
-			})
-			return response.data
-		} catch (error: any) {
-			return rejectWithValue(error.response.data)
-		}
+export const fetchSortedGames = createAsyncThunk<
+	IGame[],
+	fetchSortedGamesProps
+>('games/sorted', async ({ category, sortBy }, { rejectWithValue }) => {
+	try {
+		const response = await axios.get(`/api/games`, {
+			params: {
+				platform: 'pc',
+				category: category,
+				sortBy,
+			},
+		})
+		return response.data
+	} catch (error: any) {
+		return rejectWithValue(error.response.data)
 	}
-)
+})
 
 export const fetchFilteredGames = createAsyncThunk<IGame[], string>(
 	'games/filtered',
 	async (tags, { rejectWithValue }) => {
 		try {
-			const { data } = await axios.get(`${BASE_URL}/filter`, {
-				params: {
-					tag: tags,
-					platform: 'pc',
-				},
-				headers: {
-					'x-rapidapi-key': `${RAPIDAPI_KEY}`,
-					'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
-				},
-			})
+			const query = new URLSearchParams()
+			query.append('platform', 'pc')
+			if (tags) query.append('tags', tags)
+
+			const { data } = await axios.get(`/api/games/filter?${query.toString()}`)
 
 			return data
 		} catch (error: any) {

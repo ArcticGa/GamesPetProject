@@ -29,7 +29,7 @@ const GamesList = () => {
 						<Link className='' to={`/game/${game.id}`} key={game.id}>
 							<img
 								className='rounded-xl'
-								src={game.thumbnail}
+								src={`/api/image?url=${encodeURIComponent(game.thumbnail)}`}
 								alt='game-image'
 							/>
 							<div className='text-center mt-2 max-lg:text-sm'>

@@ -12,11 +12,10 @@ export const fetchGames = createAsyncThunk<IGame[]>(
 	'games/fetchGamesStatus',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`/api/games`, {
-				params: {
-					platform: 'pc',
-				},
-			})
+			const query = new URLSearchParams()
+			query.append('platform', 'pc')
+
+			const response = await axios.get(`/api/games?${query.toString()}`)
 			return response.data
 		} catch (error: any) {
 			return rejectWithValue(error.response.data)

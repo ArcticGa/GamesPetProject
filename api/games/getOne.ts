@@ -6,15 +6,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 		return res.status(405).json({ message: 'Method not allowed' })
 	}
 
-	const { platform, category, sortBy } = req.query
+	const { id } = req.query
+
+	if (!id) {
+		return res.status(400).json({ message: 'Missing game ID' })
+	}
 
 	const options = {
 		method: 'GET',
-		url: 'https://www.freetogame.com/api/games',
+		url: 'https://free-to-play-games-database.p.rapidapi.com/api/game',
 		params: {
-			platform,
-			category,
-			'sort-by': sortBy,
+			id,
 		},
 		headers: {
 			'x-rapidapi-key': process.env.RAPIDAPI_KEY as string,
@@ -24,15 +26,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
 	try {
 		const response = await axios.request(options)
-
-		res.setHeader('Access-Control-Allow-Origin', '*')
-		res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
-		res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-
 		return res.status(200).json(response.data)
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown server error'
-		res.status(500).json({ error: message })
+		return res.status(500).json({ error: message })
 	}
 }

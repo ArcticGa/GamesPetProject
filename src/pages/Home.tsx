@@ -44,7 +44,7 @@ const Home = () => {
 		}
 
 		const randomGenre = getRandomGenre().toLowerCase()
-		dispatch(fetchSortedGames(randomGenre))
+		dispatch(fetchSortedGames({ category: randomGenre }))
 	}, [])
 
 	useEffect(() => {

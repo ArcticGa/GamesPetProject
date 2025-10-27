@@ -30,7 +30,11 @@ const SearchedGameBlock = ({
 			} `}
 		>
 			<div className='mr-3'>
-				<img className='w-30' src={game?.thumbnail} alt={game.title} />
+				<img
+					className='w-30'
+					src={`/api/image?url=${encodeURIComponent(game?.thumbnail)}`}
+					alt={game.title}
+				/>
 			</div>
 			<div>
 				<div className='font-bold text-sm max-sm:text-xs'>{game?.title}</div>

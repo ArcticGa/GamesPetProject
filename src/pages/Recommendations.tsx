@@ -15,7 +15,7 @@ const Recommendations = () => {
 
 	useEffect(() => {
 		const randomGenre = getRandomGenre().toLowerCase()
-		dispatch(fetchSortedGames(randomGenre))
+		dispatch(fetchSortedGames({ category: randomGenre }))
 	}, [])
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ const Recommendations = () => {
 							<Link to={`/game/${game.id}`} key={game.id}>
 								<img
 									className='rounded-xl'
-									src={game.thumbnail}
+									src={`/api/image?url=${encodeURIComponent(game.thumbnail)}`}
 									alt='game-image'
 								/>
 								<div className='text-center mt-2 text-lg max-lg:text-base max-sm:text-xs'>

@@ -38,7 +38,11 @@ const MainSwiperBlock = () => {
 			{randomGames.map(game => (
 				<SwiperSlide key={game.id}>
 					<Link to={`/game/${game.id}`}>
-						<img className='rounded-xl' src={game.thumbnail} alt='game-img' />
+						<img
+							className='rounded-xl'
+							src={`/api/image?url=${encodeURIComponent(game.thumbnail)}`}
+							alt='game-img'
+						/>
 					</Link>
 				</SwiperSlide>
 			))}

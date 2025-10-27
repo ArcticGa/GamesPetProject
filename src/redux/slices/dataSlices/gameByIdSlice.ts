@@ -12,8 +12,10 @@ export const fetchGameById = createAsyncThunk<IFullGame, string | number>(
 	'game/fetchGameByIdStatus',
 	async (id, { rejectWithValue }) => {
 		try {
-			const response = await axios.get(`api/games/${id}`)
-			return response.data
+			const { data } = await axios.get(`/api/games/getOne`, {
+				params: { id },
+			})
+			return data
 		} catch (error: any) {
 			return rejectWithValue(error.response.data)
 		}
