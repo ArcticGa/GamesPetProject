@@ -76,7 +76,7 @@ npm install
 
 # 4. Запустить локальный сервер
 npm run dev
-```
 
-Создай файл .env в корне проекта и вставь туда:
+# 5. Создай файл .env в корне проекта и вставь значение ниже
 VITE_BASE_BACKEND_API_URL=https://games-world-backend.vercel.app/
+```
