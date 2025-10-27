@@ -145,7 +145,7 @@ export const fetchFeaturedGamesForOutsider = async (
 ) => {
 	try {
 		const fetchGame = async (id: number) => {
-			const { data } = await axios.get<IFullGame>('/games/getOne', {
+			const { data } = await axios.get<IFullGame>('/api/games/getOne', {
 				params: { id },
 			})
 			return data
