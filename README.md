@@ -1,10 +1,10 @@
 # 🎮 Games World
 
-[![Deploy](https://img.shields.io/badge/Deploy-Vercel-000?logo=vercel)]
-[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)]
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)]
-[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?logo=tailwindcss)]
-[![Redux Toolkit](https://img.shields.io/badge/State-Redux%20Toolkit-764ABC?logo=redux)]
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-000?logo=vercel)]&nbsp;
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)]&nbsp;
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)]&nbsp;
+[![Tailwind CSS](https://img.shields.io/badge/Styled%20with-Tailwind%20CSS-38B2AC?logo=tailwindcss)]&nbsp;
+[![Redux Toolkit](https://img.shields.io/badge/State-Redux%20Toolkit-764ABC?logo=redux)]&nbsp;
 [![MERN](https://img.shields.io/badge/Stack-MERN-4DB33D?logo=mongodb)]
 
 > Веб-приложение для поиска игр на свой вкус: каталог игр, обзоры, избранное и персональные профили.
@@ -56,13 +56,14 @@
 
 ## 🧭 Архитектура проекта
 
-src/
-├── api/ # Запросы к серверу и Cloudinary
-├── components/ # UI-компоненты
-├── pages/ # Страницы (Home, GamePage, Profile и т.д.)
-├── redux/ # Слайсы, store, async-thunks
-├── types/ # TypeScript-типы
-└── utils/ # Хелперы, форматирование данных
+📂 src/&nbsp;
+┣ 📁 api/ – запросы к серверу и Cloudinary&nbsp;
+┣ 📁 components/ – UI-компоненты&nbsp;
+┣ 📁 hooks/ – кастомные хуки (useClickOutside, useAuth и др.)&nbsp;
+┣ 📁 pages/ – страницы (Home, GamePage, Profile и т.д.)&nbsp;
+┣ 📁 redux/ – слайсы, store, async-thunks&nbsp;
+┣ 📁 types/ – типы TypeScript&nbsp;
+┗ 📁 utils/ – хелперы и форматирование данных
 
 ---
 
