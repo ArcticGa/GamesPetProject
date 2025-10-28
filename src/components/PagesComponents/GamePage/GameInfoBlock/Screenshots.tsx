@@ -12,7 +12,9 @@ const Screenshots = () => {
 				{game.screenshots.length !== 0 ? (
 					<img
 						className='rounded-lg'
-						src={game.screenshots[activeImg].image}
+						src={`/api/image?url=${encodeURIComponent(
+							game.screenshots[activeImg].image
+						)}`}
 						alt='image-game'
 					/>
 				) : (
