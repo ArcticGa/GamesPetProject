@@ -12,7 +12,7 @@ const Description = ({ description }: { description: string | undefined }) => {
 		const data = await response.json()
 		console.log(data)
 
-		setTranslatedText(data.text)
+		setTranslatedText(data.translated)
 	}
 
 	useEffect(() => {
