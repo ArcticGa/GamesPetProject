@@ -21,7 +21,7 @@ const Description = ({ description }: { description: string | undefined }) => {
 					},
 					{
 						headers: {
-							Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+							Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
 							'Content-Type': 'application/json',
 						},
 					}
