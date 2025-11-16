@@ -29,6 +29,7 @@ export const getRandomGenre = () => {
 	const lastGenre = localStorage.getItem('lastGenre')
 	if (lastGenre) {
 		if (lastGenre === 'Card Game') return 'card'
+		if (lastGenre === 'rpg') return 'mmorpg'
 		return lastGenre
 	} else {
 		const randomGenreIndex = Math.floor(Math.random() * arrayGenres.length)
